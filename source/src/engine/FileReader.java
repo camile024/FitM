@@ -101,6 +101,23 @@ public class FileReader {
 		return contents;
 	}
 	
+	/**
+	 * returns filtered HashMap (can be null if 
+	 * the FileReader instance not filtered before!)
+	 * @return
+	 */
+	public HashMap<String, String> getFilteredContents() {
+		return filteredContents;
+	}
+	
+	/**
+	 * returns filtered HashMap (can be null if 
+	 * the FileReader instance not filtered before!)
+	 * @return
+	 */
+	public HashMap<Integer, String> getFilteredID() {
+		return filteredID;
+	}
 	
 	/**
 	 * (Re-)set the fileName for this FileReader instance

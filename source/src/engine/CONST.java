@@ -38,6 +38,7 @@ public abstract class CONST {
 	
 			/* Tests */
 			public static final String TXT_TEST = "TEST";
+			public static final String TXT_TEST2 = "TEST2";
 			/**/
 	/**/
 	

@@ -1,5 +1,6 @@
 package engine;
 
+import java.io.FileNotFoundException;
 import java.util.HashMap;
 
 public abstract class Locale {
@@ -8,9 +9,19 @@ public abstract class Locale {
 	/**
 	 * Loads a language
 	 * @param lang
+	 * @throws FileNotFoundException 
 	 */
-	public static void load(Language lang) {
+	public static void load(Language lang) throws FileNotFoundException {
 		stringBase = new HashMap<String, String>();
+		FileReader fr;
+		if (lang == Language.PL) {
+			fr = new FileReader(CONST.LANG_PL_PATH);
+		} else {
+			fr = new FileReader(CONST.LANG_EN_PATH);
+		}
+		fr.load();
+		fr.filterFielded();
+		stringBase = fr.getFilteredContents();
 	}
 	
 	/**
