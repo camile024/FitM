@@ -5,6 +5,15 @@ import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.Scanner;
 
+/**
+ * To use:
+ * 	1) Create an instance with fileName()
+ * 	2) Call load to load the contents (this is where FileNotFoundException can pop up)
+ * 	3) Call corresponding filter()
+ * 	4) Use getters to get a particular field and/or whole collection
+ * @author Kamil
+ *
+ */
 public class FileReader {
 	private final String delimiter = "=|\r?\n|\r";
 	private String fileName = "";
