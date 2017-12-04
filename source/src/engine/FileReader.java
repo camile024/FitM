@@ -42,6 +42,7 @@ public class FileReader {
 		while (sc.hasNextLine()) {
 			contents += sc.nextLine() + '\n';
 		}
+		sc.close();
 	}
 	
 	/**

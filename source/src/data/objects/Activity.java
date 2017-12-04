@@ -18,6 +18,10 @@ public class Activity {
 		}
 	}
 	
+	public boolean equals(Activity act) {
+		return (act.getId() == this.getId());
+	}
+	
 	public static int getHighestId() {
 		return highestID;
 	}
