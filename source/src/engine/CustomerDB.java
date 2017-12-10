@@ -1,5 +1,6 @@
 package engine;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -19,6 +20,8 @@ import data.objects.Customer;
  * 	2) Call initActivities() to load activities from file
  *  3) Call initCustomers() to load Customers from data files
  *  4) Call initCards() to load Cards and associate them with Customers
+ *  REMOVE/PUT METHODS + FILE UPDATING METHODS NEED REWORKING (to be able to manage 1-card/customer removal and properly
+ *  overwrite only the data that's changed for performance purposes)
  * @author Kamil
  *
  */
@@ -123,14 +126,55 @@ public class CustomerDB {
 	
 	
 	/**
-	 * Replaces activity with a new one (updates the object) - for it to work
-	 * the new activity has to have the same ID (otherwise it'll just be added)
+	 * Creates an activity
 	 * @param activity
-	 * @throws FileNotFoundException 
+	 * @throws Exception FileNotFoundException if file writing problem occurs,
+	 *         Exception if activity already exists
 	 */
-	public void updateActivity(Activity activity) throws FileNotFoundException {
-		activities.put(activity.getId(), activity);
+	public void addActivity(Activity activity) throws Exception {
+	    if (activities.get(activity.getId()) != null) {
+	        throw new Exception("Activity already exists!");
+	    } else {
+	        activities.put(activity.getId(), activity);
+	    }
 		updateFiles();
+	}
+	
+	/**
+	 * Removes an Activity from the system
+	 * @param activitiy
+	 * @throws FileNotFoundException
+	 */
+	public void removeActivity(Activity activity) throws FileNotFoundException {
+	    activities.remove(activity);
+	    activity = null;
+	    updateActivitiesFile();
+	}
+	
+	/**
+	 * Removes a Customer from the system
+	 * @param customer
+	 * @throws FileNotFoundException
+	 */
+	public void removeCustomer(Customer customer) throws FileNotFoundException {
+	    customers.remove(customer);
+	    File f = new File(dirName + CONST.CUSTOMER_DIR + customer.getId());
+	    f.delete();
+	    customer = null;
+	    updateCustomerList();
+	}
+	
+	/**
+	 * Removes a card from the system
+	 * @param card
+	 * @throws FileNotFoundException
+	 */
+	public void removeCard(Card card) throws FileNotFoundException {
+	    cards.remove(card);
+	    File f = new File(dirName + CONST.CUSTOMER_DIR + card.getNumber());
+        f.delete();
+	    card = null;
+	    updateFiles();
 	}
 	
 	/**
@@ -170,6 +214,20 @@ public class CustomerDB {
 			fs.saveFilteredData(contents);
 		}
 		fs_list.saveRawString(numList);
+	}
+	
+	/**
+	 * Updates just the customer list file
+	 * @throws FileNotFoundException
+	 */
+	private void updateCustomerList() throws FileNotFoundException {
+	    FileSaver fs_list = new FileSaver(dirName + CONST.CUSTOMER_LIST_PATH);
+	    String idList = "";
+	    for (Customer customer : customers.values()) {
+	        idList += customer.getId() + '\n';
+	    }
+	    /* Save list */
+        fs_list.saveRawString(idList);
 	}
 	
 	

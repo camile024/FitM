@@ -18,7 +18,8 @@ public abstract class CONST {
 		/* 2 - MAIN DIRECTORIES */
 		public static final String APP_DIR = "./";
 		public static final String DATA_DIR = APP_DIR + "DATA/";
-		public static final String TESTS_DIR = "TESTS/";
+		public static final String TESTS_DIR = APP_DIR + "TESTS/";
+		public static final String TESTS_DATA_DIR = TESTS_DIR + "DATA/";
 		
 		/* 3 - MAIN PATHS */
 		public static final String APP_CFG_PATH = APP_DIR + APP_CFG_NAME;
@@ -35,6 +36,9 @@ public abstract class CONST {
 		
 		/* 2 - CARD */
 		public static final int DEFAULT_CARD_CUSTOMER_ID = -1;
+		
+		/* 3 - TEST */
+		public static final String DEFAULT_TEST_SUFFIX = "_DEF";
 		
 	/** END OF DEFAULT_VALUES **/
 	
