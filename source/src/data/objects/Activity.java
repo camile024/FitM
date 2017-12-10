@@ -22,6 +22,13 @@ public class Activity {
 		return (act.getId() == this.getId());
 	}
 	
+	
+	/* **************************** */
+	/*								*/
+	/* 		GETTERS/SETTERS 		*/
+	/*								*/
+	/* **************************** */
+	
 	public static int getHighestId() {
 		return highestID;
 	}

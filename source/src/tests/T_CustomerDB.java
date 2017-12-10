@@ -13,6 +13,9 @@ import engine.CustomerDB;
 
 /**
  * NEEDS MORE TESTS - confirming updated activities are saved to file properly and so on
+ * - need to test initCustomers()
+ * - need to test initCards()
+ * - need to test customer/card file saving
  * @author Kamil
  *
  */
