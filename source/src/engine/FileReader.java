@@ -83,6 +83,11 @@ public class FileReader {
 		}
 	}
 	
+   private void initMaps() {
+        filteredContents = new HashMap<String, String>();
+        filteredID = new HashMap<Integer, String>();
+    }
+	   
 	/**
 	 * Returns a field value of a field identified by a string
 	 * @param key	name of the field
@@ -138,9 +143,6 @@ public class FileReader {
 	}
 	
 	
-	private void initMaps() {
-		filteredContents = new HashMap<String, String>();
-		filteredID = new HashMap<Integer, String>();
-	}
+
 	
 }

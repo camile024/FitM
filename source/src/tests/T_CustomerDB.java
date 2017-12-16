@@ -8,6 +8,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import data.objects.Activity;
 import engine.CONST;
 import engine.CustomerDB;
 import engine.FileReader;
@@ -88,7 +89,8 @@ public class T_CustomerDB {
 	@Test
 	public void testUpdatingActivities() throws FileNotFoundException {
 	    db.initActivities();
-	    //Activity activity = new Act
+	    Activity act = db.getActivity(5);
+	    act.setName("changedName");
 	}
 
 }

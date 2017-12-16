@@ -129,7 +129,7 @@ public class CustomerDB {
 	 * Creates an activity
 	 * @param activity
 	 * @throws Exception FileNotFoundException if file writing problem occurs,
-	 *         Exception if activity already exists
+	 * @throws Exception if activity already exists
 	 */
 	public void addActivity(Activity activity) throws Exception {
 	    if (activities.get(activity.getId()) != null) {
@@ -137,8 +137,51 @@ public class CustomerDB {
 	    } else {
 	        activities.put(activity.getId(), activity);
 	    }
-		updateFiles();
+	    updateActivitiesFile();
 	}
+	
+	/**
+	 * Creates a customer
+	 * @param customer
+	 * @throws Exception FileNotFoundException if file writing problem occurs,
+	 * @throws Exception if customer already exists
+	 */
+   public void addCustomer(Customer customer) throws Exception {
+        if (customers.get(customer.getId()) != null) {
+            throw new Exception("Customer already exists!");
+        } else {
+            customers.put(customer.getId(), customer);
+        }
+        updateCustomerFiles();
+        updateCardFiles();
+    }
+   
+   /**
+    * Assigns a card to a customer and vice-versa (overwrites
+    * previous card/customer, can be set to null in either)
+    * @param customer
+    * @param card
+    */
+   public void assignCard(Customer customer, Card card) {
+       customer.setCard(card);
+       card.setCustomer(customer);
+   }
+   
+   /**
+    * Creates a card
+    * @param card
+    * @throws Exception FileNotFoundException if file writing problem occurs,
+    * @throws Exception if card already exists
+    */
+  public void addCard(Card card) throws Exception {
+       if (cards.get(card.getNumber()) != null) {
+           throw new Exception("Card already exists!");
+       } else {
+           cards.put(card.getNumber(), card);
+       }
+       updateCustomerFiles();
+       updateCardFiles();
+   }
 	
 	/**
 	 * Removes an Activity from the system
@@ -181,39 +224,129 @@ public class CustomerDB {
 	 * Updates all the data-related files
 	 * @throws FileNotFoundException 
 	 */
-	private void updateFiles() throws FileNotFoundException {
+	public void updateFiles() throws FileNotFoundException {
 		updateActivitiesFile();
 		updateCustomerFiles();
 		updateCardFiles();
 	}
 	
+	/**
+	 * Updates all the files that are relevant for the particular object
+	 * Saves time by not overwriting unrelated files.
+	 * @param updatedObj   Object that has been updated in software
+	 * @param ignoreLists  Whether or not to ignore list files (in case they are updated once outside this function)
+	 * @throws FileNotFoundException
+	 */
+	public void updateSingleObject(Object updatedObj, boolean ignoreLists) throws FileNotFoundException {
+	    /* CUSTOMER */
+	    if (updatedObj instanceof Customer) {
+	        Customer customer = (Customer)updatedObj;
+	        if (!ignoreLists)
+	            updateCustomerList();
+	        updateSingleCustomer(customer);
+	        if (customer.getCard() != null)
+	            updateSingleCard(customer.getCard());
+	    /* CARD */
+	    } else if (updatedObj instanceof Card) {
+	        Card card = (Card)updatedObj;
+	        if (!ignoreLists)
+	            updateCardList();
+	        updateSingleCard(card);
+	        if (card.getCustomer() != null) 
+	            updateSingleCustomer(card.getCustomer());
+	    /* ACTIVITY */
+	    } else if (updatedObj instanceof Activity) {
+	        updateActivitiesFile();
+	    }
+	}
 	
+	/**
+	 * Updates a single Customer file
+	 * @param customer customer to update the file for
+	 * @throws FileNotFoundException
+	 */
+	private void updateSingleCustomer(Customer customer) throws FileNotFoundException {
+	    FileSaver fs;
+        HashMap<String, String> contents = new HashMap<String, String>();
+        int cardNum;
+        /* id */
+        contents.put(CONST.CUSTOMER_ID, String.valueOf(customer.getId())); 
+        
+        /* card number */
+        if (customer.getCard() != null) {
+            cardNum = customer.getCard().getNumber();
+        } else {
+            cardNum = CONST.DEFAULT_CUSTOMER_CARD_NUMBER;
+        }
+        contents.put(CONST.CUSTOMER_CARD_NUMBER, String.valueOf(cardNum));
+        
+        /* name + surname + DOB + phone */
+        contents.put(CONST.CUSTOMER_DOB, customer.getDOB()); 
+        contents.put(CONST.CUSTOMER_NAME, customer.getName()); 
+        contents.put(CONST.CUSTOMER_SURNAME, customer.getSurname()); 
+        contents.put(CONST.CUSTOMER_PHONE, customer.getPhone()); 
+        
+        /* entries */
+        contents.put(CONST.CUSTOMER_CARD_NUMBER, String.valueOf(customer.getEntries()));
+        
+        /* open date */
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(customer.getOpenDate());
+        contents.put(CONST.CUSTOMER_OPEN, "" + calendar.get(Calendar.YEAR) + '-' + calendar.get(Calendar.MONTH) + '-' + calendar.get(Calendar.DAY_OF_MONTH));
+        
+        /* SAVE */
+        fs = new FileSaver(dirName + CONST.CUSTOMER_DIR + customer.getId());
+        fs.saveFilteredData(contents);
+	}
+	
+	/**
+	 * Updates a single Card file
+	 * @param card Card in memory to update the file for
+	 * @throws FileNotFoundException
+	 */
+	private void updateSingleCard(Card card) throws FileNotFoundException {
+	    FileSaver fs;
+        HashMap<String, String> contents = new HashMap<String, String>();
+        int customerId;
+	    /* number */
+        contents.put(CONST.CARD_NUMBER, String.valueOf(card.getNumber()));
+        /* customer id */
+        if (card.getCustomer() != null) {
+            customerId = card.getCustomer().getId();
+        } else {
+            customerId = CONST.DEFAULT_CARD_CUSTOMER_ID;
+        }
+        contents.put(CONST.CARD_CUSTOMER_ID, String.valueOf(customerId));
+        
+        /* SAVE */
+        fs = new FileSaver(dirName + CONST.CARD_DIR + card.getNumber());
+        fs.saveFilteredData(contents);
+	}
+	
+	/**
+	 * Updates all files relevant to Card objects
+	 * @throws FileNotFoundException
+	 */
 	private void updateCardFiles() throws FileNotFoundException {
-		FileSaver fs_list = new FileSaver(dirName + CONST.CARD_LIST_PATH);
-		FileSaver fs;
-		String numList = "";
-		HashMap<String, String> contents = new HashMap<String, String>();
-		int customerId;
-		
-		/* Fill with fields */
-		for (Card card : cards.values()) {
-			/* number */
-			contents.put(CONST.CARD_NUMBER, String.valueOf(card.getNumber()));
-			numList += card.getNumber() + '\n';
-			
-			/* customer id */
-			if (card.getCustomer() != null) {
-				customerId = card.getCustomer().getId();
-			} else {
-				customerId = CONST.DEFAULT_CARD_CUSTOMER_ID;
-			}
-			contents.put(CONST.CARD_CUSTOMER_ID, String.valueOf(customerId));
-			
-			/* SAVE */
-			fs = new FileSaver(dirName + CONST.CARD_DIR + card.getNumber());
-			fs.saveFilteredData(contents);
-		}
-		fs_list.saveRawString(numList);
+	    updateCardList();
+	    for (Card card : cards.values()) {
+            updateSingleObject(card, true);
+        }
+	    
+	}
+	
+	/**
+	 * Updates CS_List file
+	 * @throws FileNotFoundException
+	 */
+	private void updateCardList() throws FileNotFoundException {
+	    FileSaver fs_list = new FileSaver(dirName + CONST.CARD_LIST_PATH);
+        String idList = "";
+        for (Card card : cards.values()) {
+            idList += card.getNumber() + '\n';
+        }
+        /* Save list */
+        fs_list.saveRawString(idList);
 	}
 	
 	/**
@@ -232,53 +365,18 @@ public class CustomerDB {
 	
 	
 	/**
-	 * 
+	 * Updates all Customer files
 	 * @throws FileNotFoundException
 	 */
 	private void updateCustomerFiles() throws FileNotFoundException {
-		FileSaver fs_list = new FileSaver(dirName + CONST.CUSTOMER_LIST_PATH);
-		String idList = "";
-		FileSaver fs;
-		HashMap<String, String> contents = new HashMap<String, String>();
-		int cardNum;
-		/* Fill with fields */
+	    updateCustomerList();
 		for (Customer customer : customers.values()) {
-			/* id */
-			contents.put(CONST.CUSTOMER_ID, String.valueOf(customer.getId())); 
-			idList += customer.getId() + '\n';
-			
-			/* card number */
-			if (customer.getCard() != null) {
-				cardNum = customer.getCard().getNumber();
-			} else {
-				cardNum = CONST.DEFAULT_CUSTOMER_CARD_NUMBER;
-			}
-			contents.put(CONST.CUSTOMER_CARD_NUMBER, String.valueOf(cardNum));
-			
-			/* name + surname + DOB + phone */
-			contents.put(CONST.CUSTOMER_DOB, customer.getDOB()); 
-			contents.put(CONST.CUSTOMER_NAME, customer.getName()); 
-			contents.put(CONST.CUSTOMER_SURNAME, customer.getSurname()); 
-			contents.put(CONST.CUSTOMER_PHONE, customer.getPhone()); 
-			
-			/* entries */
-			contents.put(CONST.CUSTOMER_CARD_NUMBER, String.valueOf(customer.getEntries()));
-			
-			/* open date */
-			Calendar calendar = Calendar.getInstance();
-			calendar.setTime(customer.getOpenDate());
-			contents.put(CONST.CUSTOMER_OPEN, "" + calendar.get(Calendar.YEAR) + '-' + calendar.get(Calendar.MONTH) + '-' + calendar.get(Calendar.DAY_OF_MONTH));
-			
-			/* SAVE */
-			fs = new FileSaver(dirName + CONST.CUSTOMER_DIR + customer.getId());
-			fs.saveFilteredData(contents);
+			updateSingleObject(customer, true);
 		}
-		/* Save list */
-		fs_list.saveRawString(idList);
 	}
 	
 	/**
-	 * 
+	 * Updates ACT_List file
 	 * @throws FileNotFoundException
 	 */
 	private void updateActivitiesFile() throws FileNotFoundException {
@@ -290,9 +388,41 @@ public class CustomerDB {
 		fs.saveAct(contents_act);
 	}
 	
+	
+	public Card getCard(int cardNum) {
+	    return cards.get(cardNum);
+	}
+	
+	
+	public Customer getCustomerByCardId(int cardNum) {
+	    for (Customer customer : customers.values()) {
+	        if (customer.getCard().getNumber() == cardNum)
+	            return customer;
+	    }
+	    return null;
+	}
+	
+	public Customer getCustomer(int id) {
+	    return customers.get(id);
+	}
+	
 	public HashMap<Integer, Activity> getActivities() {
 		return activities;
 	}
+
+    public HashMap<Integer, Customer> getCustomers() {
+        return customers;
+    }
+
+    public HashMap<Integer, Card> getCards() {
+        return cards;
+    }
+
+    public String getDirName() {
+        return dirName;
+    }
+	
+	
 	
 	
 }
