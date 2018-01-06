@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.text.DateFormat;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -30,6 +31,7 @@ public class CustomerDB {
 	private HashMap<Integer, Customer> customers;
 	private HashMap<Integer, Card> cards;
 	private String dirName;
+	private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 	
 	public CustomerDB(String fileName) {
 		this.dirName = fileName;
@@ -77,7 +79,7 @@ public class CustomerDB {
 			customer.setEntries(Integer.parseInt(fr_customer.getField(CONST.CUSTOMER_ENTRIES)));
 			customer.setName(fr_customer.getField(CONST.CUSTOMER_NAME));
 			customer.setSurname(fr_customer.getField(CONST.CUSTOMER_SURNAME));
-			customer.setOpenDate(DateFormat.getInstance().parse(fr_customer.getField(CONST.CUSTOMER_OPEN)));
+			customer.setOpenDate(dateFormat.parse(fr_customer.getField(CONST.CUSTOMER_OPEN)));
 			customer.setPhone(fr_customer.getField(CONST.CUSTOMER_PHONE));
 			customers.put(nextId, customer);
 			
@@ -161,10 +163,43 @@ public class CustomerDB {
     * previous card/customer, can be set to null in either)
     * @param customer
     * @param card
+ * @throws FileNotFoundException 
     */
-   public void assignCard(Customer customer, Card card) {
-       customer.setCard(card);
-       card.setCustomer(customer);
+   public void assignCard(Customer customer, Card card) throws FileNotFoundException {
+       Customer prevCustomer = null;
+       Card prevCard = null;
+       
+       /* Get previous customer/card */
+       if (card != null) {
+           prevCustomer = card.getCustomer();
+       }
+       if (customer != null) {
+           prevCard = customer.getCard();
+       }
+       
+       /* Clear any previous references */
+       if (prevCustomer != null) {
+           prevCustomer.setCard(null);
+       }
+       if (prevCard != null) {
+           prevCard.setCustomer(null);
+       } 
+       
+       /* Update destinations (has to be after everything else in case
+        * new destination = old destination)
+        */
+       if (customer != null) {
+           customer.setCard(card);
+       }
+       if (card != null) {
+           card.setCustomer(customer);
+       }
+       
+       /* Any changes have to be saved here, otherwise the info might be lost */
+       updateSingleObject(prevCard, true);
+       updateSingleObject(prevCustomer, true);
+       updateSingleObject(card, true);
+       updateSingleObject(customer, true);
    }
    
    /**
@@ -287,7 +322,7 @@ public class CustomerDB {
         contents.put(CONST.CUSTOMER_PHONE, customer.getPhone()); 
         
         /* entries */
-        contents.put(CONST.CUSTOMER_CARD_NUMBER, String.valueOf(customer.getEntries()));
+        contents.put(CONST.CUSTOMER_ENTRIES, String.valueOf(customer.getEntries()));
         
         /* open date */
         Calendar calendar = Calendar.getInstance();
@@ -343,7 +378,7 @@ public class CustomerDB {
 	    FileSaver fs_list = new FileSaver(dirName + CONST.CARD_LIST_PATH);
         String idList = "";
         for (Card card : cards.values()) {
-            idList += card.getNumber() + '\n';
+            idList += card.getNumber() + "\n";
         }
         /* Save list */
         fs_list.saveRawString(idList);
@@ -357,7 +392,7 @@ public class CustomerDB {
 	    FileSaver fs_list = new FileSaver(dirName + CONST.CUSTOMER_LIST_PATH);
 	    String idList = "";
 	    for (Customer customer : customers.values()) {
-	        idList += customer.getId() + '\n';
+	        idList += customer.getId() + "\n";
 	    }
 	    /* Save list */
         fs_list.saveRawString(idList);
@@ -387,7 +422,6 @@ public class CustomerDB {
 		}
 		fs.saveAct(contents_act);
 	}
-	
 	
 	public Card getCard(int cardNum) {
 	    return cards.get(cardNum);
@@ -420,6 +454,10 @@ public class CustomerDB {
 
     public String getDirName() {
         return dirName;
+    }
+
+    public SimpleDateFormat getDateFormat() {
+        return dateFormat;
     }
 	
 	

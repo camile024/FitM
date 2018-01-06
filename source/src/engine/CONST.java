@@ -19,6 +19,7 @@ public abstract class CONST {
 		public static final String APP_DIR = "./";
 		public static final String DATA_DIR = APP_DIR + "DATA/";
 		public static final String TESTS_DIR = APP_DIR + "TESTS/";
+		public static final String FXML_DIR = "FXML/";
 		public static final String TESTS_DATA_DIR = TESTS_DIR + "DATA/";
 		
 		/* 3 - MAIN PATHS */
@@ -96,7 +97,7 @@ public abstract class CONST {
 		
 		/* 3 - FULL PATHS */
 		public static final String CUSTOMER_LIST_PATH = CUSTOMER_DIR + CUSTOMER_LIST_FILENAME;
-		public static final String CARD_LIST_PATH = CUSTOMER_DIR + CARD_LIST_FILENAME;
+		public static final String CARD_LIST_PATH = CARD_DIR + CARD_LIST_FILENAME;
 		public static final String ACT_LIST_PATH = DATA_DIR + ACT_LIST_FILENAME;
 		public static final String LANG_PL_PATH = DATA_DIR + LANG_PL_FILENAME;
 		public static final String LANG_EN_PATH = DATA_DIR + LANG_EN_FILENAME;
@@ -117,6 +118,27 @@ public abstract class CONST {
 			
 	/** END OF DATA FILES DIRS **/
 	
+			
+    /************************** *
+    /*                          *
+    /*      UI FILES            *
+    /*                          *
+    /* ************************ */
+        /* 1 - FILENAMES */
+		public static final String FXML_SPLASH_FILENAME = "FX_SPLASH.fxml";
+		public static final String FXML_MAIN_FILENAME = "FX_MAIN.fxml";
+		public static final String FXML_CSS_STYLES_FILENAME = "styles.css";
+		
+		/* 2 - DIRECTORIES */
+
+		/* 3 - FULL PATHS */
+		public static final String FXML_SPLASH_PATH = FXML_DIR + FXML_SPLASH_FILENAME;
+		public static final String FXML_MAIN_PATH = FXML_DIR + FXML_MAIN_FILENAME;
+		public static final String FXML_CSS_STYLES_PATH = FXML_DIR + FXML_CSS_STYLES_FILENAME;
+    
+    /** END OF UI FILES **/
+		
+		
 	
 	/************************** *
 	/*							*
@@ -135,7 +157,20 @@ public abstract class CONST {
 		public static final String TXT_SETTINGS = "SETTINGS";
 		public static final String TXT_SAVE = "SAVE";
 		public static final String TXT_DISCARD = "DISCARD";
-			
+		public static final String TXT_VERSION = "VERSION";
+		public static final String TXT_LOADING = "LOADING";
+		public static final String TXT_LOADING_SETTINGS = "LOADING1";
+		public static final String TXT_LOADING_CUSTOMERS = "LOADING2";
+		public static final String TXT_LOADING_ACTIVITIES = "LOADING3";
+		public static final String TXT_LOADING_CARDS = "LOADING4";
+		public static final String TXT_LOADING_DATABASE = "LOADING5";
+		public static final String TXT_LOADING_FINALIZING = "LOADING6";
+		public static final String TXT_PATH = "PATH";
+		public static final String TXT_SETTING = "SETTING";
+		public static final String TXT_INITIALIZING = "INITIALIZING";
+		public static final String TXT_TITLE_SPLASH = "TITLE_SPLASH";
+		public static final String TXT_TITLE_MAIN = "TITLE_MAIN";
+		
 		/* 2 - TEST-RELATED STRING CONSTANTS */
 			public static final String TXT_TEST = "TEST";
 			public static final String TXT_TEST2 = "TEST2";

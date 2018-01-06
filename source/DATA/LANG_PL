@@ -1,2 +1,7 @@
 TEST=Tekst testowy
 TEST2=Tekst testowy drugi
+VERSION=Wersja
+PATH=Ścieżka
+SETTING=Ustawianie
+INITIALIZING=Inicjalizowanie
+LOADING=Ładowanie
