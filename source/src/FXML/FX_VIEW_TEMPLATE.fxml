@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+
+<BorderPane fx:id="FXID_MAIN_VIEW" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="400.0" prefWidth="600.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.views.UI_CustomerView">
+   <top>
+      <HBox fx:id="FXID_VIEW_TITLE" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <Text fx:id="FXID_VIEW_TITLE_TEXT" strokeType="OUTSIDE" strokeWidth="0.0" text="[ VIEW_TITLE_TEXT ]">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <effect>
+                  <DropShadow color="#5b5a5a" height="25.0" offsetX="2.0" offsetY="2.0" radius="12.0" width="25.0" />
+               </effect>
+            </Text>
+         </children>
+      </HBox>
+   </top>
+</BorderPane>

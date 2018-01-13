@@ -128,6 +128,9 @@ public abstract class CONST {
 		public static final String FXML_SPLASH_FILENAME = "FX_SPLASH.fxml";
 		public static final String FXML_MAIN_FILENAME = "FX_MAIN.fxml";
 		public static final String FXML_CSS_STYLES_FILENAME = "styles.css";
+		    /* 1.1 - Views */
+		    public static final String FXML_VIEW_CUSTOMER_FILENAME = "FX_VIEW_CUSTOMER.fxml";
+		    
 		
 		/* 2 - DIRECTORIES */
 
@@ -135,10 +138,35 @@ public abstract class CONST {
 		public static final String FXML_SPLASH_PATH = FXML_DIR + FXML_SPLASH_FILENAME;
 		public static final String FXML_MAIN_PATH = FXML_DIR + FXML_MAIN_FILENAME;
 		public static final String FXML_CSS_STYLES_PATH = FXML_DIR + FXML_CSS_STYLES_FILENAME;
-    
+		    /* 3.1 - Views */
+		    public static final String FXML_VIEW_CUSTOMER_PATH = FXML_DIR + FXML_VIEW_CUSTOMER_FILENAME;
+		    
     /** END OF UI FILES **/
 		
-		
+
+    /************************** *
+    /*                          *
+    /*      RESOURCES           *
+    /*                          *
+    /* ************************ */		
+		/* 1 - FILENAMES */
+		    /* 1.1 - Images */
+		    public static final String RES_IMG_LOGO_FILENAME = "logo.png";
+		    public static final String RES_IMG_BGGRADIENT_FILENAME = "background_gradient.png";
+		    public static final String RES_IMG_BTN_UK_FILENAME = "uk.png";
+		    public static final String RES_IMG_BTN_PL_FILENAME = "pl_icon.png";
+		/* 2 - DIRECTORIES */
+		public static final String RES_IMG_DIR = "img/";
+		/* 2 - FULL PATHS */
+	    /* PATHS RELATIVE TO THE ResourceLocalizer CLASS */
+		    /* 2.1 - Images */
+		    public static final String RES_IMG_LOGO_PATH = RES_IMG_DIR + RES_IMG_LOGO_FILENAME; 
+		    public static final String RES_IMG_BGGRADIENT_PATH = RES_IMG_DIR + RES_IMG_BGGRADIENT_FILENAME;
+		    public static final String RES_IMG_BTN_UK_PATH = RES_IMG_DIR + RES_IMG_BTN_UK_FILENAME;
+		    public static final String RES_IMG_BTN_PL_PATH = RES_IMG_DIR + RES_IMG_BTN_PL_FILENAME;
+		    
+		    
+		    
 	
 	/************************** *
 	/*							*
@@ -146,30 +174,51 @@ public abstract class CONST {
 	/*							*
 	/* ************************ */	
 		/* 1 - STRING CONSTANTS */
-		public static final String TXT_OK = "OK";
-		public static final String TXT_YES = "YES";
-		public static final String TXT_NO = "NO";
-		public static final String TXT_CANCEL = "CANCEL";
-		public static final String TXT_ABORT = "ABORT";
-		public static final String TXT_EXIT = "EXIT";
-		public static final String TXT_ACCEPT = "ACCEPT";
-		public static final String TXT_EDIT = "EDIT";
-		public static final String TXT_SETTINGS = "SETTINGS";
-		public static final String TXT_SAVE = "SAVE";
-		public static final String TXT_DISCARD = "DISCARD";
-		public static final String TXT_VERSION = "VERSION";
-		public static final String TXT_LOADING = "LOADING";
-		public static final String TXT_LOADING_SETTINGS = "LOADING1";
-		public static final String TXT_LOADING_CUSTOMERS = "LOADING2";
-		public static final String TXT_LOADING_ACTIVITIES = "LOADING3";
-		public static final String TXT_LOADING_CARDS = "LOADING4";
-		public static final String TXT_LOADING_DATABASE = "LOADING5";
-		public static final String TXT_LOADING_FINALIZING = "LOADING6";
-		public static final String TXT_PATH = "PATH";
-		public static final String TXT_SETTING = "SETTING";
-		public static final String TXT_INITIALIZING = "INITIALIZING";
-		public static final String TXT_TITLE_SPLASH = "TITLE_SPLASH";
-		public static final String TXT_TITLE_MAIN = "TITLE_MAIN";
+		    /* 1.1 - General */
+        		public static final String TXT_OK = "OK";
+        		public static final String TXT_YES = "YES";
+        		public static final String TXT_NO = "NO";
+        		public static final String TXT_CANCEL = "CANCEL";
+        		public static final String TXT_ABORT = "ABORT";
+        		public static final String TXT_EXIT = "EXIT";
+        		public static final String TXT_ACCEPT = "ACCEPT";
+        		public static final String TXT_EDIT = "EDIT";
+        		public static final String TXT_SETTINGS = "SETTINGS";
+        		public static final String TXT_SAVE = "SAVE";
+        		public static final String TXT_DISCARD = "DISCARD";
+        		public static final String TXT_ABOUT = "ABOUT";
+        		public static final String TXT_NAME = "NAME";
+        		public static final String TXT_SURNAME = "SURNAME";
+        		public static final String TXT_PHONE = "PHONE";
+        		public static final String TXT_DOB = "DOB";
+        		public static final String TXT_ENTRIES = "ENTRIES";
+        		public static final String TXT_OPEN = "OPEN";
+        		public static final String TXT_OPTIONS = "OPTIONS";
+        		public static final String TXT_ID = "ID";
+        		public static final String TXT_NONE = "NONE";
+        	/* 1.2 - Initialization */
+                public static final String TXT_VERSION = "VERSION";
+        		public static final String TXT_LOADING = "LOADING";
+        		public static final String TXT_LOADING_SETTINGS = "LOADING1";
+        		public static final String TXT_LOADING_CUSTOMERS = "LOADING2";
+        		public static final String TXT_LOADING_ACTIVITIES = "LOADING3";
+        		public static final String TXT_LOADING_CARDS = "LOADING4";
+        		public static final String TXT_LOADING_DATABASE = "LOADING5";
+        		public static final String TXT_LOADING_FINALIZING = "LOADING6";
+        		public static final String TXT_LOADING_IMAGES = "LOADING7";
+        		public static final String TXT_PATH = "PATH";
+        		public static final String TXT_SETTING = "SETTING";
+        		public static final String TXT_INITIALIZING = "INITIALIZING";
+        	/* 1.3 - Titles */
+            	public static final String TXT_TITLE_SPLASH = "TITLE_SPLASH";
+            	public static final String TXT_TITLE_MAIN = "TITLE_MAIN";
+            	public static final String TXT_TITLE_VIEW_CUSTOMER = "TITLE_VIEW_CUSTOMER";
+            /* 1.4 - Button names */
+            	public static final String TXT_BTN_ACT_LIST = "ACT_LIST";
+            	public static final String TXT_BTN_CUST_LIST = "CUST_LIST";
+            	public static final String TXT_BTN_CARD_LIST = "CARD_LIST";
+            /* 1.5 - Labels */
+            	
 		
 		/* 2 - TEST-RELATED STRING CONSTANTS */
 			public static final String TXT_TEST = "TEST";

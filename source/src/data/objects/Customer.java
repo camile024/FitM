@@ -2,6 +2,12 @@ package data.objects;
 
 import java.util.Date;
 
+import engine.CONST;
+import engine.CustomerDB;
+import engine.Locale;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+
 public class Customer {
 	/* Highest ID loaded in the memory */
 	private static int highestID = 0;
@@ -14,6 +20,15 @@ public class Customer {
 	private int entries;
 	private Card card;
 	private Date openDate;
+	
+	private SimpleIntegerProperty idProperty = new SimpleIntegerProperty();
+	private SimpleIntegerProperty entriesProperty = new SimpleIntegerProperty();
+	private SimpleStringProperty nameProperty = new SimpleStringProperty();
+	private SimpleStringProperty surnameProperty = new SimpleStringProperty();
+	private SimpleStringProperty DOBProperty = new SimpleStringProperty();
+	private SimpleStringProperty phoneProperty = new SimpleStringProperty();
+	private SimpleStringProperty cardProperty = new SimpleStringProperty();
+	private SimpleStringProperty openDateProperty = new SimpleStringProperty();
 	
 	public Customer(int id) {
 		this.id = id;
@@ -95,5 +110,49 @@ public class Customer {
 
 	public int getId() {
 		return id;
+	}
+	
+	public SimpleIntegerProperty idProperty() {
+	    idProperty.set(id);
+	    return  idProperty;
+	}
+	
+	public SimpleStringProperty nameProperty() {
+        nameProperty.set(name);
+        return nameProperty;
+    }
+	
+	public SimpleStringProperty surnameProperty() {
+	    surnameProperty.set(surname);
+        return surnameProperty;
+    }
+	
+	public SimpleStringProperty phoneProperty() {
+	    phoneProperty.set(phone);
+        return phoneProperty;
+    }
+	
+	public SimpleStringProperty DOBProperty() {
+	    DOBProperty.set(DOB);
+        return DOBProperty;
+    }
+	
+	public SimpleIntegerProperty entriesProperty() {
+	    entriesProperty.set(entries);
+        return entriesProperty;
+    }
+	
+	public SimpleStringProperty cardProperty() {
+	    if (card == null) {
+	        cardProperty.set(CONST.TXT_NONE);
+	    } else {
+	        cardProperty.set(String.valueOf(card.getNumber()));
+	    }
+        return cardProperty;
+    }
+	
+	public SimpleStringProperty openDateProperty() {
+	    openDateProperty.set(CustomerDB.getOpenDateFormat().format(openDate));
+	    return openDateProperty;
 	}
 }

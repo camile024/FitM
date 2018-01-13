@@ -4,3 +4,57 @@
 	-fx-background-position: center center;
 	-fx-background-size: 600 300;
 }
+
+#FXID_BORDERPANE_MAIN {
+	-fx-background-image: url("../../img/background_gradient.png");
+	-fx-background-repeat: stretch;
+	-fx-background-position: center center;
+	-fx-background-size: stretch;
+}
+
+#FXID_MENU_VBOX {
+	-fx-background-color:
+		linear-gradient(#66a9dd 0%, #5397cc 25%, #3e85bc 75%, #266699 100%);
+	-fx-padding: 5, 15, 5, 15;
+}
+
+#FXID_MAIN_VIEW {
+	-fx-background-color:
+		linear-gradient(#7f4e93 0%, #591c72 100%);
+}
+
+#FXID_VIEW_TITLE {
+	-fx-background-color:
+		linear-gradient(#d8d6d6 0%, #8e8e8e 100%);
+	-fx-pref-width: 600;
+	-fx-pref-height: 25;
+	-fx-alignment: CENTER;
+	-fx-border-color: black;
+	-fx-border-width: 1;
+	-fx-padding: 0 0 0 0;
+}
+
+.menubar {
+	-fx-background-color:
+		linear-gradient(#d8d6d6 0%, #8e8e8e 100%);
+	-fx-pref-width: 600;
+	-fx-pref-height: 45;
+	-fx-alignment: CENTER-LEFT;
+	-fx-border-color: black;
+	-fx-border-width: 1;
+	-fx-padding: 0 0 0 0;
+}
+
+.centercol {
+	-fx-alignment: CENTER;
+}
+
+#FXID_VIEW_TITLE_TEXT {
+	-fx-font-size: 18px;
+	-fx-fill: #303030;
+	-fx-font-weight: bold;
+	/*-fx-stroke: #7f7f7f;
+	-fx-stroke-width: 1;  */
+	
+}
+

@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane fx:id="FXID_BORDERPANE_MAIN" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="600.0" minWidth="800.0" prefHeight="800.0" prefWidth="1200.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.mains.UI_Main">
+   <left>
+      <VBox fx:id="FXID_MENU_VBOX" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="165.0" prefWidth="200.0" BorderPane.alignment="TOP_CENTER">
+         <BorderPane.margin>
+            <Insets left="30.0" top="30.0" />
+         </BorderPane.margin>
+         <children>
+            <Text fill="WHITE" stroke="BLACK" strokeLineJoin="BEVEL" strokeType="OUTSIDE" strokeWidth="0.0" text="FitM">
+               <font>
+                  <Font name="Arial" size="35.0" />
+               </font>
+               <effect>
+                  <DropShadow blurType="ONE_PASS_BOX" height="11.0" offsetX="2.0" offsetY="2.0" radius="5.0" width="11.0" />
+               </effect>
+            </Text>
+            <Button fx:id="FXID_CUSTOMER_LIST_BTN" mnemonicParsing="false" onAction="#btnClientListOnClick" prefHeight="25.0" prefWidth="194.0" text="[ CUSTOMER_LIST ]">
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <VBox.margin>
+                  <Insets top="5.0" />
+               </VBox.margin>
+               <effect>
+                  <DropShadow blurType="ONE_PASS_BOX" offsetX="1.0" offsetY="1.0" radius="4.75" width="0.0" />
+               </effect>
+            </Button>
+            <Button fx:id="FXID_ACT_LIST_BTN" mnemonicParsing="false" onAction="#btnActListOnClick" prefHeight="25.0" prefWidth="194.0" text="[ ACT_LIST ]">
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <effect>
+                  <DropShadow blurType="ONE_PASS_BOX" offsetX="1.0" offsetY="1.0" radius="4.75" width="0.0" />
+               </effect>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </Button>
+            <Button fx:id="FXID_CARD_LIST_BTN" mnemonicParsing="false" onAction="#btnCardListOnClick" prefHeight="25.0" prefWidth="194.0" text="[ CARD_LIST ]">
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <effect>
+                  <DropShadow blurType="ONE_PASS_BOX" offsetX="1.0" offsetY="1.0" radius="4.75" width="0.0" />
+               </effect>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </Button>
+            <Button fx:id="FXID_SETTINGS_BTN" mnemonicParsing="false" onAction="#btnSettingsOnClick" prefHeight="25.0" prefWidth="194.0" text="[ SETTINGS ]">
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <effect>
+                  <DropShadow blurType="ONE_PASS_BOX" offsetX="1.0" offsetY="1.0" radius="4.75" width="0.0" />
+               </effect>
+               <VBox.margin>
+                  <Insets top="15.0" />
+               </VBox.margin>
+            </Button>
+            <Button fx:id="FXID_CONTACT_BTN" mnemonicParsing="false" onAction="#btnContactOnClick" prefHeight="25.0" prefWidth="194.0" text="[ CONTACT ]">
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <effect>
+                  <DropShadow blurType="ONE_PASS_BOX" offsetX="1.0" offsetY="1.0" radius="4.75" width="0.0" />
+               </effect>
+            </Button>
+            <Button fx:id="FXID_EXIT_BTN" mnemonicParsing="false" onAction="#btnExitOnClick" prefHeight="25.0" prefWidth="194.0" text="[ EXIT ]">
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <effect>
+                  <DropShadow blurType="ONE_PASS_BOX" offsetX="1.0" offsetY="1.0" radius="4.75" width="0.0" />
+               </effect>
+               <VBox.margin>
+                  <Insets bottom="15.0" top="30.0" />
+               </VBox.margin>
+            </Button>
+         </children>
+         <effect>
+            <DropShadow blurType="ONE_PASS_BOX" />
+         </effect>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <padding>
+            <Insets bottom="15.0" />
+         </padding>
+      </VBox>
+   </left>
+   <bottom>
+      <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <Text fx:id="FXID_SCAN_NOTE" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="[ SCAN_NOTE ]" wrappingWidth="113.265625">
+               <font>
+                  <Font size="16.0" />
+               </font>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </Text>
+            <HBox alignment="BOTTOM_CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="137.0" spacing="10.0">
+               <children>
+                  <Button fx:id="FXID_PL_BTN" mnemonicParsing="false" onAction="#btnPLOnClick" prefHeight="25.0" prefWidth="194.0" text="[ PL ]">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                     <effect>
+                        <DropShadow blurType="ONE_PASS_BOX" offsetX="1.0" offsetY="1.0" radius="4.75" width="0.0" />
+                     </effect>
+                  </Button>
+                  <Button fx:id="FXID_EN_BTN" mnemonicParsing="false" onAction="#btnENOnClick" prefHeight="30.0" prefWidth="190.0" text="[ EN ]">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                     <effect>
+                        <DropShadow blurType="ONE_PASS_BOX" offsetX="1.0" offsetY="1.0" radius="4.75" width="0.0" />
+                     </effect>
+                  </Button>
+               </children>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <HBox.margin>
+                  <Insets bottom="25.0" left="15.0" right="25.0" top="15.0" />
+               </HBox.margin>
+            </HBox>
+         </children>
+      </HBox>
+   </bottom>
+   <center>
+      <BorderPane fx:id="FXID_MAIN_VIEW" minHeight="100.0" minWidth="200.0" prefHeight="649.0" prefWidth="985.0" BorderPane.alignment="CENTER">
+         <BorderPane.margin>
+            <Insets bottom="15.0" left="15.0" right="30.0" top="30.0" />
+         </BorderPane.margin>
+         <effect>
+            <DropShadow color="#50036b" height="45.0" radius="22.0" width="45.0" />
+         </effect>
+         <padding>
+            <Insets bottom="15.0" left="15.0" right="15.0" top="10.0" />
+         </padding>
+      </BorderPane>
+   </center>
+</BorderPane>

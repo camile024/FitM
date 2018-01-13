@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane fx:id="FXID_MAIN_VIEW" prefHeight="400.0" prefWidth="600.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.views.UI_CustomerView">
+   <top>
+      <HBox fx:id="FXID_VIEW_TITLE" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <BorderPane.margin>
+            <Insets bottom="5.0" />
+         </BorderPane.margin>
+         <children>
+            <Text fx:id="FXID_VIEW_TITLE_TEXT" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+         </children>
+      </HBox>
+   </top>
+   <center>
+      <StackPane BorderPane.alignment="CENTER">
+         <children>
+            <TableView fx:id="FXID_TABLE" maxHeight="10000.0" maxWidth="10000.0" prefHeight="359.0" prefWidth="611.0">
+              <columns>
+                <TableColumn fx:id="FXID_COLUMN_ID" maxWidth="1.7976931348623157E308" minWidth="60.0" prefWidth="60.0" styleClass="centercol" text="[ COLUMN_ID ]" />
+                <TableColumn fx:id="FXID_COLUMN_NAME" maxWidth="1.7976931348623157E308" minWidth="75.0" prefWidth="135.0" text="[ COLUMN_NAME ]" />
+                  <TableColumn fx:id="FXID_COLUMN_SURNAME" maxWidth="1.7976931348623157E308" minWidth="75.0" prefWidth="135.0" text="[ COLUMN_SURNAME ]" />
+                  <TableColumn fx:id="FXID_COLUMN_PHONE" maxWidth="1.7976931348623157E308" minWidth="75.0" prefWidth="120.0" styleClass="centercol" text="[ COLUMN_PHONE ]" />
+                  <TableColumn fx:id="FXID_COLUMN_DOB" maxWidth="1.7976931348623157E308" minWidth="75.0" prefWidth="120.0" styleClass="centercol" text="[ COLUMN_DOB ]" />
+                  <TableColumn fx:id="FXID_COLUMN_ENTRIES" maxWidth="1.7976931348623157E308" minWidth="75.0" prefWidth="75.0" styleClass="centercol" text="[ COLUMN_ENTRIES ]" />
+                  <TableColumn fx:id="FXID_COLUMN_OPEN" maxWidth="1.7976931348623157E308" minWidth="75.0" prefWidth="100.0" styleClass="centercol" text="[ COLUMN_OPEN ]" />
+                  <TableColumn fx:id="FXID_COLUMN_OPTIONS" maxWidth="1.7976931348623157E308" minWidth="75.0" prefWidth="200.0" styleClass="centercol" text="[ COLUM_OPTIONS ]" />
+              </columns>
+            </TableView>
+         </children>
+      </StackPane>
+   </center>
+   <bottom>
+      <HBox alignment="CENTER" prefHeight="49.0" prefWidth="600.0" styleClass="menubar" BorderPane.alignment="CENTER">
+         <children>
+            <Text fx:id="FXID_LABEL_SEARCH" strokeType="OUTSIDE" strokeWidth="0.0" text="[ LABEL_SEARCH ]">
+               <HBox.margin>
+                  <Insets left="5.0" right="5.0" />
+               </HBox.margin>
+            </Text>
+            <TextField />
+         </children>
+      </HBox>
+   </bottom>
+</BorderPane>

@@ -6,15 +6,20 @@ import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import FXML.FXLoader;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
+import ui.mains.UI_Main;
 import ui.mains.UI_Splash;
+import ui.utils.ResourceLocalizer;
 
 public class Application extends javafx.application.Application {
     CustomerDB database;
@@ -38,7 +43,7 @@ public class Application extends javafx.application.Application {
 	@Override
 	public void start(Stage mainStage) throws InterruptedException {
 	        /* FXML part */
-	        FXMLLoader loader = new FXMLLoader(this.getClass().getClassLoader().getResource(CONST.FXML_SPLASH_PATH));
+	        FXMLLoader loader = FXLoader.getLoader(CONST.FXML_SPLASH_PATH);
 	        BorderPane pane = null;
             try {
                 pane = (BorderPane) loader.load();
@@ -82,6 +87,9 @@ public class Application extends javafx.application.Application {
 	            /* Load Cards */
                 uiSplash.setStatus(CONST.TXT_LOADING_CARDS);
 	            database.initCards();
+	            /* Load Images */
+	            uiSplash.setStatus(CONST.TXT_LOADING_IMAGES);
+                ResourceLocalizer.loadImages();
 	        } catch (FileNotFoundException e) {
 	            e.printStackTrace();
 	        } catch (ParseException e) {
@@ -93,9 +101,46 @@ public class Application extends javafx.application.Application {
 	        uiSplash.setStatus("");
 	        
 	        Timeline timer = new Timeline(            
-                new KeyFrame(Duration.seconds(3), event -> mainStage.close())
+                new KeyFrame(Duration.seconds(3), event -> {
+                    mainStage.close();
+                    mainWindowInit();
+                })
 	        );
 	        timer.play();
+	        
+	        
+	}
+	
+	private void mainWindowInit() {
+	    Rectangle2D screenDimensions = Screen.getPrimary().getBounds();
+	    /* FXML part */
+	    Stage stage = new Stage();
+        FXMLLoader loader = FXLoader.getLoader(CONST.FXML_MAIN_PATH);
+        BorderPane pane = null;
+        try {
+            pane = (BorderPane) loader.load();
+        } catch (IOException e1) {
+            e1.printStackTrace();
+            System.exit(-1);
+        }
+        UI_Main uiMain = ((UI_Main)(loader.getController()));
+        
+        //stage.setFullScreen(true);
+        stage.setWidth(screenDimensions.getWidth() / 1.2);
+        stage.setHeight(screenDimensions.getHeight() / 1.2);
+        stage.setMinHeight(800);
+        stage.setMinWidth(960);
+        Scene scene = new Scene(pane, stage.getWidth(), stage.getHeight());
+        
+        
+        stage.setScene(scene);
+        stage.setTitle("FitM");
+        //stage.setResizable(false);
+        stage.centerOnScreen();
+        
+        uiMain.init(stage, database);
+        stage.show();
+        /* End of FXML part */
 	}
 
 }
