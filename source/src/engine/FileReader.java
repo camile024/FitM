@@ -37,8 +37,10 @@ public class FileReader {
 	public void load() throws FileNotFoundException {
 		initMaps();
 		File file = new File(fileName);
-		Scanner sc = new Scanner(file);
+		//java.util.Locale loc = new java.util.Locale("pl", "PL");
+		Scanner sc = new Scanner(file, "UTF-8");
 		contents = "";
+		
 		while (sc.hasNextLine()) {
 			contents += sc.nextLine() + '\n';
 		}

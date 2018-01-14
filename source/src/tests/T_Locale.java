@@ -1,8 +1,10 @@
 package tests;
 
 import static org.junit.Assert.*;
+import static org.hamcrest.CoreMatchers.*;
 
 import java.io.FileNotFoundException;
+import java.util.Date;
 
 import org.junit.After;
 import org.junit.Before;
@@ -40,6 +42,17 @@ public class T_Locale {
 		String test2 = Locale.getString(CONST.TXT_TEST2);
 		assertEquals("TEST1 value in Polish", "Tekst testowy", test1);
 		assertEquals("TEST2 value in Polish", "Tekst testowy drugi", test2);
+	}
+	
+	@Test
+	public void testClock() throws InterruptedException {
+	    Locale.initDate(5);
+	    Date date1 = Locale.getCurrentDate();
+	    Thread.sleep(1010);
+	    Date date2 = Locale.getCurrentDate();
+	    System.out.println(date1.toString());
+	    System.out.println(date2.toString());
+	    assertThat(date1,is(not(date2)));
 	}
 
 }

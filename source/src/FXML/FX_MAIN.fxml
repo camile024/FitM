@@ -102,16 +102,34 @@
    <bottom>
       <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <Text fx:id="FXID_SCAN_NOTE" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="[ SCAN_NOTE ]" wrappingWidth="113.265625">
-               <font>
-                  <Font size="16.0" />
-               </font>
-               <HBox.margin>
-                  <Insets />
-               </HBox.margin>
-            </Text>
-            <HBox alignment="BOTTOM_CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="137.0" spacing="10.0">
+            <HBox alignment="CENTER_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefHeight="100.0" prefWidth="574.0">
                <children>
+                  <Text fx:id="FXID_SCAN_NOTE" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="scanNote" text="[ SCAN_NOTE ]" wrappingWidth="514.265625">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="50.0" />
+                     </HBox.margin>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                  </Text>
+               </children>
+               <HBox.margin>
+                  <Insets right="50.0" />
+               </HBox.margin>
+            </HBox>
+            <HBox alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="290.0" spacing="10.0">
+               <children>
+                  <Text fx:id="FXID_TIME_LABEL" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="scanNote" text="[ TIME_LABEL ]" textAlignment="RIGHT">
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                     <HBox.margin>
+                        <Insets left="5.0" />
+                     </HBox.margin>
+                  </Text>
                   <Button fx:id="FXID_PL_BTN" mnemonicParsing="false" onAction="#btnPLOnClick" prefHeight="25.0" prefWidth="194.0" text="[ PL ]">
                      <font>
                         <Font size="14.0" />

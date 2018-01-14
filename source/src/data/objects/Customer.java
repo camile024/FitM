@@ -1,6 +1,7 @@
 package data.objects;
 
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 import engine.CONST;
 import engine.CustomerDB;
@@ -152,7 +153,16 @@ public class Customer {
     }
 	
 	public SimpleStringProperty openDateProperty() {
-	    openDateProperty.set(CustomerDB.getOpenDateFormat().format(openDate));
+	    long difference = openDate.getTime() - Locale.getCurrentDate().getTime();
+	    if (difference < 0) {
+	        difference = 0;
+	    }
+	    
+	    /* The string proprty is: X Days (DATE) */
+	    openDateProperty.set(TimeUnit.MILLISECONDS.toDays(difference) + " "
+	            + Locale.getString(CONST.TXT_DAYS) + " (" + CustomerDB.getOpenDateFormat().format(openDate)
+	            + ")");
+	    
 	    return openDateProperty;
 	}
 }

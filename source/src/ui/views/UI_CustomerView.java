@@ -1,6 +1,8 @@
 package ui.views;
 
 
+import java.util.LinkedList;
+
 import data.objects.Customer;
 import engine.CONST;
 import engine.CustomerDB;
@@ -8,15 +10,26 @@ import engine.Locale;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.HBox;
+import javafx.scene.text.Text;
 import ui.mains.UI_Main;
 import ui.utils.CustomerOptions;
 
 public class UI_CustomerView extends UI_View {
    
-    
+    @FXML
+    Text FXID_SEARCH_LABEL;
+    @FXML
+    TextField FXID_SEARCH_FIELD;
+    @FXML
+    Button FXID_SEARCH_BTN;
+    @FXML
+    Button FXID_ADD_BTN;
     @FXML
     TableView<Customer> FXID_TABLE;
     @FXML
@@ -34,10 +47,21 @@ public class UI_CustomerView extends UI_View {
     @FXML
     TableColumn<Customer, String> FXID_COLUMN_OPEN;
     @FXML
-    TableColumn<Customer, CustomerOptions> FXID_COLUMN_OPTIONS;
+    TableColumn<Customer, HBox> FXID_COLUMN_OPTIONS;
     
     private final ObservableList<Customer> tableData = FXCollections.observableArrayList();
-
+    
+    
+    @FXML
+    public void btnSearchOnClick() {
+        filterTable(FXID_SEARCH_FIELD.getText());
+    }
+    
+    @FXML
+    public void btnAddOnClick() {
+        
+    }
+    
     
     @Override
     public void init(CustomerDB customerDB, UI_Main parent) {
@@ -49,7 +73,22 @@ public class UI_CustomerView extends UI_View {
         FXID_COLUMN_OPEN.setCellValueFactory(new PropertyValueFactory<Customer, String>("openDate"));
         FXID_COLUMN_ENTRIES.setCellValueFactory(new PropertyValueFactory<Customer, Integer>("entries"));
         
+        FXID_COLUMN_OPTIONS.setCellValueFactory(new CustomerOptions());
+        
         FXID_TABLE.setItems(tableData);
+        
+        /* Pressing enter will filter too */
+        FXID_SEARCH_FIELD.setOnAction( EventHandler -> {
+            btnSearchOnClick();
+        });
+        
+        /* If removed all text, un-filter automatically */
+        FXID_SEARCH_FIELD.setOnKeyTyped(EventHandler -> {
+            if (FXID_SEARCH_FIELD.getText().length() == 0) {
+                btnSearchOnClick();
+            }
+        });
+        
         
         super.init(customerDB, parent);
         
@@ -66,7 +105,10 @@ public class UI_CustomerView extends UI_View {
         FXID_COLUMN_ENTRIES.setText(Locale.getString(CONST.TXT_ENTRIES));
         FXID_COLUMN_OPEN.setText(Locale.getString(CONST.TXT_OPEN));
         FXID_COLUMN_OPTIONS.setText(Locale.getString(CONST.TXT_OPTIONS));
-
+        FXID_SEARCH_LABEL.setText(Locale.getString(CONST.TXT_SEARCH) + ":");
+        FXID_SEARCH_BTN.setText(Locale.getString(CONST.TXT_SEARCH));
+        FXID_ADD_BTN.setText(Locale.getString(CONST.TXT_BTN_ADD_CUSTOMER));
+        
         reloadCustomers();
     }
     
@@ -76,5 +118,44 @@ public class UI_CustomerView extends UI_View {
             tableData.add(c);
         }
     }
+    
+
+    
+    public void filterTable(String text) {
+        if (text.equals("")) {
+            reloadCustomers();
+        } else {
+            text = text.toUpperCase();
+            LinkedList<Customer> firstPriority = new LinkedList<Customer>();
+            LinkedList<Customer> secondPriority = new LinkedList<Customer>();
+            LinkedList<Customer> thirdPriority = new LinkedList<Customer>();
+            LinkedList<Customer> fourthPriority = new LinkedList<Customer>();
+            
+            
+            for (Customer c : customerDB.getCustomers().values()) {
+                /* Get (name + surname) / (Sname + name) matches first */
+                if ((c.getName() + " " + c.getSurname()).toUpperCase().contains(text) ||
+                        (c.getSurname() + " " + c.getName()).contains(text)){
+                    firstPriority.add(c);
+                } else if (String.valueOf(c.getId()).toUpperCase().contains(text)) { //get ID next
+                    secondPriority.add(c);
+                } else if (c.getPhone().toUpperCase().contains(text) ||
+                        c.getDOB().contains(text)) { //DOB / Phone
+                    thirdPriority.add(c);
+                } else if (String.valueOf(c.getEntries()).contains(text) ||
+                        c.openDateProperty().get().contains(text)) { //Entries / Open days
+                    fourthPriority.add(c);
+                }
+            }
+            
+            tableData.clear();
+            tableData.addAll(firstPriority);
+            tableData.addAll(secondPriority);
+            tableData.addAll(thirdPriority);
+            tableData.addAll(fourthPriority);
+        }
+        
+    }
+    
 
 }

@@ -2,7 +2,7 @@ package engine;
 
 public abstract class CONST {
 	
-	
+    
 	
 	/************************** *
 	/*							*
@@ -26,6 +26,26 @@ public abstract class CONST {
 		public static final String APP_CFG_PATH = APP_DIR + APP_CFG_NAME;
 		
 	/** END OF APP **/
+		
+		
+		
+		
+	/************************** *
+    /*                          *
+    /*    DATA/CONFIG VALS      *
+    /*                          *
+    /* ************************ */
+		
+		/* 1 - GENERAL VALS */
+		public static final int DATE_REFRESH_DELAY = 1000;
+		public static final String DATE_FORMAT_FULL = "HH:mm:ss dd/MM";
+		public static final String DATE_FORMAT_OPEN = "dd-MM-yyyy";
+		public static final String DATE_FORMAT_DEFAULT = "yyyy-MM-dd";
+		
+    /** END OF DATA/CONFIG VALS **/
+		
+		
+		
 		
 	/************************** *
 	/*							*
@@ -155,6 +175,9 @@ public abstract class CONST {
 		    public static final String RES_IMG_BGGRADIENT_FILENAME = "background_gradient.png";
 		    public static final String RES_IMG_BTN_UK_FILENAME = "uk.png";
 		    public static final String RES_IMG_BTN_PL_FILENAME = "pl_icon.png";
+		    public static final String RES_IMG_BTN_EDIT_FILENAME = "icon_edit.png";
+		    public static final String RES_IMG_BTN_DELETE_FILENAME = "icon_delete.png";
+		    public static final String RES_IMG_BTN_INFO_FILENAME = "icon_info.png";
 		/* 2 - DIRECTORIES */
 		public static final String RES_IMG_DIR = "img/";
 		/* 2 - FULL PATHS */
@@ -164,6 +187,9 @@ public abstract class CONST {
 		    public static final String RES_IMG_BGGRADIENT_PATH = RES_IMG_DIR + RES_IMG_BGGRADIENT_FILENAME;
 		    public static final String RES_IMG_BTN_UK_PATH = RES_IMG_DIR + RES_IMG_BTN_UK_FILENAME;
 		    public static final String RES_IMG_BTN_PL_PATH = RES_IMG_DIR + RES_IMG_BTN_PL_FILENAME;
+		    public static final String RES_IMG_BTN_DELETE_PATH = RES_IMG_DIR + RES_IMG_BTN_DELETE_FILENAME;
+		    public static final String RES_IMG_BTN_INFO_PATH = RES_IMG_DIR + RES_IMG_BTN_INFO_FILENAME;
+		    public static final String RES_IMG_BTN_EDIT_PATH = RES_IMG_DIR + RES_IMG_BTN_EDIT_FILENAME;
 		    
 		    
 		    
@@ -196,6 +222,7 @@ public abstract class CONST {
         		public static final String TXT_OPTIONS = "OPTIONS";
         		public static final String TXT_ID = "ID";
         		public static final String TXT_NONE = "NONE";
+        		public static final String TXT_DAYS = "DAYS";
         	/* 1.2 - Initialization */
                 public static final String TXT_VERSION = "VERSION";
         		public static final String TXT_LOADING = "LOADING";
@@ -217,8 +244,10 @@ public abstract class CONST {
             	public static final String TXT_BTN_ACT_LIST = "ACT_LIST";
             	public static final String TXT_BTN_CUST_LIST = "CUST_LIST";
             	public static final String TXT_BTN_CARD_LIST = "CARD_LIST";
+            	public static final String TXT_BTN_ADD_CUSTOMER = "ADD_CUST";
             /* 1.5 - Labels */
-            	
+            	public static final String TXT_SEARCH = "SEARCH";
+            	public static final String TXT_SCAN_NOTE = "SCAN_NOTE";
 		
 		/* 2 - TEST-RELATED STRING CONSTANTS */
 			public static final String TXT_TEST = "TEST";

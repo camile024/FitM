@@ -19,6 +19,7 @@ import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import ui.utils.MainViewMode;
@@ -33,6 +34,10 @@ public class UI_Main {
     private Stage self;
     private UI_View currentViewController;
     
+    @FXML
+    Text FXID_SCAN_NOTE;
+    @FXML
+    Text FXID_TIME_LABEL;
     @FXML
     Button FXID_ACT_LIST_BTN;
     @FXML
@@ -82,8 +87,11 @@ public class UI_Main {
         FXID_EXIT_BTN.setText(Locale.getString(CONST.TXT_EXIT));
         FXID_SETTINGS_BTN.setText(Locale.getString(CONST.TXT_SETTINGS));
         FXID_CONTACT_BTN.setText(Locale.getString(CONST.TXT_ABOUT));
+        FXID_SCAN_NOTE.setText(Locale.getString(CONST.TXT_SCAN_NOTE));
         FXID_PL_BTN.setText("");
         FXID_EN_BTN.setText("");
+        
+        FXID_TIME_LABEL.textProperty().bind(Locale.dateProperty());
         
         /* Set general text */
         

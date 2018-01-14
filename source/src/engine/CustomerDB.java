@@ -31,8 +31,9 @@ public class CustomerDB {
 	private HashMap<Integer, Customer> customers;
 	private HashMap<Integer, Card> cards;
 	private String dirName;
-	private static SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-	private static SimpleDateFormat openDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+	private static SimpleDateFormat dateFormat = new SimpleDateFormat(CONST.DATE_FORMAT_DEFAULT);
+	private static SimpleDateFormat openDateFormat = new SimpleDateFormat(CONST.DATE_FORMAT_OPEN);
+	private static SimpleDateFormat fullDateFormat = new SimpleDateFormat(CONST.DATE_FORMAT_FULL);
 	
 	public CustomerDB(String fileName) {
 		this.dirName = fileName;
@@ -463,6 +464,10 @@ public class CustomerDB {
     
     public static SimpleDateFormat getOpenDateFormat() {
         return openDateFormat;
+    }
+    
+    public static SimpleDateFormat getFullDateFormat() {
+        return fullDateFormat;
     }
 	
 	

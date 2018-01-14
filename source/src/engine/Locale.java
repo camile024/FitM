@@ -1,10 +1,21 @@
 package engine;
 
 import java.io.FileNotFoundException;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Timer;
+import java.util.TimerTask;
+
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 
 public abstract class Locale {
 	private static HashMap<String, String> stringBase;
+	private static Date currentDate = new Date();
+	private static boolean dateInitialized = false;
+	private static Timer updateTimer;
+	
+	private static StringProperty dateProperty;
 	
 	/**
 	 * Loads a language
@@ -15,6 +26,7 @@ public abstract class Locale {
 		stringBase = new HashMap<String, String>();
 		FileReader fr;
 		if (lang == Language.PL) {
+		    
 			fr = new FileReader(CONST.LANG_PL_PATH);
 		} else {
 			fr = new FileReader(CONST.LANG_EN_PATH);
@@ -35,6 +47,39 @@ public abstract class Locale {
 		} else {
 			return stringBase.get(key);
 		}
+	}
+	
+	
+	public static Date getCurrentDate() {
+	    return currentDate;
+	}
+	
+	public static StringProperty dateProperty() {
+	    return dateProperty;
+	}
+	
+	
+	
+	public static void initDate(int delay) {
+	    if (!dateInitialized) {
+	        dateInitialized = true;
+	        currentDate = new Date();
+	        updateTimer = new Timer();
+	        TimerTask timerTask = (new TimerTask() {
+	            @Override
+	            public void run() {
+	                updateDate();
+	            }
+	        });
+	        dateProperty = new SimpleStringProperty("");
+	        updateTimer.scheduleAtFixedRate(timerTask, 500, delay);
+	    }
+	    
+	}
+	
+	private static void updateDate() {
+	    currentDate = new Date();
+	    dateProperty.set(CustomerDB.getFullDateFormat().format(getCurrentDate()));
 	}
 	
 }

@@ -36,7 +36,7 @@ public class UI_Splash {
         FXID_VERSION.setText(Locale.getString(CONST.TXT_VERSION));
         FXID_STATUS_TITLE.setText(Locale.getString(CONST.TXT_LOADING_SETTINGS));
         FXID_STATUS.setText(CONST.APP_DIR);
-        date = new Date();
+        date = Locale.getCurrentDate();
         FXID_DATE.setText(dateFormat.format(date).toString());
     }
     

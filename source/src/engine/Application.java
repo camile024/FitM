@@ -37,6 +37,9 @@ public class Application extends javafx.application.Application {
             // TODO Auto-generated catch block
             e1.printStackTrace();
         }
+	    
+	    /* Initialize Date */
+	    Locale.initDate(CONST.DATE_REFRESH_DELAY); //10 mins
 	    launch();   
 	}
 	

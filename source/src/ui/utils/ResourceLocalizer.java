@@ -14,6 +14,9 @@ public abstract class ResourceLocalizer {
         images.put(CONST.RES_IMG_BGGRADIENT_FILENAME, initImage(CONST.RES_IMG_BGGRADIENT_PATH));
         images.put(CONST.RES_IMG_BTN_UK_FILENAME, initImage(CONST.RES_IMG_BTN_UK_PATH));
         images.put(CONST.RES_IMG_BTN_PL_FILENAME, initImage(CONST.RES_IMG_BTN_PL_PATH));
+        images.put(CONST.RES_IMG_BTN_INFO_FILENAME, initImage(CONST.RES_IMG_BTN_INFO_PATH));
+        images.put(CONST.RES_IMG_BTN_EDIT_FILENAME, initImage(CONST.RES_IMG_BTN_EDIT_PATH));
+        images.put(CONST.RES_IMG_BTN_DELETE_FILENAME, initImage(CONST.RES_IMG_BTN_DELETE_PATH));
     }
     
     
