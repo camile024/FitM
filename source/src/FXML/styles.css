@@ -21,6 +21,58 @@
 	-fx-padding: 0 0 0 0;
 }
 
+
+/* ************ */
+/* Dialogs-only */
+/* ************ */
+.menubar_dialog {
+	-fx-background-color:
+		linear-gradient(#d8d6d6 0%, #8e8e8e 100%);
+	-fx-alignment: CENTER-LEFT;
+	-fx-border-color: black;
+	-fx-border-width: 1;
+	-fx-padding: 0 0 0 0;
+}
+
+.dialogMain {
+	-fx-background-image: url("../../img/background_gradient.png");
+	-fx-background-repeat: stretch;
+	-fx-background-position: center center;
+	-fx-background-size: stretch;
+}
+
+.titleBar {
+	-fx-background-color:
+		linear-gradient(#7a9dd6 0%, #5f87c6 100%);
+	-fx-pref-width: 600;
+	-fx-pref-height: 45;
+	-fx-alignment: CENTER;
+	-fx-border-color: black;
+	-fx-border-width: 2;
+	-fx-padding: 0 0 0 0;
+}
+
+.property_bg {
+	-fx-background-color:
+		linear-gradient(#e1d7e8 0%, #877c8e 100%);
+	-fx-alignment: CENTER;
+	-fx-border-color: #7c41a3;
+	-fx-border-width: 1;
+	-fx-padding: 3 3 3 3;
+}
+
+.field_disabled {
+	-fx-text-fill: #828282;
+}
+
+#field_disabled {
+	-fx-text-fill: #828282;
+}
+
+/* ************ */
+
+
+
 .centercol {
 	-fx-alignment: CENTER;
 }
@@ -35,6 +87,12 @@
 	-fx-fill: #EEEEEE;
 	
 }
+
+
+
+/* ************ */
+/* FXID-only    */
+/* ************ */
 
 #FXID_GRIDPANE_SPLASH {
 	-fx-background-image: url("../../img/background_gradient.png");
@@ -83,3 +141,4 @@
 	
 }
 
+/* ************ */

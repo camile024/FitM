@@ -50,6 +50,7 @@ public class UI_CustomerView extends UI_View {
     TableColumn<Customer, HBox> FXID_COLUMN_OPTIONS;
     
     private final ObservableList<Customer> tableData = FXCollections.observableArrayList();
+    private String currentFilter = "";
     
     
     @FXML
@@ -73,7 +74,7 @@ public class UI_CustomerView extends UI_View {
         FXID_COLUMN_OPEN.setCellValueFactory(new PropertyValueFactory<Customer, String>("openDate"));
         FXID_COLUMN_ENTRIES.setCellValueFactory(new PropertyValueFactory<Customer, Integer>("entries"));
         
-        FXID_COLUMN_OPTIONS.setCellValueFactory(new CustomerOptions());
+        FXID_COLUMN_OPTIONS.setCellValueFactory(new CustomerOptions(customerDB, parent));
         
         FXID_TABLE.setItems(tableData);
         
@@ -109,7 +110,7 @@ public class UI_CustomerView extends UI_View {
         FXID_SEARCH_BTN.setText(Locale.getString(CONST.TXT_SEARCH));
         FXID_ADD_BTN.setText(Locale.getString(CONST.TXT_BTN_ADD_CUSTOMER));
         
-        reloadCustomers();
+        filterTable(currentFilter);
     }
     
     public void reloadCustomers() {
@@ -122,6 +123,7 @@ public class UI_CustomerView extends UI_View {
 
     
     public void filterTable(String text) {
+    	currentFilter = text;
         if (text.equals("")) {
             reloadCustomers();
         } else {

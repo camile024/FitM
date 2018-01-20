@@ -35,6 +35,8 @@ public class Customer {
 		this.id = id;
 		if (id > highestID) {
 			highestID = id;
+		} else {
+			this.id = ++highestID;
 		}
 	}
 
@@ -145,7 +147,7 @@ public class Customer {
 	
 	public SimpleStringProperty cardProperty() {
 	    if (card == null) {
-	        cardProperty.set(CONST.TXT_NONE);
+	        cardProperty.set(Locale.getString(CONST.TXT_NONE));
 	    } else {
 	        cardProperty.set(String.valueOf(card.getNumber()));
 	    }

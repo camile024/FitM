@@ -15,6 +15,8 @@ public class Activity {
 		this.name = name;
 		if (id > highestID) {
 			highestID = id;
+		} else {
+			this.id = ++highestID;
 		}
 	}
 	

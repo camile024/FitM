@@ -41,6 +41,8 @@ public abstract class CONST {
 		public static final String DATE_FORMAT_FULL = "HH:mm:ss dd/MM";
 		public static final String DATE_FORMAT_OPEN = "dd-MM-yyyy";
 		public static final String DATE_FORMAT_DEFAULT = "yyyy-MM-dd";
+		public static final String FIELD_ENABLED = "field_enabled";
+		public static final String FIELD_DISABLED = "field_disabled";
 		
     /** END OF DATA/CONFIG VALS **/
 		
@@ -150,6 +152,8 @@ public abstract class CONST {
 		public static final String FXML_CSS_STYLES_FILENAME = "styles.css";
 		    /* 1.1 - Views */
 		    public static final String FXML_VIEW_CUSTOMER_FILENAME = "FX_VIEW_CUSTOMER.fxml";
+		    /* 1.2 - Dialogs */
+		    public static final String FXML_CUSTOMER_INFO_DIALOG = "FX_DLG_CUSTOMER_INFO.fxml";
 		    
 		
 		/* 2 - DIRECTORIES */
@@ -160,7 +164,8 @@ public abstract class CONST {
 		public static final String FXML_CSS_STYLES_PATH = FXML_DIR + FXML_CSS_STYLES_FILENAME;
 		    /* 3.1 - Views */
 		    public static final String FXML_VIEW_CUSTOMER_PATH = FXML_DIR + FXML_VIEW_CUSTOMER_FILENAME;
-		    
+		    /* 3.2 - Dialogs */
+		    public static final String FXML_CUSTOMER_INFO_DIALOG_PATH = FXML_DIR + FXML_CUSTOMER_INFO_DIALOG;
     /** END OF UI FILES **/
 		
 
@@ -245,9 +250,15 @@ public abstract class CONST {
             	public static final String TXT_BTN_CUST_LIST = "CUST_LIST";
             	public static final String TXT_BTN_CARD_LIST = "CARD_LIST";
             	public static final String TXT_BTN_ADD_CUSTOMER = "ADD_CUST";
+            	public static final String TXT_BTN_EDIT_MODE = "EDIT_MODE";
+            	public static final String TXT_BTN_ADD_ENTRIES = "ADD_ENTRIES";
+            	public static final String TXT_BTN_EXTEND = "EXTEND_OPEN";
+            	public static final String TXT_BTN_GET_CARD = "ASSIGN_CARD";
             /* 1.5 - Labels */
             	public static final String TXT_SEARCH = "SEARCH";
             	public static final String TXT_SCAN_NOTE = "SCAN_NOTE";
+            	public static final String TXT_CARDNUM = "CARD_NUM";
+            	public static final String TXT_ACTIVITIES = "ACTIVITIES";
 		
 		/* 2 - TEST-RELATED STRING CONSTANTS */
 			public static final String TXT_TEST = "TEST";
