@@ -153,7 +153,9 @@ public abstract class CONST {
 		    /* 1.1 - Views */
 		    public static final String FXML_VIEW_CUSTOMER_FILENAME = "FX_VIEW_CUSTOMER.fxml";
 		    /* 1.2 - Dialogs */
-		    public static final String FXML_CUSTOMER_INFO_DIALOG = "FX_DLG_CUSTOMER_INFO.fxml";
+		    public static final String FXML_CUSTOMER_INFO_DIALOG_FILENAME = "FX_DLG_CUSTOMER_INFO.fxml";
+		    public static final String FXML_YES_NO_DIALOG_FILENAME = "FX_DLG_YES_NO.fxml";
+		    public static final String FXML_CONFIRM_DIALOG_FILENAME = "FX_DLG_CONFIRM.fxml";
 		    
 		
 		/* 2 - DIRECTORIES */
@@ -165,7 +167,9 @@ public abstract class CONST {
 		    /* 3.1 - Views */
 		    public static final String FXML_VIEW_CUSTOMER_PATH = FXML_DIR + FXML_VIEW_CUSTOMER_FILENAME;
 		    /* 3.2 - Dialogs */
-		    public static final String FXML_CUSTOMER_INFO_DIALOG_PATH = FXML_DIR + FXML_CUSTOMER_INFO_DIALOG;
+		    public static final String FXML_CUSTOMER_INFO_DIALOG_PATH = FXML_DIR + FXML_CUSTOMER_INFO_DIALOG_FILENAME;
+		    public static final String FXML_YES_NO_DIALOG_PATH = FXML_DIR + FXML_YES_NO_DIALOG_FILENAME;
+		    public static final String FXML_CONFIRM_DIALOG_PATH = FXML_DIR + FXML_CONFIRM_DIALOG_FILENAME;
     /** END OF UI FILES **/
 		
 
@@ -183,6 +187,10 @@ public abstract class CONST {
 		    public static final String RES_IMG_BTN_EDIT_FILENAME = "icon_edit.png";
 		    public static final String RES_IMG_BTN_DELETE_FILENAME = "icon_delete.png";
 		    public static final String RES_IMG_BTN_INFO_FILENAME = "icon_info.png";
+		    public static final String RES_IMG_INFO_FILENAME = "icon_info2.png";
+		    public static final String RES_IMG_ERROR_FILENAME = "icon_error.png";
+		    public static final String RES_IMG_SUCCESS_FILENAME = "icon_success.png";
+		    public static final String RES_IMG_CONFIRM_FILENAME = "icon_confirm.png";
 		/* 2 - DIRECTORIES */
 		public static final String RES_IMG_DIR = "img/";
 		/* 2 - FULL PATHS */
@@ -195,6 +203,10 @@ public abstract class CONST {
 		    public static final String RES_IMG_BTN_DELETE_PATH = RES_IMG_DIR + RES_IMG_BTN_DELETE_FILENAME;
 		    public static final String RES_IMG_BTN_INFO_PATH = RES_IMG_DIR + RES_IMG_BTN_INFO_FILENAME;
 		    public static final String RES_IMG_BTN_EDIT_PATH = RES_IMG_DIR + RES_IMG_BTN_EDIT_FILENAME;
+		    public static final String RES_IMG_INFO_PATH = RES_IMG_DIR + RES_IMG_INFO_FILENAME;
+		    public static final String RES_IMG_ERROR_PATH = RES_IMG_DIR + RES_IMG_ERROR_FILENAME;
+		    public static final String RES_IMG_SUCCESS_PATH = RES_IMG_DIR + RES_IMG_SUCCESS_FILENAME;
+		    public static final String RES_IMG_CONFIRM_PATH = RES_IMG_DIR + RES_IMG_CONFIRM_FILENAME;
 		    
 		    
 		    
@@ -228,6 +240,9 @@ public abstract class CONST {
         		public static final String TXT_ID = "ID";
         		public static final String TXT_NONE = "NONE";
         		public static final String TXT_DAYS = "DAYS";
+        		public static final String TXT_SUCCESS = "SUCCESS";
+        		public static final String TXT_ERROR = "ERROR";
+        		public static final String TXT_INFO = "INFO";
         	/* 1.2 - Initialization */
                 public static final String TXT_VERSION = "VERSION";
         		public static final String TXT_LOADING = "LOADING";
@@ -259,6 +274,14 @@ public abstract class CONST {
             	public static final String TXT_SCAN_NOTE = "SCAN_NOTE";
             	public static final String TXT_CARDNUM = "CARD_NUM";
             	public static final String TXT_ACTIVITIES = "ACTIVITIES";
+            /* 1.6 Error messages */
+            	public static final String TXT_ERR_NAME_FIELD_EMPTY = "ERR_NAME_FIELD_EMPTY";
+            	public static final String TXT_ERR_SURNAME_FIELD_EMPTY = "ERR_SURNAME_FIELD_EMPTY";
+            	public static final String TXT_ERR_CARD_FIELD_INVALID = "ERR_CARD_FIELD_INVALID";
+            /* 1.7 Confirm messages */
+            	public static final String TXT_CONFIRM_SAVE_CHANGES = "CONFIRM_SAVE_CHANGES";
+            	public static final String TXT_CONFIRM_DELETE = "CONFIRM_DELETE";
+            	public static final String TXT_FROM_SYSTEM = "CONFIRM_FROM_SYSTEM";
 		
 		/* 2 - TEST-RELATED STRING CONSTANTS */
 			public static final String TXT_TEST = "TEST";

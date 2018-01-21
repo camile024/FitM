@@ -1,5 +1,6 @@
 package ui.utils;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -7,6 +8,7 @@ import FXML.FXLoader;
 import data.objects.Customer;
 import engine.CONST;
 import engine.CustomerDB;
+import engine.Locale;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -25,6 +27,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Callback;
 import ui.dialogs.UI_CustomerInfoDialog;
+import ui.dialogs.UI_YesNoDialog;
 import ui.mains.UI_Main;
 
 public class CustomerOptions implements Callback<TableColumn.CellDataFeatures<Customer, HBox>,ObservableValue<HBox>> {
@@ -56,6 +59,12 @@ public class CustomerOptions implements Callback<TableColumn.CellDataFeatures<Cu
         btnEdit.setOnAction(new EventHandler<ActionEvent>() { 
         	public void handle(ActionEvent act) {
         		infoOnClick(param.getValue(), true); //same as info but straight into editable
+        }});
+        
+        /* Set action for delete button */
+        btnDelete.setOnAction(new EventHandler<ActionEvent>() { 
+        	public void handle(ActionEvent act) {
+        		deleteOnClick(param.getValue());
         }});
         
         btnList.add(btnInfo);
@@ -115,6 +124,23 @@ public class CustomerOptions implements Callback<TableColumn.CellDataFeatures<Cu
         if (editable) {
         	uiDialog.toggleEditMode();
         }
+    }
+    
+    private void deleteOnClick(Customer customer) {
+    	boolean userConfirmed = false;
+		UI_YesNoDialog dialog = UI_YesNoDialog.getInstance();
+		dialog.init(Locale.getString(CONST.TXT_CONFIRM_DELETE) + " '" + customer.getName() + "' "
+				+ Locale.getString(CONST.TXT_FROM_SYSTEM + "?"), parent.getStage(), 
+				Locale.getString(CONST.TXT_YES), Locale.getString(CONST.TXT_NO), DialogType.CONFIRM);
+		userConfirmed = dialog.call();
+		if (userConfirmed) {
+			try {
+				customerDB.removeCustomer(customer);
+				parent.refreshView();
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			}
+		} 
     }
 
 

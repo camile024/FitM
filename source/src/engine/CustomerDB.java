@@ -226,8 +226,7 @@ public class CustomerDB {
 	 * @throws FileNotFoundException
 	 */
 	public void removeActivity(Activity activity) throws FileNotFoundException {
-	    activities.remove(activity);
-	    activity = null;
+	    activities.remove(activity.getId());
 	    updateActivitiesFile();
 	}
 	
@@ -237,10 +236,10 @@ public class CustomerDB {
 	 * @throws FileNotFoundException
 	 */
 	public void removeCustomer(Customer customer) throws FileNotFoundException {
-	    customers.remove(customer);
+	    customers.remove(customer.getId());
+	    assignCard(null, customer.getCard());
 	    File f = new File(dirName + CONST.CUSTOMER_DIR + customer.getId());
 	    f.delete();
-	    customer = null;
 	    updateCustomerList();
 	}
 	
@@ -250,10 +249,10 @@ public class CustomerDB {
 	 * @throws FileNotFoundException
 	 */
 	public void removeCard(Card card) throws FileNotFoundException {
-	    cards.remove(card);
+	    cards.remove(card.getNumber());
 	    File f = new File(dirName + CONST.CUSTOMER_DIR + card.getNumber());
         f.delete();
-	    card = null;
+        assignCard(card.getCustomer(), null);
 	    updateFiles();
 	}
 	

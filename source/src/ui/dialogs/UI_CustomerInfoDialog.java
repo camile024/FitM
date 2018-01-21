@@ -18,10 +18,12 @@ import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import ui.mains.UI_Main;
+import ui.utils.DialogType;
 
 public class UI_CustomerInfoDialog extends UI_Dialog {
 	private boolean scanned = false;
 	private boolean editMode = false;
+	private boolean wasEdited = false;
 	private Customer customer;
 	private int openAdded = 0;
 	private UI_Main parent;
@@ -90,9 +92,27 @@ public class UI_CustomerInfoDialog extends UI_Dialog {
 	
 	@FXML
 	public void btnAcceptOnClick() {
-		saveChanges();
-		self.close();
-		parent.refreshView();
+		boolean userConfirmed = false;
+		if (wasEdited) {
+			
+			UI_YesNoDialog dialog = UI_YesNoDialog.getInstance();
+			dialog.init(Locale.getString(CONST.TXT_CONFIRM_SAVE_CHANGES), parent.getStage(), 
+					Locale.getString(CONST.TXT_YES), Locale.getString(CONST.TXT_NO), DialogType.CONFIRM);
+			userConfirmed = dialog.call();
+		} else {
+			userConfirmed = true;	
+		}
+		
+		if (userConfirmed && validateData()) {
+			saveChanges();
+			try {
+				customerDB.updateSingleObject(customer, false);
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			}
+			self.close();
+			parent.refreshView();
+		}
 	}
 	
 	@FXML
@@ -200,8 +220,37 @@ public class UI_CustomerInfoDialog extends UI_Dialog {
 	}
 	
 	public void toggleEditMode() {
+		wasEdited = true;
 		editMode = (!editMode);
 		refreshView();
+	}
+	
+	private boolean validateData() {
+		UI_ConfirmDialog dialog;
+		dialog = UI_ConfirmDialog.getInstance();
+		if (FXID_NAME_FIELD.getText().trim().length() <= 0) {
+			dialog.init(Locale.getString(CONST.TXT_ERR_NAME_FIELD_EMPTY), parent.getStage(), Locale.getString(CONST.TXT_ACCEPT), DialogType.ERROR);
+			dialog.call();
+			return false;
+		}
+		if (FXID_SURNAME_FIELD.getText().trim().length() <= 0) {
+			dialog.init(Locale.getString(CONST.TXT_ERR_SURNAME_FIELD_EMPTY), parent.getStage(), Locale.getString(CONST.TXT_ACCEPT), DialogType.ERROR);
+			dialog.call();
+			return false;
+		}
+		String cardText = FXID_CARD_FIELD.getText().trim();
+		if (!(cardText.equals(Locale.getString(CONST.TXT_NONE)) || cardText.equals(""))) {
+			try { 
+				Integer.parseInt(cardText);
+			} catch(Exception ex) {
+				dialog.init(Locale.getString(CONST.TXT_ERR_CARD_FIELD_INVALID), parent.getStage(), Locale.getString(CONST.TXT_ACCEPT), DialogType.ERROR);
+				dialog.call();
+				return false;
+			}
+		}
+		
+		
+		return true;
 	}
 	
 }

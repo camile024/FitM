@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="177.0" prefWidth="448.0" styleClass="dialogMain" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/9.0.4" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.dialogs.UI_ConfirmDialog">
+   <bottom>
+      <HBox alignment="CENTER" prefHeight="45.0" prefWidth="448.0" styleClass="menubar_dialog" BorderPane.alignment="CENTER">
+         <children>
+            <HBox alignment="CENTER" prefHeight="43.0" prefWidth="507.0">
+               <children>
+                  <Button fx:id="FXID_ACCEPT_BTN" mnemonicParsing="false" onAction="#btnAcceptOnClick" prefHeight="25.0" prefWidth="122.0" text="[ ACCEPT ]" underline="true" />
+               </children>
+            </HBox>
+         </children>
+      </HBox>
+   </bottom>
+   <center>
+      <Text fx:id="FXID_TEXT" strokeType="OUTSIDE" strokeWidth="0.0" text="[ TEXT ]" textAlignment="CENTER" wrappingWidth="294.13671875" BorderPane.alignment="CENTER">
+         <BorderPane.margin>
+            <Insets right="32.0" />
+         </BorderPane.margin>
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Text>
+   </center>
+   <left>
+      <ImageView fx:id="FXID_IMAGE" fitHeight="64.0" fitWidth="67.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
+         <BorderPane.margin>
+            <Insets left="32.0" />
+         </BorderPane.margin>
+      </ImageView>
+   </left>
+</BorderPane>
