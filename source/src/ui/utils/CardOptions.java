@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import FXML.FXLoader;
+import data.objects.Card;
 import data.objects.Customer;
 import engine.CONST;
 import engine.CustomerDB;
@@ -30,36 +31,55 @@ import ui.dialogs.UI_CustomerInfoDialog;
 import ui.dialogs.UI_YesNoDialog;
 import ui.mains.UI_Main;
 
-public class CustomerOptions implements Callback<TableColumn.CellDataFeatures<Customer, HBox>,ObservableValue<HBox>> {
+public class CardOptions implements Callback<TableColumn.CellDataFeatures<Card, HBox>,ObservableValue<HBox>>{
 	UI_Main parent;
 	CustomerDB customerDB;
 	
-	public CustomerOptions(CustomerDB db, UI_Main parent) {
+	public CardOptions(CustomerDB db, UI_Main parent) {
 		customerDB = db;
 		this.parent = parent;
 	}
 	
     @Override
-    public ObservableValue<HBox> call(CellDataFeatures<Customer, HBox> param) {
+    public ObservableValue<HBox> call(CellDataFeatures<Card, HBox> param) {
         HBox hbox = new HBox();
         hbox.setPadding(new Insets(5, 5, 5, 5));
         hbox.setSpacing(10);
         ArrayList<Button> btnList = new ArrayList<Button>();
-        Button btnInfo = new Button();
+        
         Button btnDelete = new Button();
-        Button btnEdit = new Button();
         
-        /* Set action for info button */
-        btnInfo.setOnAction(new EventHandler<ActionEvent>() { 
-        	public void handle(ActionEvent act) {
-        		infoOnClick(param.getValue(), false); 
-        }});
         
-        /* Set action for edit button */
-        btnEdit.setOnAction(new EventHandler<ActionEvent>() { 
-        	public void handle(ActionEvent act) {
-        		infoOnClick(param.getValue(), true); //same as info but straight into editable
-        }});
+        /* See if there's a Customer assigned */
+        Customer customer = param.getValue().getCustomer();
+        if (customer != null) {
+        	Button btnUnassign = new Button();
+        	Button btnInfo = new Button();
+        	
+        	/* Set action for info button */
+            btnInfo.setOnAction(new EventHandler<ActionEvent>() { 
+            	public void handle(ActionEvent act) {
+            		infoOnClick(param.getValue().getCustomer()); 
+            }});
+            
+            /* Set action for unassign button */
+            btnUnassign.setOnAction(new EventHandler<ActionEvent>() { 
+            	public void handle(ActionEvent act) {
+            		unassignOnClick(param.getValue().getCustomer());
+            }});
+            
+            
+            ImageView imgInfo = new ImageView(ResourceLocalizer.getImage(CONST.RES_IMG_BTN_INFO_FILENAME));
+            ImageView imgUnassign = new ImageView(ResourceLocalizer.getImage(CONST.RES_IMG_MINUS_FILENAME));
+            imgUnassign.setFitWidth(24);
+            imgUnassign.setFitHeight(24);
+            imgInfo.setFitWidth(24);
+            imgInfo.setFitHeight(24);
+            btnInfo.setGraphic(imgInfo);
+            btnUnassign.setGraphic(imgUnassign);
+            btnList.add(btnUnassign);
+            btnList.add(btnInfo);
+        }
         
         /* Set action for delete button */
         btnDelete.setOnAction(new EventHandler<ActionEvent>() { 
@@ -67,8 +87,7 @@ public class CustomerOptions implements Callback<TableColumn.CellDataFeatures<Cu
         		deleteOnClick(param.getValue());
         }});
         
-        btnList.add(btnInfo);
-        btnList.add(btnEdit);
+        
         btnList.add(btnDelete);
         for (Button b : btnList) {
             b.setMaxWidth(32);
@@ -77,24 +96,16 @@ public class CustomerOptions implements Callback<TableColumn.CellDataFeatures<Cu
             b.setPrefHeight(32);
             hbox.getChildren().add(b);
         }
-        ImageView imgInfo = new ImageView(ResourceLocalizer.getImage(CONST.RES_IMG_BTN_INFO_FILENAME));
-        ImageView imgEdit = new ImageView(ResourceLocalizer.getImage(CONST.RES_IMG_BTN_EDIT_FILENAME));
+        
         ImageView imgDelete = new ImageView(ResourceLocalizer.getImage(CONST.RES_IMG_BTN_DELETE_FILENAME));
-        imgInfo.setFitWidth(24);
-        imgInfo.setFitHeight(24);
         imgDelete.setFitWidth(24);
         imgDelete.setFitHeight(24);
-        imgEdit.setFitWidth(24);
-        imgEdit.setFitHeight(24);
-        
-        btnInfo.setGraphic(imgInfo);
-        btnEdit.setGraphic(imgEdit);
         btnDelete.setGraphic(imgDelete);
 
         return new ReadOnlyObjectWrapper<HBox>(hbox);
     }
     
-    private void infoOnClick(Customer customer, boolean editable) {
+    private void infoOnClick(Customer customer) {
     	Stage stage = new Stage();
     	/* FXML part */
         FXMLLoader loader = FXLoader.getLoader(CONST.FXML_CUSTOMER_INFO_DIALOG_PATH);
@@ -120,33 +131,40 @@ public class CustomerOptions implements Callback<TableColumn.CellDataFeatures<Cu
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.show();
         /* End of FXML part */
-        
-        if (editable) {
-        	uiDialog.toggleEditMode();
-        }
     }
     
-    private void deleteOnClick(Customer customer) {
+    private void deleteOnClick(Card card) {
     	boolean userConfirmed = false;
 		UI_YesNoDialog dialog = UI_YesNoDialog.getInstance();
-		dialog.init(Locale.getString(CONST.TXT_CONFIRM_DELETE) + " '" + customer.getName() + "' "
+		dialog.init(Locale.getString(CONST.TXT_CONFIRM_DELETE) + " " +
+		Locale.getString(CONST.TXT_CARD) + " " + card.getNumber() + " "
 				+ Locale.getString(CONST.TXT_FROM_SYSTEM) + "?", parent.getStage(), 
 				Locale.getString(CONST.TXT_YES), Locale.getString(CONST.TXT_NO), DialogType.CONFIRM);
 		userConfirmed = dialog.call();
 		if (userConfirmed) {
 			try {
-				customerDB.removeSingleObject(customer);
+				customerDB.removeSingleObject(card);
 				parent.refreshView();
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
 			}
 		} 
     }
-
-
-
-
-
-
+    
+    private void unassignOnClick(Customer customer) {
+    	boolean userConfirmed = false;
+    	UI_YesNoDialog dialog = UI_YesNoDialog.getInstance();
+    	dialog.init(Locale.getString(CONST.TXT_CONFIRM_UNASSIGN) + " [" + customer.getId() + "] " + customer.getName() + " " +
+    	customer.getSurname() + "?", parent.getStage(), 
+    					Locale.getString(CONST.TXT_YES), Locale.getString(CONST.TXT_NO), DialogType.CONFIRM);
+    	userConfirmed = dialog.call();
+    	if (userConfirmed) {
+    		try {
+				customerDB.assignCard(customer, null);
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			}
+    	}
+    }
 
 }

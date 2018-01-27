@@ -30,7 +30,7 @@ public class UI_ConfirmDialog extends UI_Dialog {
 	ImageView FXID_IMAGE;
 	
 	/**
-	 * Returns a prepared UI_YesNoDialog instance (still needs to be initialised)
+	 * Returns a prepared UI_ConfirmDialog instance (still needs to be initialised)
 	 * @return
 	 */
 	public static UI_ConfirmDialog getInstance() {

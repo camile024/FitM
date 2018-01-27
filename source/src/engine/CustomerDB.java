@@ -127,38 +127,6 @@ public class CustomerDB {
 		return activities.get(id);
 	}
 	
-	
-	
-	/**
-	 * Creates an activity
-	 * @param activity
-	 * @throws Exception FileNotFoundException if file writing problem occurs,
-	 * @throws Exception if activity already exists
-	 */
-	public void addActivity(Activity activity) throws Exception {
-	    if (activities.get(activity.getId()) != null) {
-	        throw new Exception("Activity already exists!");
-	    } else {
-	        activities.put(activity.getId(), activity);
-	    }
-	    updateActivitiesFile();
-	}
-	
-	/**
-	 * Creates a customer
-	 * @param customer
-	 * @throws Exception FileNotFoundException if file writing problem occurs,
-	 * @throws Exception if customer already exists
-	 */
-   public void addCustomer(Customer customer) throws Exception {
-        if (customers.get(customer.getId()) != null) {
-            throw new Exception("Customer already exists!");
-        } else {
-            customers.put(customer.getId(), customer);
-        }
-        updateCustomerFiles();
-        updateCardFiles();
-    }
    
    /**
     * Assigns a card to a customer and vice-versa (overwrites
@@ -203,58 +171,44 @@ public class CustomerDB {
        updateSingleObject(card, true);
        updateSingleObject(customer, true);
    }
+  
+   /**
+    * Adds a single object (must be of one of the data.objects classes) to the database
+    * and filesystem
+    * @param obj
+    * @throws Exception 
+    */
+   public void addSingleObject(Object obj) throws Exception {
+	   /* CUSTOMER */
+	    if (obj instanceof Customer) {
+	        addCustomer((Customer) obj);
+	    /* CARD */
+	    } else if (obj instanceof Card) {
+	        addCard((Card) obj);
+	    /* ACTIVITY */
+	    } else if (obj instanceof Activity) {
+	    	addActivity((Activity) obj);
+	    }
+   }
    
    /**
-    * Creates a card
-    * @param card
-    * @throws Exception FileNotFoundException if file writing problem occurs,
-    * @throws Exception if card already exists
+    * Adds a single object (must be of one of the data.objects classes) to the database
+    * and filesystem
+    * @param obj
+    * @throws FileNotFoundException 
     */
-  public void addCard(Card card) throws Exception {
-       if (cards.get(card.getNumber()) != null) {
-           throw new Exception("Card already exists!");
-       } else {
-           cards.put(card.getNumber(), card);
-       }
-       updateCustomerFiles();
-       updateCardFiles();
+   public void removeSingleObject(Object obj) throws FileNotFoundException {
+	   /* CUSTOMER */
+	    if (obj instanceof Customer) {
+	        removeCustomer((Customer) obj);
+	    /* CARD */
+	    } else if (obj instanceof Card) {
+	        removeCard((Card) obj);
+	    /* ACTIVITY */
+	    } else if (obj instanceof Activity) {
+	    	removeActivity((Activity) obj);
+	    }
    }
-	
-	/**
-	 * Removes an Activity from the system
-	 * @param activitiy
-	 * @throws FileNotFoundException
-	 */
-	public void removeActivity(Activity activity) throws FileNotFoundException {
-	    activities.remove(activity.getId());
-	    updateActivitiesFile();
-	}
-	
-	/**
-	 * Removes a Customer from the system
-	 * @param customer
-	 * @throws FileNotFoundException
-	 */
-	public void removeCustomer(Customer customer) throws FileNotFoundException {
-	    customers.remove(customer.getId());
-	    assignCard(null, customer.getCard());
-	    File f = new File(dirName + CONST.CUSTOMER_DIR + customer.getId());
-	    f.delete();
-	    updateCustomerList();
-	}
-	
-	/**
-	 * Removes a card from the system
-	 * @param card
-	 * @throws FileNotFoundException
-	 */
-	public void removeCard(Card card) throws FileNotFoundException {
-	    cards.remove(card.getNumber());
-	    File f = new File(dirName + CONST.CUSTOMER_DIR + card.getNumber());
-        f.delete();
-        assignCard(card.getCustomer(), null);
-	    updateFiles();
-	}
 	
 	/**
 	 * Updates all the data-related files
@@ -265,6 +219,7 @@ public class CustomerDB {
 		updateCustomerFiles();
 		updateCardFiles();
 	}
+	
 	
 	/**
 	 * Updates all the files that are relevant for the particular object
@@ -294,6 +249,90 @@ public class CustomerDB {
 	    } else if (updatedObj instanceof Activity) {
 	        updateActivitiesFile();
 	    }
+	}
+	
+	
+	   /**
+	    * Creates a card
+	    * @param card
+	    * @throws Exception FileNotFoundException if file writing problem occurs,
+	    * @throws Exception if card already exists
+	    */
+	  private void addCard(Card card) throws Exception {
+	       if (cards.get(card.getNumber()) != null) {
+	           throw new Exception("Card already exists!");
+	       } else {
+	           cards.put(card.getNumber(), card);
+	       }
+	       updateSingleObject(card, false);
+	   }
+	  
+	  
+	/**
+	 * Creates an activity
+	 * @param activity
+	 * @throws Exception FileNotFoundException if file writing problem occurs,
+	 * @throws Exception if activity already exists
+	 */
+	private void addActivity(Activity activity) throws Exception {
+	    if (activities.get(activity.getId()) != null) {
+	        throw new Exception("Activity already exists!");
+	    } else {
+	        activities.put(activity.getId(), activity);
+	    }
+	    updateSingleObject(activity, false);
+	}
+	
+	/**
+	 * Creates a customer
+	 * @param customer
+	 * @throws Exception FileNotFoundException if file writing problem occurs,
+	 * @throws Exception if customer already exists
+	 */
+	private void addCustomer(Customer customer) throws Exception {
+        if (customers.get(customer.getId()) != null) {
+            throw new Exception("Customer already exists!");
+        } else {
+            customers.put(customer.getId(), customer);
+        }
+        updateSingleObject(customer,false);
+    }
+	
+	
+	/**
+	 * Removes an Activity from the system
+	 * @param activitiy
+	 * @throws FileNotFoundException
+	 */
+  	private void removeActivity(Activity activity) throws FileNotFoundException {
+	    activities.remove(activity.getId());
+	    updateActivitiesFile();
+	}
+	
+	/**
+	 * Removes a Customer from the system
+	 * @param customer
+	 * @throws FileNotFoundException
+	 */
+	private void removeCustomer(Customer customer) throws FileNotFoundException {
+	    customers.remove(customer.getId());
+	    assignCard(null, customer.getCard());
+	    File f = new File(dirName + CONST.CUSTOMER_DIR + customer.getId());
+	    f.delete();
+	    updateCustomerList();
+	}
+	
+	/**
+	 * Removes a card from the system
+	 * @param card
+	 * @throws FileNotFoundException
+	 */
+	private void removeCard(Card card) throws FileNotFoundException {
+	    cards.remove(card.getNumber());
+	    File f = new File(dirName + CONST.CUSTOMER_DIR + card.getNumber());
+        f.delete();
+        assignCard(card.getCustomer(), null);
+	    updateFiles();
 	}
 	
 	/**

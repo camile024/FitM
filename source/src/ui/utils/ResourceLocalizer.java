@@ -22,6 +22,8 @@ public abstract class ResourceLocalizer {
         images.put(CONST.RES_IMG_ERROR_FILENAME, initImage(CONST.RES_IMG_ERROR_PATH));
         images.put(CONST.RES_IMG_SUCCESS_FILENAME, initImage(CONST.RES_IMG_SUCCESS_PATH));
         images.put(CONST.RES_IMG_CONFIRM_FILENAME, initImage(CONST.RES_IMG_CONFIRM_PATH));
+        images.put(CONST.RES_IMG_PLUS_FILENAME, initImage(CONST.RES_IMG_PLUS_PATH));
+        images.put(CONST.RES_IMG_MINUS_FILENAME, initImage(CONST.RES_IMG_MINUS_PATH));
     }
     
     

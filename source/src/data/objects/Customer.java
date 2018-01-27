@@ -31,6 +31,10 @@ public class Customer {
 	private SimpleStringProperty cardProperty = new SimpleStringProperty();
 	private SimpleStringProperty openDateProperty = new SimpleStringProperty();
 	
+	public Customer() {
+		this(highestID + 1);
+	}
+	
 	public Customer(int id) {
 		this.id = id;
 		if (id > highestID) {
@@ -38,6 +42,7 @@ public class Customer {
 		} else {
 			this.id = ++highestID;
 		}
+		openDate = new Date();
 	}
 
 	

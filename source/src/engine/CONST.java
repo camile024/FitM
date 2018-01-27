@@ -152,8 +152,11 @@ public abstract class CONST {
 		public static final String FXML_CSS_STYLES_FILENAME = "styles.css";
 		    /* 1.1 - Views */
 		    public static final String FXML_VIEW_CUSTOMER_FILENAME = "FX_VIEW_CUSTOMER.fxml";
+		    public static final String FXML_VIEW_CARD_FILENAME = "FX_VIEW_CARD.fxml";
 		    /* 1.2 - Dialogs */
 		    public static final String FXML_CUSTOMER_INFO_DIALOG_FILENAME = "FX_DLG_CUSTOMER_INFO.fxml";
+		    public static final String FXML_CUSTOMER_ADD_DIALOG_FILENAME = "FX_DLG_CUSTOMER_ADD.fxml";
+		    public static final String FXML_CARD_DIALOG_FILENAME = "FX_DLG_CARD.fxml";
 		    public static final String FXML_YES_NO_DIALOG_FILENAME = "FX_DLG_YES_NO.fxml";
 		    public static final String FXML_CONFIRM_DIALOG_FILENAME = "FX_DLG_CONFIRM.fxml";
 		    
@@ -166,10 +169,13 @@ public abstract class CONST {
 		public static final String FXML_CSS_STYLES_PATH = FXML_DIR + FXML_CSS_STYLES_FILENAME;
 		    /* 3.1 - Views */
 		    public static final String FXML_VIEW_CUSTOMER_PATH = FXML_DIR + FXML_VIEW_CUSTOMER_FILENAME;
+		    public static final String FXML_VIEW_CARD_PATH = FXML_DIR + FXML_VIEW_CARD_FILENAME;
 		    /* 3.2 - Dialogs */
 		    public static final String FXML_CUSTOMER_INFO_DIALOG_PATH = FXML_DIR + FXML_CUSTOMER_INFO_DIALOG_FILENAME;
+		    public static final String FXML_CUSTOMER_ADD_DIALOG_PATH = FXML_DIR + FXML_CUSTOMER_ADD_DIALOG_FILENAME;
 		    public static final String FXML_YES_NO_DIALOG_PATH = FXML_DIR + FXML_YES_NO_DIALOG_FILENAME;
 		    public static final String FXML_CONFIRM_DIALOG_PATH = FXML_DIR + FXML_CONFIRM_DIALOG_FILENAME;
+		    public static final String FXML_CARD_DIALOG_PATH = FXML_DIR + FXML_CARD_DIALOG_FILENAME;
     /** END OF UI FILES **/
 		
 
@@ -191,6 +197,8 @@ public abstract class CONST {
 		    public static final String RES_IMG_ERROR_FILENAME = "icon_error.png";
 		    public static final String RES_IMG_SUCCESS_FILENAME = "icon_success.png";
 		    public static final String RES_IMG_CONFIRM_FILENAME = "icon_confirm.png";
+		    public static final String RES_IMG_PLUS_FILENAME = "icon_plus.png";
+		    public static final String RES_IMG_MINUS_FILENAME = "icon_minus.png";
 		/* 2 - DIRECTORIES */
 		public static final String RES_IMG_DIR = "img/";
 		/* 2 - FULL PATHS */
@@ -207,6 +215,8 @@ public abstract class CONST {
 		    public static final String RES_IMG_ERROR_PATH = RES_IMG_DIR + RES_IMG_ERROR_FILENAME;
 		    public static final String RES_IMG_SUCCESS_PATH = RES_IMG_DIR + RES_IMG_SUCCESS_FILENAME;
 		    public static final String RES_IMG_CONFIRM_PATH = RES_IMG_DIR + RES_IMG_CONFIRM_FILENAME;
+		    public static final String RES_IMG_PLUS_PATH = RES_IMG_DIR + RES_IMG_PLUS_FILENAME;
+		    public static final String RES_IMG_MINUS_PATH = RES_IMG_DIR + RES_IMG_MINUS_FILENAME;
 		    
 		    
 		    
@@ -243,6 +253,7 @@ public abstract class CONST {
         		public static final String TXT_SUCCESS = "SUCCESS";
         		public static final String TXT_ERROR = "ERROR";
         		public static final String TXT_INFO = "INFO";
+        		public static final String TXT_CARD = "CARD";
         	/* 1.2 - Initialization */
                 public static final String TXT_VERSION = "VERSION";
         		public static final String TXT_LOADING = "LOADING";
@@ -260,11 +271,15 @@ public abstract class CONST {
             	public static final String TXT_TITLE_SPLASH = "TITLE_SPLASH";
             	public static final String TXT_TITLE_MAIN = "TITLE_MAIN";
             	public static final String TXT_TITLE_VIEW_CUSTOMER = "TITLE_VIEW_CUSTOMER";
+            	public static final String TXT_TITLE_VIEW_CARD = "TITLE_VIEW_CARD";
+            	public static final String TXT_TITLE_ADD_CUSTOMER = "TITLE_ADD_CUSTOMER";
+            	public static final String TXT_TITLE_ADD_CARD = "TITLE_ADD_CARD";
             /* 1.4 - Button names */
             	public static final String TXT_BTN_ACT_LIST = "ACT_LIST";
             	public static final String TXT_BTN_CUST_LIST = "CUST_LIST";
             	public static final String TXT_BTN_CARD_LIST = "CARD_LIST";
             	public static final String TXT_BTN_ADD_CUSTOMER = "ADD_CUST";
+            	public static final String TXT_BTN_ADD_CARD = "ADD_CARD";
             	public static final String TXT_BTN_EDIT_MODE = "EDIT_MODE";
             	public static final String TXT_BTN_ADD_ENTRIES = "ADD_ENTRIES";
             	public static final String TXT_BTN_EXTEND = "EXTEND_OPEN";
@@ -278,10 +293,18 @@ public abstract class CONST {
             	public static final String TXT_ERR_NAME_FIELD_EMPTY = "ERR_NAME_FIELD_EMPTY";
             	public static final String TXT_ERR_SURNAME_FIELD_EMPTY = "ERR_SURNAME_FIELD_EMPTY";
             	public static final String TXT_ERR_CARD_FIELD_INVALID = "ERR_CARD_FIELD_INVALID";
+            	public static final String TXT_ERR_CARD_FIELD_INVALID2 = "ERR_CARD_FIELD_INVALID2";
+            	public static final String TXT_ERR_CARD_EXISTS = "ERR_CARD_EXISTS";
+            	public static final String TXT_ERR_CARD_NOT_FOUND = "ERR_CARD_NOT_FOUND";
+            	public static final String TXT_ERR_CARD_ASSIGNED = "ERR_CARD_ASSIGNED";
             /* 1.7 Confirm messages */
             	public static final String TXT_CONFIRM_SAVE_CHANGES = "CONFIRM_SAVE_CHANGES";
             	public static final String TXT_CONFIRM_DELETE = "CONFIRM_DELETE";
+            	public static final String TXT_CONFIRM_UNASSIGN = "CONFIRM_UNASSIGN";
             	public static final String TXT_FROM_SYSTEM = "CONFIRM_FROM_SYSTEM";
+            /* 1.8 Other messages */
+            	public static final String TXT_MSG_CARD_SCAN_REQUEST = "CARD_SCAN_REQUEST";
+            	public static final String TXT_MSG_CARD_SCAN_REQUEST_WRITABLE = "CARD_SCAN_REQUEST_WRITABLE";
 		
 		/* 2 - TEST-RELATED STRING CONSTANTS */
 			public static final String TXT_TEST = "TEST";

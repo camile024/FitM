@@ -2,6 +2,7 @@ package engine;
 
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map.Entry;
 
@@ -23,10 +24,15 @@ public class FileSaver {
 	 * do its job)
 	 * @param fileName	path + filename + extension
 	 * @throws FileNotFoundException
+	 * @throws UnsupportedEncodingException 
 	 */
 	public FileSaver(String fileName) throws FileNotFoundException {
 		this.fileName = fileName;
-		file = new PrintWriter(fileName);
+		try {
+			file = new PrintWriter(fileName, "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	/**

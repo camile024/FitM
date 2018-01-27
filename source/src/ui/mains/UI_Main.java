@@ -24,6 +24,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import ui.utils.MainViewMode;
 import ui.utils.ResourceLocalizer;
+import ui.views.UI_CardView;
 import ui.views.UI_CustomerView;
 import ui.views.UI_View;
 
@@ -107,7 +108,7 @@ public class UI_Main {
     
     @FXML
     public void btnCardListOnClick() {
-        
+        switchView(MainViewMode.CARD);
     }
     
     @FXML
@@ -161,6 +162,7 @@ public class UI_Main {
         viewMode = mode;
         switch (mode) {
             case CARD:
+            	pane = setCardView();
                 break;
             case CUSTOMER:
                 pane = setCustomerView();
@@ -196,6 +198,23 @@ public class UI_Main {
             System.exit(-1);
         }
         UI_CustomerView uiView = ((UI_CustomerView)(loader.getController()));
+        uiView.init(customerDB, this);
+        currentViewController = uiView;
+        /* End of FXML part */
+        return pane;
+    }
+    
+    private BorderPane setCardView() {
+    	/* FXML part */
+        FXMLLoader loader = FXLoader.getLoader(CONST.FXML_VIEW_CARD_PATH);
+        BorderPane pane = null;
+        try {
+            pane = (BorderPane) loader.load();
+        } catch (IOException e1) {
+            e1.printStackTrace();
+            System.exit(-1);
+        }
+        UI_CardView uiView = ((UI_CardView)(loader.getController()));
         uiView.init(customerDB, this);
         currentViewController = uiView;
         /* End of FXML part */

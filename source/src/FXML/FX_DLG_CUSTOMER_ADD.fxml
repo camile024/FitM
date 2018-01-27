@@ -2,7 +2,6 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.layout.BorderPane?>
@@ -11,11 +10,11 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane fx:id="FXID_DIALOG_MAIN" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="375.0" minWidth="447.0" prefHeight="517.0" prefWidth="447.0" styleClass="dialogMain" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/9.0.4" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.dialogs.UI_CustomerInfoDialog">
+<BorderPane fx:id="FXID_DIALOG_MAIN" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="321.0" minWidth="447.0" prefHeight="321.0" prefWidth="447.0" styleClass="dialogMain" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/9.0.4" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.dialogs.UI_CustomerAddDialog">
    <top>
       <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0" styleClass="titleBar" BorderPane.alignment="CENTER">
          <children>
-            <Text fx:id="FXID_CUSTOMER_NAME" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="[ CUSTOMER_NAME ]">
+            <Text fx:id="FXID_TITLE" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="[ CUSTOMER_NAME ]">
                <font>
                   <Font size="19.0" />
                </font>
@@ -92,50 +91,6 @@
                   <Insets top="-1.0" />
                </VBox.margin>
             </HBox>
-            <HBox alignment="CENTER" prefHeight="29.0" prefWidth="115.0" styleClass="property_bg">
-               <children>
-                  <Text fx:id="FXID_OPEN" strokeType="OUTSIDE" strokeWidth="0.0" text="[ OPEN ]">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Text>
-               </children>
-               <VBox.margin>
-                  <Insets top="10.0" />
-               </VBox.margin>
-            </HBox>
-            <HBox alignment="CENTER" prefHeight="29.0" prefWidth="115.0" styleClass="property_bg">
-               <children>
-                  <Text fx:id="FXID_ENTRIES" strokeType="OUTSIDE" strokeWidth="0.0" text="[ ENTRIES ]">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Text>
-               </children>
-               <VBox.margin>
-                  <Insets top="-1.0" />
-               </VBox.margin>
-            </HBox>
-            <HBox fx:id="FXID_ACTIVITIES_BOX" alignment="CENTER" prefHeight="29.0" prefWidth="115.0" styleClass="property_bg">
-               <children>
-                  <Text fx:id="FXID_ACTIVITIES" strokeType="OUTSIDE" strokeWidth="0.0" text="[ ACTIVITIES ]">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Text>
-               </children>
-               <opaqueInsets>
-                  <Insets />
-               </opaqueInsets>
-               <VBox.margin>
-                  <Insets top="-1.0" />
-               </VBox.margin>
-            </HBox>
-            <Button fx:id="FXID_HELP_BTN" alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#btnHelpOnClick" prefHeight="29.0" prefWidth="36.0" styleClass="regButton" text="?">
-               <VBox.margin>
-                  <Insets left="111.0" top="90.0" />
-               </VBox.margin>
-            </Button>
          </children>
          <padding>
             <Insets left="15.0" top="15.0" />
@@ -145,22 +100,22 @@
    <center>
       <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
          <children>
-            <TextField fx:id="FXID_NAME_FIELD" editable="false" prefHeight="29.0">
+            <TextField fx:id="FXID_NAME_FIELD" prefHeight="29.0">
                <VBox.margin>
                   <Insets top="-1.0" />
                </VBox.margin>
             </TextField>
-            <TextField fx:id="FXID_SURNAME_FIELD" editable="false" prefHeight="29.0">
+            <TextField fx:id="FXID_SURNAME_FIELD" prefHeight="29.0">
                <VBox.margin>
                   <Insets top="-1.0" />
                </VBox.margin>
             </TextField>
-            <TextField fx:id="FXID_DOB_FIELD" editable="false" prefHeight="29.0">
+            <TextField fx:id="FXID_DOB_FIELD" prefHeight="29.0">
                <VBox.margin>
                   <Insets top="-1.0" />
                </VBox.margin>
             </TextField>
-            <TextField fx:id="FXID_PHONE_FIELD" editable="false" prefHeight="29.0">
+            <TextField fx:id="FXID_PHONE_FIELD" prefHeight="29.0">
                <VBox.margin>
                   <Insets top="-1.0" />
                </VBox.margin>
@@ -170,25 +125,10 @@
                   <Insets top="-1.0" />
                </VBox.margin>
                <children>
-                  <TextField fx:id="FXID_CARD_FIELD" editable="false" prefHeight="29.0" prefWidth="208.0" />
-                  <Button fx:id="FXID_CARD_BTN" disable="true" mnemonicParsing="false" onAction="#btnAssignCardOnClick" prefHeight="29.0" prefWidth="187.0" text="[ CARD ]" />
+                  <TextField fx:id="FXID_CARD_FIELD" prefHeight="29.0" prefWidth="208.0" />
+                  <Button fx:id="FXID_CARD_BTN" mnemonicParsing="false" onAction="#btnAssignCardOnClick" prefHeight="29.0" prefWidth="187.0" text="[ CARD ]" />
                </children>
             </HBox>
-            <TextField fx:id="FXID_OPEN_FIELD" editable="false" focusTraversable="false" prefHeight="29.0" styleClass="field_disabled">
-               <VBox.margin>
-                  <Insets top="10.0" />
-               </VBox.margin>
-            </TextField>
-            <TextField fx:id="FXID_ENTRIES_FIELD" editable="false" focusTraversable="false" prefHeight="29.0" styleClass="field_disabled">
-               <VBox.margin>
-                  <Insets top="-1.0" />
-               </VBox.margin>
-            </TextField>
-            <ListView fx:id="FXID_ACTIVITIES_FIELD" prefHeight="149.0" prefWidth="281.0">
-               <VBox.margin>
-                  <Insets top="-1.0" />
-               </VBox.margin>
-            </ListView>
          </children>
          <padding>
             <Insets right="15.0" top="15.0" />
@@ -196,15 +136,8 @@
       </VBox>
    </center>
    <bottom>
-      <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="80.0" prefWidth="530.0" styleClass="menubar_dialog" BorderPane.alignment="CENTER">
+      <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="47.0" prefWidth="443.0" styleClass="menubar_dialog" BorderPane.alignment="CENTER">
          <children>
-            <HBox alignment="CENTER" prefHeight="73.0" prefWidth="600.0" spacing="2.0">
-               <children>
-                  <Button fx:id="FXID_EDIT_BTN" mnemonicParsing="false" onAction="#btnEditOnClick" styleClass="regButton" text="[ EDIT ]" />
-                  <Button fx:id="FXID_ENTRIES_BTN" mnemonicParsing="false" onAction="#btnEntriesOnClick" styleClass="regButton" text="[ ENTRIES ]" />
-                  <Button fx:id="FXID_EXTEND_BTN" mnemonicParsing="false" onAction="#btnExtendOnClick" styleClass="regButton" text="[ EXTEND ]" />
-               </children>
-            </HBox>
             <HBox alignment="BOTTOM_LEFT">
                <children>
                   <HBox alignment="CENTER_RIGHT" prefHeight="29.0" prefWidth="127.0">

@@ -6,6 +6,7 @@ import java.text.ParseException;
 import java.util.concurrent.TimeUnit;
 
 import data.objects.Activity;
+import data.objects.Card;
 import data.objects.Customer;
 import engine.CONST;
 import engine.CustomerDB;
@@ -142,7 +143,14 @@ public class UI_CustomerInfoDialog extends UI_Dialog {
 	
 	@FXML
 	public void btnAssignCardOnClick() {
-		
+		UI_CardDialog dialog = UI_CardDialog.getInstance();
+		dialog.init(customerDB, parent.getStage(), false);
+		dialog.call();
+		if (dialog.getCard() >= 0) {
+			FXID_CARD_FIELD.setText(String.valueOf(dialog.getCard()));
+		} else {
+			FXID_CARD_FIELD.setText(Locale.getString(CONST.TXT_NONE));
+		}
 	}
 	
 	public void refreshView() {
@@ -204,6 +212,9 @@ public class UI_CustomerInfoDialog extends UI_Dialog {
 		customer.setSurname(FXID_SURNAME_FIELD.getText());
 		customer.setPhone(FXID_PHONE_FIELD.getText());
 		customer.setDOB(FXID_DOB_FIELD.getText());
+		/* Same as within UI_CustomerAddDialog but doesn't create a new card if invalid number in the field.
+		 * When inspecting a customer, a valid existing card has to be assigned.
+		 */
 		try {
 			if (FXID_CARD_FIELD.getText().equals(Locale.getString(CONST.TXT_NONE)) || FXID_CARD_FIELD.getText().equals("")) {
 				customerDB.assignCard(customer, null);
@@ -229,12 +240,12 @@ public class UI_CustomerInfoDialog extends UI_Dialog {
 		UI_ConfirmDialog dialog;
 		dialog = UI_ConfirmDialog.getInstance();
 		if (FXID_NAME_FIELD.getText().trim().length() <= 0) {
-			dialog.init(Locale.getString(CONST.TXT_ERR_NAME_FIELD_EMPTY), parent.getStage(), Locale.getString(CONST.TXT_ACCEPT), DialogType.ERROR);
+			dialog.init(Locale.getString(CONST.TXT_ERR_NAME_FIELD_EMPTY), parent.getStage(), Locale.getString(CONST.TXT_OK), DialogType.ERROR);
 			dialog.call();
 			return false;
 		}
 		if (FXID_SURNAME_FIELD.getText().trim().length() <= 0) {
-			dialog.init(Locale.getString(CONST.TXT_ERR_SURNAME_FIELD_EMPTY), parent.getStage(), Locale.getString(CONST.TXT_ACCEPT), DialogType.ERROR);
+			dialog.init(Locale.getString(CONST.TXT_ERR_SURNAME_FIELD_EMPTY), parent.getStage(), Locale.getString(CONST.TXT_OK), DialogType.ERROR);
 			dialog.call();
 			return false;
 		}
@@ -243,9 +254,25 @@ public class UI_CustomerInfoDialog extends UI_Dialog {
 			try { 
 				Integer.parseInt(cardText);
 			} catch(Exception ex) {
-				dialog.init(Locale.getString(CONST.TXT_ERR_CARD_FIELD_INVALID), parent.getStage(), Locale.getString(CONST.TXT_ACCEPT), DialogType.ERROR);
+				dialog.init(Locale.getString(CONST.TXT_ERR_CARD_FIELD_INVALID), parent.getStage(), Locale.getString(CONST.TXT_OK), DialogType.ERROR);
 				dialog.call();
 				return false;
+			}
+			
+			/* Card not in the system */
+			if (customerDB.getCard(Integer.parseInt(cardText)) == null) {
+				dialog.init(Locale.getString(CONST.TXT_ERR_CARD_NOT_FOUND), parent.getStage(), Locale.getString(CONST.TXT_OK), DialogType.ERROR);
+				dialog.call();
+				return false;
+			}
+			
+			/* Check if the card is already assigned to a customer - ask user whether to overwrite */
+			Card card = customerDB.getCard(Integer.parseInt(cardText));
+			if (card != null && card.getCustomer() != null) {
+				UI_YesNoDialog ynDialog = UI_YesNoDialog.getInstance();
+				ynDialog.init(Locale.getString(CONST.TXT_ERR_CARD_ASSIGNED), parent.getStage(),
+						Locale.getString(CONST.TXT_YES), Locale.getString(CONST.TXT_NO), DialogType.CONFIRM);
+				return ynDialog.call();
 			}
 		}
 		
