@@ -153,10 +153,12 @@ public abstract class CONST {
 		    /* 1.1 - Views */
 		    public static final String FXML_VIEW_CUSTOMER_FILENAME = "FX_VIEW_CUSTOMER.fxml";
 		    public static final String FXML_VIEW_CARD_FILENAME = "FX_VIEW_CARD.fxml";
+		    public static final String FXML_VIEW_ACTIVITY_FILENAME = "FX_VIEW_ACTIVITY.fxml";
 		    /* 1.2 - Dialogs */
 		    public static final String FXML_CUSTOMER_INFO_DIALOG_FILENAME = "FX_DLG_CUSTOMER_INFO.fxml";
 		    public static final String FXML_CUSTOMER_ADD_DIALOG_FILENAME = "FX_DLG_CUSTOMER_ADD.fxml";
 		    public static final String FXML_CARD_DIALOG_FILENAME = "FX_DLG_CARD.fxml";
+		    public static final String FXML_ACTIVITY_DIALOG_FILENAME = "FX_DLG_ACTIVITY.fxml";
 		    public static final String FXML_YES_NO_DIALOG_FILENAME = "FX_DLG_YES_NO.fxml";
 		    public static final String FXML_CONFIRM_DIALOG_FILENAME = "FX_DLG_CONFIRM.fxml";
 		    
@@ -170,12 +172,14 @@ public abstract class CONST {
 		    /* 3.1 - Views */
 		    public static final String FXML_VIEW_CUSTOMER_PATH = FXML_DIR + FXML_VIEW_CUSTOMER_FILENAME;
 		    public static final String FXML_VIEW_CARD_PATH = FXML_DIR + FXML_VIEW_CARD_FILENAME;
+		    public static final String FXML_VIEW_ACTIVITY_PATH = FXML_DIR + FXML_VIEW_ACTIVITY_FILENAME;
 		    /* 3.2 - Dialogs */
 		    public static final String FXML_CUSTOMER_INFO_DIALOG_PATH = FXML_DIR + FXML_CUSTOMER_INFO_DIALOG_FILENAME;
 		    public static final String FXML_CUSTOMER_ADD_DIALOG_PATH = FXML_DIR + FXML_CUSTOMER_ADD_DIALOG_FILENAME;
 		    public static final String FXML_YES_NO_DIALOG_PATH = FXML_DIR + FXML_YES_NO_DIALOG_FILENAME;
 		    public static final String FXML_CONFIRM_DIALOG_PATH = FXML_DIR + FXML_CONFIRM_DIALOG_FILENAME;
 		    public static final String FXML_CARD_DIALOG_PATH = FXML_DIR + FXML_CARD_DIALOG_FILENAME;
+		    public static final String FXML_ACTIVITY_DIALOG_PATH = FXML_DIR + FXML_ACTIVITY_DIALOG_FILENAME;
     /** END OF UI FILES **/
 		
 
@@ -240,6 +244,7 @@ public abstract class CONST {
         		public static final String TXT_SAVE = "SAVE";
         		public static final String TXT_DISCARD = "DISCARD";
         		public static final String TXT_ABOUT = "ABOUT";
+        		public static final String TXT_NAME2 = "NAME2";
         		public static final String TXT_NAME = "NAME";
         		public static final String TXT_SURNAME = "SURNAME";
         		public static final String TXT_PHONE = "PHONE";
@@ -272,14 +277,17 @@ public abstract class CONST {
             	public static final String TXT_TITLE_MAIN = "TITLE_MAIN";
             	public static final String TXT_TITLE_VIEW_CUSTOMER = "TITLE_VIEW_CUSTOMER";
             	public static final String TXT_TITLE_VIEW_CARD = "TITLE_VIEW_CARD";
+            	public static final String TXT_TITLE_VIEW_ACTIVITY = "TITLE_VIEW_ACTIVITY";
             	public static final String TXT_TITLE_ADD_CUSTOMER = "TITLE_ADD_CUSTOMER";
             	public static final String TXT_TITLE_ADD_CARD = "TITLE_ADD_CARD";
+            	public static final String TXT_TITLE_ADD_ACTIVITY = "TITLE_ADD_ACTIVITY";
             /* 1.4 - Button names */
             	public static final String TXT_BTN_ACT_LIST = "ACT_LIST";
             	public static final String TXT_BTN_CUST_LIST = "CUST_LIST";
             	public static final String TXT_BTN_CARD_LIST = "CARD_LIST";
             	public static final String TXT_BTN_ADD_CUSTOMER = "ADD_CUST";
             	public static final String TXT_BTN_ADD_CARD = "ADD_CARD";
+            	public static final String TXT_BTN_ADD_ACTIVITY = "ADD_ACTIVITY";
             	public static final String TXT_BTN_EDIT_MODE = "EDIT_MODE";
             	public static final String TXT_BTN_ADD_ENTRIES = "ADD_ENTRIES";
             	public static final String TXT_BTN_EXTEND = "EXTEND_OPEN";
@@ -305,6 +313,8 @@ public abstract class CONST {
             /* 1.8 Other messages */
             	public static final String TXT_MSG_CARD_SCAN_REQUEST = "CARD_SCAN_REQUEST";
             	public static final String TXT_MSG_CARD_SCAN_REQUEST_WRITABLE = "CARD_SCAN_REQUEST_WRITABLE";
+            	public static final String TXT_MSG_ADD_ACTIVITY = "ADD_ACTIVITY_MSG";
+            	public static final String TXT_MSG_EDIT_ACTIVITY = "EDIT_ACTIVITY_MSG";
 		
 		/* 2 - TEST-RELATED STRING CONSTANTS */
 			public static final String TXT_TEST = "TEST";

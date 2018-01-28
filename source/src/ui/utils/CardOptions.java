@@ -16,6 +16,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
@@ -45,50 +46,16 @@ public class CardOptions implements Callback<TableColumn.CellDataFeatures<Card, 
         HBox hbox = new HBox();
         hbox.setPadding(new Insets(5, 5, 5, 5));
         hbox.setSpacing(10);
+        hbox.setAlignment(Pos.CENTER);
         ArrayList<Button> btnList = new ArrayList<Button>();
         
         Button btnDelete = new Button();
-        
-        
-        /* See if there's a Customer assigned */
-        Customer customer = param.getValue().getCustomer();
-        if (customer != null) {
-        	Button btnUnassign = new Button();
-        	Button btnInfo = new Button();
-        	
-        	/* Set action for info button */
-            btnInfo.setOnAction(new EventHandler<ActionEvent>() { 
-            	public void handle(ActionEvent act) {
-            		infoOnClick(param.getValue().getCustomer()); 
-            }});
-            
-            /* Set action for unassign button */
-            btnUnassign.setOnAction(new EventHandler<ActionEvent>() { 
-            	public void handle(ActionEvent act) {
-            		unassignOnClick(param.getValue().getCustomer());
-            }});
-            
-            
-            ImageView imgInfo = new ImageView(ResourceLocalizer.getImage(CONST.RES_IMG_BTN_INFO_FILENAME));
-            ImageView imgUnassign = new ImageView(ResourceLocalizer.getImage(CONST.RES_IMG_MINUS_FILENAME));
-            imgUnassign.setFitWidth(24);
-            imgUnassign.setFitHeight(24);
-            imgInfo.setFitWidth(24);
-            imgInfo.setFitHeight(24);
-            btnInfo.setGraphic(imgInfo);
-            btnUnassign.setGraphic(imgUnassign);
-            btnList.add(btnUnassign);
-            btnList.add(btnInfo);
-        }
-        
-        /* Set action for delete button */
-        btnDelete.setOnAction(new EventHandler<ActionEvent>() { 
-        	public void handle(ActionEvent act) {
-        		deleteOnClick(param.getValue());
-        }});
-        
-        
+        Button btnUnassign = new Button();
+    	Button btnInfo = new Button();
+    	btnList.add(btnUnassign);
+        btnList.add(btnInfo);
         btnList.add(btnDelete);
+        
         for (Button b : btnList) {
             b.setMaxWidth(32);
             b.setMaxHeight(32);
@@ -96,14 +63,51 @@ public class CardOptions implements Callback<TableColumn.CellDataFeatures<Card, 
             b.setPrefHeight(32);
             hbox.getChildren().add(b);
         }
+        	
+    	/* Set action for info button */
+        btnInfo.setOnAction(new EventHandler<ActionEvent>() { 
+        	public void handle(ActionEvent act) {
+        		infoOnClick(param.getValue().getCustomer()); 
+        }});
         
+        /* Set action for unassign button */
+        btnUnassign.setOnAction(new EventHandler<ActionEvent>() { 
+        	public void handle(ActionEvent act) {
+        		unassignOnClick(param.getValue().getCustomer());
+        }});
+        
+        /* Set action for delete button */
+        btnDelete.setOnAction(new EventHandler<ActionEvent>() { 
+        	public void handle(ActionEvent act) {
+        		deleteOnClick(param.getValue());
+        }});
+
+        
+        ImageView imgInfo = new ImageView(ResourceLocalizer.getImage(CONST.RES_IMG_BTN_INFO_FILENAME));
+        ImageView imgUnassign = new ImageView(ResourceLocalizer.getImage(CONST.RES_IMG_MINUS_FILENAME));
         ImageView imgDelete = new ImageView(ResourceLocalizer.getImage(CONST.RES_IMG_BTN_DELETE_FILENAME));
+        imgInfo.setFitWidth(24);
+        imgInfo.setFitHeight(24);
+        imgUnassign.setFitWidth(24);
+        imgUnassign.setFitHeight(24);
         imgDelete.setFitWidth(24);
         imgDelete.setFitHeight(24);
+        btnInfo.setGraphic(imgInfo);
+        btnUnassign.setGraphic(imgUnassign);
         btnDelete.setGraphic(imgDelete);
+        
+        /* See if there's a Customer assigned */
+        Customer customer = param.getValue().getCustomer();
+        if (customer == null) {
+        	btnInfo.setDisable(true);
+        	btnUnassign.setDisable(true);
+        	
+        }
 
         return new ReadOnlyObjectWrapper<HBox>(hbox);
     }
+    
+    
     
     private void infoOnClick(Customer customer) {
     	Stage stage = new Stage();
@@ -133,6 +137,8 @@ public class CardOptions implements Callback<TableColumn.CellDataFeatures<Card, 
         /* End of FXML part */
     }
     
+    
+    
     private void deleteOnClick(Card card) {
     	boolean userConfirmed = false;
 		UI_YesNoDialog dialog = UI_YesNoDialog.getInstance();
@@ -151,6 +157,8 @@ public class CardOptions implements Callback<TableColumn.CellDataFeatures<Card, 
 		} 
     }
     
+    
+    
     private void unassignOnClick(Customer customer) {
     	boolean userConfirmed = false;
     	UI_YesNoDialog dialog = UI_YesNoDialog.getInstance();
@@ -165,6 +173,7 @@ public class CardOptions implements Callback<TableColumn.CellDataFeatures<Card, 
 				e.printStackTrace();
 			}
     	}
+    	parent.refreshView();
     }
 
 }

@@ -26,6 +26,7 @@ public class Card {
 		this(number);
 		this.customer = customer;
 	}
+
 	
 	
 	/* **************************** */

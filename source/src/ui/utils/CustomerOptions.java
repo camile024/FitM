@@ -15,6 +15,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
@@ -44,6 +45,7 @@ public class CustomerOptions implements Callback<TableColumn.CellDataFeatures<Cu
         HBox hbox = new HBox();
         hbox.setPadding(new Insets(5, 5, 5, 5));
         hbox.setSpacing(10);
+        hbox.setAlignment(Pos.CENTER);
         ArrayList<Button> btnList = new ArrayList<Button>();
         Button btnInfo = new Button();
         Button btnDelete = new Button();

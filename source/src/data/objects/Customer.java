@@ -11,7 +11,7 @@ import javafx.beans.property.SimpleStringProperty;
 
 public class Customer {
 	/* Highest ID loaded in the memory */
-	private static int highestID = 0;
+	private static int highestID = -1;
 	
 	private int id;
 	private String name;
@@ -43,6 +43,10 @@ public class Customer {
 			this.id = ++highestID;
 		}
 		openDate = new Date();
+	}
+	
+	public static void resetID() {
+		highestID = -1;
 	}
 
 	

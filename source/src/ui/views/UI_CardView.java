@@ -1,9 +1,6 @@
 package ui.views;
 
-import java.io.IOException;
 import java.util.LinkedList;
-
-import FXML.FXLoader;
 import data.objects.Card;
 import data.objects.Customer;
 import engine.CONST;
@@ -12,25 +9,17 @@ import engine.Locale;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import ui.dialogs.UI_CardDialog;
 import ui.dialogs.UI_ConfirmDialog;
-import ui.dialogs.UI_CustomerAddDialog;
 import ui.mains.UI_Main;
 import ui.utils.CardOptions;
-import ui.utils.CustomerOptions;
 import ui.utils.DialogType;
 
 public class UI_CardView extends UI_View {

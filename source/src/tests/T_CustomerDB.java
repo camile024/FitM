@@ -3,7 +3,6 @@ package tests;
 import static org.junit.Assert.*;
 
 import java.io.FileNotFoundException;
-import java.text.DateFormat;
 import java.text.ParseException;
 
 import org.junit.After;
@@ -13,6 +12,7 @@ import org.junit.Test;
 import data.objects.Activity;
 import data.objects.Card;
 import data.objects.Customer;
+
 import engine.CONST;
 import engine.CustomerDB;
 import engine.FileReader;
@@ -118,7 +118,7 @@ public class T_CustomerDB {
 	    assertEquals("Check surname", "Nowak", cust.getSurname());
 	    assertEquals("Check DOB", "21/11/1995", cust.getDOB());
 	    assertEquals("Check phone", "123456789", cust.getPhone());
-	    assertEquals("Check open date", db.getDateFormat().parse("2018-04-22"), cust.getOpenDate());
+	    assertEquals("Check open date", CustomerDB.getDateFormat().parse("2018-04-22"), cust.getOpenDate());
 	    assertEquals("Check entries", 5, cust.getEntries());
 	}
 	

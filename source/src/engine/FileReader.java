@@ -68,6 +68,7 @@ public class FileReader {
 			}
 			
 		}
+		sc.close();
 	}
 	
 	/**
@@ -83,6 +84,7 @@ public class FileReader {
 			String value = sc.next();
 			filteredContents.put(field, value);
 		}
+		sc.close();
 	}
 	
    private void initMaps() {

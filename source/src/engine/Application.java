@@ -3,8 +3,6 @@ package engine;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.ParseException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import FXML.FXLoader;
 import javafx.animation.KeyFrame;

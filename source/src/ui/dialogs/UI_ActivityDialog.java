@@ -3,6 +3,7 @@ package ui.dialogs;
 import java.io.IOException;
 
 import FXML.FXLoader;
+import data.objects.Activity;
 import engine.CONST;
 import engine.CustomerDB;
 import engine.Locale;
@@ -20,11 +21,10 @@ import javafx.stage.StageStyle;
 import ui.utils.DialogType;
 import ui.utils.ResourceLocalizer;
 
-public class UI_CardDialog extends UI_Dialog {
+public class UI_ActivityDialog extends UI_Dialog {
 	private Stage self;
 	private Stage parent;
-	private boolean createMode = false;
-	private int cardNum = -1;
+	Activity current;
 	
 	
 	@FXML
@@ -34,7 +34,7 @@ public class UI_CardDialog extends UI_Dialog {
 	@FXML
 	Text FXID_TEXT;
 	@FXML
-	TextField FXID_CARD_FIELD;
+	TextField FXID_ACTIVITY_FIELD;
 	@FXML
 	ImageView FXID_IMAGE;
 	
@@ -42,10 +42,10 @@ public class UI_CardDialog extends UI_Dialog {
 	 * Returns a prepared UI_CardDialog instance (still needs to be initialised)
 	 * @return
 	 */
-	public static UI_CardDialog getInstance() {
+	public static UI_ActivityDialog getInstance() {
 		Stage stage = new Stage();
     	/* FXML part */
-        FXMLLoader loader = FXLoader.getLoader(CONST.FXML_CARD_DIALOG_PATH);
+        FXMLLoader loader = FXLoader.getLoader(CONST.FXML_ACTIVITY_DIALOG_PATH);
         BorderPane pane = null;
         try {
             pane = (BorderPane) loader.load();
@@ -53,7 +53,7 @@ public class UI_CardDialog extends UI_Dialog {
             e1.printStackTrace();
             System.exit(-1);
         }
-        UI_CardDialog uiDialog = ((UI_CardDialog)(loader.getController()));
+        UI_ActivityDialog uiDialog = ((UI_ActivityDialog)(loader.getController()));
         
         
         Scene scene = new Scene(pane);
@@ -79,16 +79,27 @@ public class UI_CardDialog extends UI_Dialog {
 		dialog.init(Locale.getString(CONST.TXT_CONFIRM_SAVE_CHANGES), parent, 
 				Locale.getString(CONST.TXT_YES), Locale.getString(CONST.TXT_NO), DialogType.CONFIRM);
 		userConfirmed = dialog.call();
-	if (userConfirmed) {
-		try {
-			cardNum = Integer.parseInt(FXID_CARD_FIELD.getText());
-			self.close();
-		} catch (Exception ex) {
-			UI_ConfirmDialog errDialog = UI_ConfirmDialog.getInstance();
-			errDialog.init(Locale.getString(CONST.TXT_ERR_CARD_FIELD_INVALID2), self, CONST.TXT_ACCEPT, DialogType.ERROR);
-			errDialog.call();
+		if (userConfirmed) {
+			if (FXID_ACTIVITY_FIELD.getText().trim().equals("")) {
+				UI_ConfirmDialog errDialog = UI_ConfirmDialog.getInstance();
+				errDialog.init(Locale.getString(CONST.TXT_ERR_NAME_FIELD_EMPTY), self, CONST.TXT_ACCEPT, DialogType.ERROR);
+				errDialog.call();
+			} else {
+				if (current == null) {
+					Activity newAct = new Activity(FXID_ACTIVITY_FIELD.getText());
+					try {
+						customerDB.addSingleObject(newAct);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				} else {
+					current.setName(FXID_ACTIVITY_FIELD.getText());
+				}
+				
+				self.close();
+				
+			}
 		}
-	}
 		
 	}
 	
@@ -105,18 +116,17 @@ public class UI_CardDialog extends UI_Dialog {
 	 * @param createNew Whether it's a Card creation/registration dialog or trying to scan a card
 	 * 			that already exists in the system
 	 */
-	public void init(CustomerDB customerDB, Stage parent, boolean createNew) {
+	public void init(CustomerDB customerDB, Stage parent, Activity current) {
 		this.parent = parent;
+		this.customerDB = customerDB;
 		FXID_ACCEPT_BTN.setText(Locale.getString(CONST.TXT_ACCEPT));
 		FXID_CANCEL_BTN.setText(Locale.getString(CONST.TXT_CANCEL));
-		this.createMode = createNew;
+		this.current = current;
 		
-		if (createNew) {
-			FXID_TEXT.setText(Locale.getString(CONST.TXT_MSG_CARD_SCAN_REQUEST_WRITABLE));
-					
+		if (current == null) {
+			FXID_TEXT.setText(Locale.getString(CONST.TXT_MSG_ADD_ACTIVITY));
 		} else {
-			FXID_TEXT.setText(Locale.getString(CONST.TXT_MSG_CARD_SCAN_REQUEST));
-			//FXID_ACCEPT_BTN.setVisible(false); //disabled for debugging purposes
+			FXID_TEXT.setText(Locale.getString(CONST.TXT_MSG_EDIT_ACTIVITY));
 		}
 		FXID_IMAGE.setImage(ResourceLocalizer.getImage(CONST.RES_IMG_PLUS_FILENAME));
 		
@@ -135,8 +145,8 @@ public class UI_CardDialog extends UI_Dialog {
 		self.showAndWait();
 	}
 	
-	public int getCard() {
-		return cardNum;
+	public Activity getActivity() {
+		return current;
 	}
 
 }

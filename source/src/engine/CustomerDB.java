@@ -2,11 +2,9 @@ package engine;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map.Entry;
 import java.util.Scanner;
@@ -44,6 +42,7 @@ public class CustomerDB {
 	 * @throws FileNotFoundException
 	 */
 	public void initActivities() throws FileNotFoundException {
+		Activity.resetID();
 		activities = new HashMap<Integer, Activity>();
 		FileReader fr = new FileReader(dirName + CONST.ACT_LIST_PATH);
 		fr.load();
@@ -61,6 +60,7 @@ public class CustomerDB {
 	 * @throws ParseException		Thrown when date-parsing fails
 	 */
 	public void initCustomers() throws FileNotFoundException, ParseException {
+		Customer.resetID();
 		customers = new HashMap<Integer, Customer>();
 		FileReader fr = new FileReader(dirName + CONST.CUSTOMER_LIST_PATH);
 		FileReader fr_customer;
