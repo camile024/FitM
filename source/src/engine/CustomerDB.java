@@ -4,7 +4,11 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map.Entry;
 import java.util.Scanner;
@@ -12,6 +16,8 @@ import java.util.Scanner;
 import data.objects.Activity;
 import data.objects.Card;
 import data.objects.Customer;
+import data.objects.GymDay;
+import data.objects.WeekPlan;
 
 /**
  * To use:
@@ -19,8 +25,7 @@ import data.objects.Customer;
  * 	2) Call initActivities() to load activities from file
  *  3) Call initCustomers() to load Customers from data files
  *  4) Call initCards() to load Cards and associate them with Customers
- *  REMOVE/PUT METHODS + FILE UPDATING METHODS NEED REWORKING (to be able to manage 1-card/customer removal and properly
- *  overwrite only the data that's changed for performance purposes)
+ *  5) Call initWeekPlan() to load WeekPlan's data and instantiate the object
  * @author Kamil
  *
  */
@@ -28,6 +33,8 @@ public class CustomerDB {
 	private HashMap<Integer, Activity> activities;
 	private HashMap<Integer, Customer> customers;
 	private HashMap<Integer, Card> cards;
+	private HashMap<String, GymDay> currentMonth;
+	private WeekPlan weekPlan;
 	private String dirName;
 	private static SimpleDateFormat dateFormat = new SimpleDateFormat(CONST.DATE_FORMAT_DEFAULT);
 	private static SimpleDateFormat openDateFormat = new SimpleDateFormat(CONST.DATE_FORMAT_OPEN);
@@ -121,6 +128,77 @@ public class CustomerDB {
 			
 		}
 		sc.close();
+	}
+	
+	/**
+	 * Initializes the WeekPlan object from data file
+	 * @throws FileNotFoundException
+	 */
+	public void initWeekPlan() throws FileNotFoundException {
+		weekPlan = new WeekPlan();
+		FileReader fr = new FileReader(dirName + CONST.WEEKPLAN_PATH);
+		fr.load();
+		HashMap<Integer, ArrayList<Integer>> contents = fr.filterWeekPlan();
+		for (Entry<Integer, ArrayList<Integer>> entry : contents.entrySet()) {
+			for (Integer act : entry.getValue()) {
+				if (getActivity(act) != null)
+					weekPlan.addActivity(entry.getKey(), getActivity(act));
+			}
+		}
+	}
+	
+	
+	public HashMap<String, GymDay> loadMonth(Date date) throws ParseException {
+		currentMonth = new HashMap<String, GymDay>();
+		FileReader fr;
+		for (int day = 0; day <= 31; day++) {
+			try {
+				String monthStr;
+				String dayStr;
+				LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+				
+//				if (localDate.getMonthValue() < 10) {
+//					monthStr = '0' + String.valueOf(localDate.getMonthValue());
+//				} else {
+					monthStr = String.valueOf(localDate.getMonthValue());
+//				}
+//				if (day < 10) {
+//					dayStr = '0' + String.valueOf(day);
+//				} else {
+					dayStr = String.valueOf(day);
+//				}
+				String fileName = localDate.getYear() + "-" + monthStr + "-" + dayStr;
+				fr = new FileReader(dirName + CONST.CALENDAR_DIR + fileName);
+				fr.load();
+				Date gymDayDate = dateFormat.parse(fileName);
+				GymDay gymDay = new GymDay(gymDayDate);
+				HashMap<Integer, HashMap<Integer, ArrayList<Integer>>> data = fr.filterGymDay();
+				fillGymDay(data, gymDay);
+				currentMonth.put(fileName, gymDay);
+				
+			} catch (FileNotFoundException ex) {
+				//do nothing - not all dates have representing dates
+			}
+		}
+		return currentMonth;
+	}
+	
+	
+	private void fillGymDay(HashMap<Integer, HashMap<Integer, ArrayList<Integer>>> data, GymDay gymDay) {
+		HashMap<Integer, ArrayList<Integer>> attendees = data.get(CONST.INDEX_ATTENDANTS);
+		HashMap<Integer, ArrayList<Integer>> reservations = data.get(CONST.INDEX_RESERVATIONS);
+		/* Attendees */
+		for (Entry<Integer, ArrayList<Integer>> entry : attendees.entrySet()) {
+			for (Integer customer : entry.getValue()) {
+				gymDay.addAttendee(getActivity(entry.getKey()), getCustomer(customer));
+			}
+		}
+		/* Reservations*/
+		for (Entry<Integer, ArrayList<Integer>> entry : reservations.entrySet()) {
+			for (Integer customer : entry.getValue()) {
+				gymDay.addReservation(getActivity(entry.getKey()), getCustomer(customer));
+			}
+		}
 	}
 	
 	public Activity getActivity(int id) {
@@ -507,6 +585,12 @@ public class CustomerDB {
     public static SimpleDateFormat getFullDateFormat() {
         return fullDateFormat;
     }
+
+	public WeekPlan getWeekPlan() {
+		return weekPlan;
+	}
+    
+    
 	
 	
 	

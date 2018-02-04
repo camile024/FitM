@@ -2,6 +2,7 @@ package engine;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -16,6 +17,7 @@ import java.util.Scanner;
  */
 public class FileReader {
 	private final String delimiter = "=|\r?\n|\r";
+	private final String delimiterCustomerList = ",|;|\r?\n|\r";
 	private String fileName = "";
 	private String contents;
 	private HashMap<String, String> filteredContents;
@@ -85,6 +87,87 @@ public class FileReader {
 			filteredContents.put(field, value);
 		}
 		sc.close();
+	}
+	
+	/**
+	 * Filters the contents of the file containing weekplan entries
+	 */
+	public HashMap<Integer, ArrayList<Integer>> filterWeekPlan() {
+		/* initialise hashmap */
+		HashMap<Integer, ArrayList<Integer>> filtered = new HashMap<Integer, ArrayList<Integer>>();
+		for (int i = 1; i <= 7; i++ ) {
+			filtered.put(i, new ArrayList<Integer>());
+		}
+		
+		Scanner sc = new Scanner(contents);
+		sc.useDelimiter(delimiter);
+		int day = -1;
+		while (sc.hasNext()) {
+			//get next 2 fields
+			String field = sc.next();
+			String value = sc.next();
+			
+			if (field.equals("day")) {
+				day = Integer.parseInt(value);
+				
+			} else if (field.equals("id")) {
+				filtered.get(day).add(Integer.parseInt(value));
+			}
+			
+		}
+		sc.close();
+		return filtered;
+	}
+	
+	public HashMap<Integer, HashMap<Integer, ArrayList<Integer>>> filterGymDay() {
+		/* initialise hashmap */
+		HashMap<Integer, HashMap<Integer, ArrayList<Integer>>> filtered = new HashMap<Integer, HashMap<Integer, ArrayList<Integer>>>();
+		filtered.put(CONST.INDEX_RESERVATIONS, new HashMap<Integer, ArrayList<Integer>>());
+		filtered.put(CONST.INDEX_ATTENDANTS, new HashMap<Integer, ArrayList<Integer>>());
+		
+		Scanner sc = new Scanner(contents);
+		sc.useDelimiter(delimiter);
+		int actId = -1;
+		
+		while (sc.hasNext()) {
+			//get next 2 fields
+			String field = sc.next();
+			String value = sc.next();
+			
+			if (field.equals("activity")) {
+				actId = Integer.parseInt(value);
+				
+			} else if (field.equals("cs_res")) {
+				if (filtered.get(CONST.INDEX_RESERVATIONS).get(actId) == null) {
+					filtered.get(CONST.INDEX_RESERVATIONS).put(actId, new ArrayList<Integer>());
+				}
+				filtered.get(CONST.INDEX_RESERVATIONS).get(actId).addAll(getCustomerList(value));
+			} else if (field.equals("cs_att")) {
+				if (filtered.get(CONST.INDEX_ATTENDANTS).get(actId) == null) {
+					filtered.get(CONST.INDEX_ATTENDANTS).put(actId, new ArrayList<Integer>());
+				}
+				filtered.get(CONST.INDEX_ATTENDANTS).get(actId).addAll(getCustomerList(value));
+			}
+		}
+		
+		sc.close();
+		return filtered;
+		
+	}
+	
+	
+	private ArrayList<Integer> getCustomerList(String value) {
+		ArrayList<Integer> result = new ArrayList<Integer>();
+		Scanner sc = new Scanner(value);
+		sc.useDelimiter(delimiterCustomerList);
+		while (sc.hasNext()) {
+			String next = sc.next();
+			if (!next.trim().equals(""))
+				result.add(Integer.valueOf(next));
+		}
+		
+		return result;
+		
 	}
 	
    private void initMaps() {

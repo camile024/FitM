@@ -3,6 +3,7 @@ package engine;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map.Entry;
 
@@ -73,6 +74,48 @@ public class FileSaver {
 		saveContents();
 	}
 	
+	public void saveWeekPlan(HashMap<Integer, ArrayList<Integer>> data) {
+		contents = "";
+		for (Entry<Integer, ArrayList<Integer>> entry : data.entrySet()) {
+			for (Integer oneDay : entry.getValue()) {
+				contents += "day=";
+				contents += String.valueOf(entry.getKey());
+				contents += "\nid=";
+				contents += String.valueOf(oneDay);
+				contents += '\n';
+			}
+		}
+		saveContents();
+	}
+	
+	
+	public void saveGymDay(HashMap<Integer, HashMap<Integer, ArrayList<Integer>>> data) {
+		contents = "";
+		HashMap<Integer, ArrayList<Integer>> attendees = data.get(CONST.INDEX_ATTENDANTS);
+		HashMap<Integer, ArrayList<Integer>> reservations = data.get(CONST.INDEX_RESERVATIONS);
+		
+		for (Entry<Integer, ArrayList<Integer>> entry : reservations.entrySet()) { //for every list of customers
+			contents += "activity=";
+			contents += String.valueOf(entry.getKey()); //add the id of the activity
+			contents += "\ncs_res=";
+			for (Integer customer : entry.getValue()) { //get the list of customers
+				contents += String.valueOf(customer) + ','; //add each one, separated by comma
+			}
+			contents += ";\n"; //end of the list
+		}
+		
+		for (Entry<Integer, ArrayList<Integer>> entry : attendees.entrySet()) { //for every list of customers
+			contents += "activity=";
+			contents += String.valueOf(entry.getKey()); //add the id of the activity
+			contents += "\ncs_att=";
+			for (Integer customer : entry.getValue()) { //get the list of customers
+				contents += String.valueOf(customer) + ','; //add each one, separated by comma
+			}
+			contents += ";\n"; //end of the list
+		}
+		saveContents();
+	}
+	
 	/**
 	 * Saves prepared 'contents' string to the file
 	 */
@@ -89,7 +132,6 @@ public class FileSaver {
 	public void setFileName(String fileName) {
 		this.fileName = fileName;
 	}
-
 	
 	
 }

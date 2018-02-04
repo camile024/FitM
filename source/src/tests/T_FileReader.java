@@ -3,6 +3,8 @@ package tests;
 import static org.junit.Assert.*;
 
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.junit.After;
 import org.junit.Before;
@@ -52,6 +54,57 @@ public class T_FileReader {
 		assertEquals("1: Taniec Towarzyski 17:00", "Taniec Towarzyski 17:00", reader.getField(1));
 		assertEquals("2: Null", null, reader.getField(2));
 		assertEquals("5: Tango 20:00", "Tango 20:00", reader.getField(5));
+	}
+	
+	@Test
+	public void testFilterWeekPlan() throws FileNotFoundException {
+		reader = new FileReader(CONST.TESTS_FILEREADER3_PATH);
+		reader.load();
+		HashMap<Integer, ArrayList<Integer>> result = reader.filterWeekPlan();
+		ArrayList<Integer> expectedDay1 = new ArrayList<Integer>();
+		expectedDay1.add(2);
+		expectedDay1.add(3);
+		assertEquals("day 1 | id: 2,3", expectedDay1, result.get(1));
+		ArrayList<Integer> expectedDay2 = new ArrayList<Integer>();
+		expectedDay2.add(2);
+		assertEquals("day 2 | id: 2", expectedDay2, result.get(2));
+		ArrayList<Integer> expectedDay5 = new ArrayList<Integer>();
+		expectedDay5.add(6);
+		expectedDay5.add(3);
+		assertEquals("day 5 | id: 6, 3", expectedDay5, result.get(5));
+	}
+	
+	@Test
+	public void testFilterGymDay() throws FileNotFoundException {
+		reader = new FileReader(CONST.TESTS_FILEREADER4_PATH);
+		reader.load();
+		HashMap<Integer, HashMap<Integer, ArrayList<Integer>>> result = reader.filterGymDay();
+		HashMap<Integer, ArrayList<Integer>> resultAtt = result.get(CONST.INDEX_ATTENDANTS);
+		HashMap<Integer, ArrayList<Integer>> resultRes = result.get(CONST.INDEX_RESERVATIONS);
+		ArrayList<Integer> expectedRes2 = new ArrayList<Integer>();
+		ArrayList<Integer> expectedRes3 = new ArrayList<Integer>();
+		ArrayList<Integer> expectedAtt2 = new ArrayList<Integer>();
+		ArrayList<Integer> expectedAtt3 = new ArrayList<Integer>();
+		ArrayList<Integer> expectedAtt5 = new ArrayList<Integer>();
+		expectedRes2.add(2);
+		expectedRes2.add(5);
+		
+		expectedRes3.add(2);
+		expectedRes3.add(1);
+		
+		expectedAtt2.add(3);
+		expectedAtt2.add(5);
+		
+		expectedAtt3.add(2);
+		
+		expectedAtt5.add(3);
+		expectedAtt5.add(6);
+		
+		assertEquals("act 2 | res_id: 2, 5", expectedRes2, resultRes.get(2));
+		assertEquals("act 3 | res_id: 2, 1", expectedRes3, resultRes.get(3));
+		assertEquals("act 2 | att_id: 3, 5", expectedAtt2, resultAtt.get(2));
+		assertEquals("act 3 | att_id: 2", expectedAtt3, resultAtt.get(3));
+		assertEquals("act 5 | att_id: 3, 6", expectedAtt5, resultAtt.get(5));
 	}
 
 }

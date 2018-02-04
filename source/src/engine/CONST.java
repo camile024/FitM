@@ -43,6 +43,8 @@ public abstract class CONST {
 		public static final String DATE_FORMAT_DEFAULT = "yyyy-MM-dd";
 		public static final String FIELD_ENABLED = "field_enabled";
 		public static final String FIELD_DISABLED = "field_disabled";
+		public static final int INDEX_RESERVATIONS = 0;
+		public static final int INDEX_ATTENDANTS = 1;
 		
     /** END OF DATA/CONFIG VALS **/
 		
@@ -112,10 +114,12 @@ public abstract class CONST {
 		public static final String CARD_LIST_FILENAME = "CARD_LIST";
 		public static final String LANG_PL_FILENAME = "LANG_PL";
 		public static final String LANG_EN_FILENAME = "LANG_EN";
+		public static final String WEEKPLAN_FILENAME = "WEEKPLAN";
 		
 		/* 2 - DIRECTORIES */
 		public static final String CUSTOMER_DIR = DATA_DIR + "/CUSTOMERS/";
 		public static final String CARD_DIR = DATA_DIR + "/CARDS/";
+		public static final String CALENDAR_DIR = DATA_DIR + "/CALENDAR/";
 		
 		/* 3 - FULL PATHS */
 		public static final String CUSTOMER_LIST_PATH = CUSTOMER_DIR + CUSTOMER_LIST_FILENAME;
@@ -123,18 +127,23 @@ public abstract class CONST {
 		public static final String ACT_LIST_PATH = DATA_DIR + ACT_LIST_FILENAME;
 		public static final String LANG_PL_PATH = DATA_DIR + LANG_PL_FILENAME;
 		public static final String LANG_EN_PATH = DATA_DIR + LANG_EN_FILENAME;
+		public static final String WEEKPLAN_PATH = DATA_DIR + WEEKPLAN_FILENAME;
 		
 	
 		/* 4 - TESTS */
 			/* 4.1 - FILENAMES */
 			public static final String TESTS_FILEREADER1_FILENAME = "TEST_FILE_READER_1";
 			public static final String TESTS_FILEREADER2_FILENAME = "TEST_FILE_READER_2_ACT";
+			public static final String TESTS_FILEREADER3_FILENAME = "DATA/WEEKPLAN";
+			public static final String TESTS_FILEREADER4_FILENAME = "DATA/CALENDAR/2018-5-22";
 			public static final String TESTS_FILESAVER1_FILENAME = "TEST_FILE_SAVER_1";
 			public static final String TESTS_FILESAVER2_FILENAME = "TEST_FILE_SAVER_2_ACT";
 			
 			/* 4.2 - FULL PATHS */
 			public static final String TESTS_FILEREADER1_PATH = TESTS_DIR + TESTS_FILEREADER1_FILENAME;
 			public static final String TESTS_FILEREADER2_PATH = TESTS_DIR + TESTS_FILEREADER2_FILENAME;
+			public static final String TESTS_FILEREADER3_PATH = TESTS_DIR + TESTS_FILEREADER3_FILENAME;
+			public static final String TESTS_FILEREADER4_PATH = TESTS_DIR + TESTS_FILEREADER4_FILENAME;
 			public static final String TESTS_FILESAVER1_PATH = TESTS_DIR + TESTS_FILESAVER1_FILENAME;
 			public static final String TESTS_FILESAVER2_PATH = TESTS_DIR + TESTS_FILESAVER2_FILENAME;
 			

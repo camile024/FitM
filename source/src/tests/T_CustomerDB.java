@@ -4,6 +4,9 @@ import static org.junit.Assert.*;
 
 import java.io.FileNotFoundException;
 import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 
 import org.junit.After;
 import org.junit.Before;
@@ -12,7 +15,8 @@ import org.junit.Test;
 import data.objects.Activity;
 import data.objects.Card;
 import data.objects.Customer;
-
+import data.objects.GymDay;
+import data.objects.WeekPlan;
 import engine.CONST;
 import engine.CustomerDB;
 import engine.FileReader;
@@ -25,6 +29,7 @@ import engine.FileSaver;
 public class T_CustomerDB {
     
     /* Paths */
+	private final String pathWeekPlan = CONST.TESTS_FILEREADER3_PATH; //same as FReader3 test path
     private final String pathAct = CONST.TESTS_DATA_DIR + CONST.ACT_LIST_FILENAME;
     private final String pathCardList = CONST.TESTS_DIR + CONST.CARD_DIR + CONST.CARD_LIST_FILENAME;
     private final String pathCustomList = CONST.TESTS_DIR + CONST.CUSTOMER_DIR + CONST.CUSTOMER_LIST_FILENAME;
@@ -44,6 +49,7 @@ public class T_CustomerDB {
 	public void tearDown() throws Exception {
 	    /* load defaults */
 	    FileReader defaultActivities = new FileReader(pathAct + CONST.DEFAULT_TEST_SUFFIX);
+	    FileReader defaultWeekPlan = new FileReader(pathWeekPlan + CONST.DEFAULT_TEST_SUFFIX);
 	    FileReader defaultCardList = new FileReader(pathCardList + CONST.DEFAULT_TEST_SUFFIX);
 	    FileReader defaultCustomerList = new FileReader(pathCustomList + CONST.DEFAULT_TEST_SUFFIX);
 	    FileReader defaultCustomer2 = new FileReader(pathCustom2 + CONST.DEFAULT_TEST_SUFFIX);
@@ -52,6 +58,7 @@ public class T_CustomerDB {
 	    FileReader defaultCard2228 = new FileReader(pathCard2228 + CONST.DEFAULT_TEST_SUFFIX);
         
 	    defaultActivities.load();
+	    defaultWeekPlan.load();
 	    defaultCardList.load();
 	    defaultCustomerList.load();
 	    defaultCustomer2.load();
@@ -62,6 +69,9 @@ public class T_CustomerDB {
 	    /* Clear 'em */
         FileSaver fs = new FileSaver(pathAct);
         fs.saveRawString(defaultActivities.getContents());
+        
+        fs = new FileSaver(pathWeekPlan);
+        fs.saveRawString(defaultWeekPlan.getContents());
         
         fs = new FileSaver(CONST.TESTS_FILESAVER2_PATH);
         fs.saveRawString("");
@@ -254,6 +264,59 @@ public class T_CustomerDB {
         assertEquals("Reference from card 2225 should be null", null, card.getCustomer());
         assertEquals("Reference from card 2228 should be updated", cust, card2.getCustomer());
         assertEquals("Reference from customer should be updated", card2, cust.getCard());
+    }
+    
+    @Test
+    public void testInitWeekPlan() throws FileNotFoundException, ParseException {
+    	db.initActivities();
+        db.initWeekPlan();
+        WeekPlan plan = db.getWeekPlan();
+        HashMap<Integer, ArrayList<Activity>> activities = plan.getActivities();
+        assertTrue("day: 1 | id: 2", activities.get(1).contains(db.getActivity(2)));
+        assertTrue("day: 1 | id: 3", activities.get(1).contains(db.getActivity(3)));
+        assertTrue("day: 2 | id: 2", activities.get(2).contains(db.getActivity(2)));
+        assertTrue("day: 5 | id: 6", activities.get(5).contains(db.getActivity(6)));
+        assertTrue("day: 5 | id: 3", activities.get(5).contains(db.getActivity(3)));
+    }
+    
+    @Test
+    public void testLoadingMonth() throws FileNotFoundException, ParseException {
+    	db.initActivities();
+    	db.initCustomers();
+        db.initCards();
+    	db.initWeekPlan();
+    	Date gymDayDate = CustomerDB.getDateFormat().parse("2018-5-22");
+		
+    	/* data prep */
+		ArrayList<Customer> expectedRes2 = new ArrayList<Customer>();
+		ArrayList<Customer> expectedRes3 = new ArrayList<Customer>();
+		ArrayList<Customer> expectedAtt2 = new ArrayList<Customer>();
+		ArrayList<Customer> expectedAtt3 = new ArrayList<Customer>();
+		ArrayList<Customer> expectedAtt5 = new ArrayList<Customer>();
+		expectedRes2.add(db.getCustomer(2));
+		expectedRes2.add(db.getCustomer(5));
+		
+		expectedRes3.add(db.getCustomer(2));
+		expectedRes3.add(db.getCustomer(1));
+		
+		expectedAtt2.add(db.getCustomer(3));
+		expectedAtt2.add(db.getCustomer(5));
+		
+		expectedAtt3.add(db.getCustomer(2));
+		
+		expectedAtt5.add(db.getCustomer(3));
+		expectedAtt5.add(db.getCustomer(6));
+		
+    	HashMap<String, GymDay> data = db.loadMonth(gymDayDate);
+    	HashMap<Activity, ArrayList<Customer>> attendees22 = data.get("2018-5-22").getAttendees();
+    	HashMap<Activity, ArrayList<Customer>> reservations22 = data.get("2018-5-22").getReservations();
+    	
+    	assertEquals("2018-5-22 | attendees | ID 2", expectedAtt2, attendees22.get(db.getActivity(2)));
+    	assertEquals("2018-5-22 | reservations | ID 2", expectedRes2, reservations22.get(db.getActivity(2)));
+    	assertEquals("2018-5-22 | attendees | ID 3", expectedAtt3, attendees22.get(db.getActivity(3)));
+    	assertEquals("2018-5-22 | reservations | ID 3", expectedRes3, reservations22.get(db.getActivity(3)));
+    	assertEquals("2018-5-22 | attendees | ID 5", expectedAtt5, attendees22.get(db.getActivity(5)));
+    	
     }
     
 
