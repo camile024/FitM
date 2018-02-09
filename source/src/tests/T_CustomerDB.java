@@ -13,9 +13,11 @@ import org.junit.Before;
 import org.junit.Test;
 
 import data.objects.Activity;
+import data.objects.Attendance;
 import data.objects.Card;
 import data.objects.Customer;
 import data.objects.GymDay;
+import data.objects.Reservation;
 import data.objects.WeekPlan;
 import engine.CONST;
 import engine.CustomerDB;
@@ -308,15 +310,31 @@ public class T_CustomerDB {
 		expectedAtt5.add(db.getCustomer(6));
 		
     	HashMap<String, GymDay> data = db.loadMonth(gymDayDate);
-    	HashMap<Activity, ArrayList<Customer>> attendees22 = data.get("2018-5-22").getAttendees();
-    	HashMap<Activity, ArrayList<Customer>> reservations22 = data.get("2018-5-22").getReservations();
+    	GymDay day22 = data.get("2018-5-22");
+    	ArrayList<Customer> temp = new ArrayList<Customer>();
     	
-    	assertEquals("2018-5-22 | attendees | ID 2", expectedAtt2, attendees22.get(db.getActivity(2)));
-    	assertEquals("2018-5-22 | reservations | ID 2", expectedRes2, reservations22.get(db.getActivity(2)));
-    	assertEquals("2018-5-22 | attendees | ID 3", expectedAtt3, attendees22.get(db.getActivity(3)));
-    	assertEquals("2018-5-22 | reservations | ID 3", expectedRes3, reservations22.get(db.getActivity(3)));
-    	assertEquals("2018-5-22 | attendees | ID 5", expectedAtt5, attendees22.get(db.getActivity(5)));
+    	fillArrayList(temp, day22.getAttendees(db.getActivity(2)));
+    	assertEquals("2018-5-22 | attendees | ID 2", expectedAtt2, temp);
     	
+    	fillArrayList(temp, day22.getReservations(db.getActivity(2)));
+    	assertEquals("2018-5-22 | reservations | ID 2", expectedRes2, temp);
+    	
+    	fillArrayList(temp, day22.getAttendees(db.getActivity(3)));
+    	assertEquals("2018-5-22 | attendees | ID 3", expectedAtt3, temp);
+    	
+    	fillArrayList(temp, day22.getReservations(db.getActivity(3)));
+    	assertEquals("2018-5-22 | reservations | ID 3", expectedRes3, temp);
+    	
+    	fillArrayList(temp, day22.getAttendees(db.getActivity(5)));
+    	assertEquals("2018-5-22 | attendees | ID 5", expectedAtt5, temp);
+    	
+    }
+    
+    private <T extends Reservation> void fillArrayList(ArrayList<Customer> customers, ArrayList<T> bookings) {
+    	customers.clear();
+    	for (T booking : bookings) {
+    		customers.add(booking.getCustomer());
+    	}
     }
     
 

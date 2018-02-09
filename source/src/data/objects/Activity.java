@@ -1,5 +1,6 @@
 package data.objects;
 
+import engine.CONST;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
@@ -7,6 +8,7 @@ public class Activity {
 	
 	/* Highest ID loaded in the memory */
 	private static int highestID = -1;
+	private static boolean highestIDEnabled = false;
 	
 	private int id;
 	private int order;
@@ -23,9 +25,10 @@ public class Activity {
 	public Activity(int id, String name) {
 		this.id = id;
 		this.name = name;
+		/* update highestID */
 		if (id > highestID) {
 			highestID = id;
-		} else {
+		} else if (highestIDEnabled == true){
 			this.id = ++highestID;
 		}
 		
@@ -41,6 +44,17 @@ public class Activity {
 		return (act.getId() == this.getId());
 	}
 	
+	public static void disableHighestID() {
+		highestIDEnabled = false;
+	}
+	
+	public static void enableHighestID() {
+		highestIDEnabled = true;
+	}
+	
+	public static void resetHighestID() {
+		highestID = CONST.DEFAULT_HIGHEST_ID;
+	}
 	
 	/* **************************** */
 	/*								*/

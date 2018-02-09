@@ -65,6 +65,9 @@ public abstract class CONST {
 		/* 3 - TEST */
 		public static final String DEFAULT_TEST_SUFFIX = "_DEF";
 		
+		/* 4 - OTHER */
+		public static final int DEFAULT_HIGHEST_ID = -1;
+		
 	/** END OF DEFAULT_VALUES **/
 	
 	/************************** *

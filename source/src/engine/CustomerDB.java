@@ -14,9 +14,11 @@ import java.util.Map.Entry;
 import java.util.Scanner;
 
 import data.objects.Activity;
+import data.objects.Attendance;
 import data.objects.Card;
 import data.objects.Customer;
 import data.objects.GymDay;
+import data.objects.Reservation;
 import data.objects.WeekPlan;
 
 /**
@@ -50,6 +52,8 @@ public class CustomerDB {
 	 */
 	public void initActivities() throws FileNotFoundException {
 		Activity.resetID();
+		/* Turn off highestID for the duration of the initialisation */
+		Activity.disableHighestID();
 		activities = new HashMap<Integer, Activity>();
 		FileReader fr = new FileReader(dirName + CONST.ACT_LIST_PATH);
 		fr.load();
@@ -59,6 +63,8 @@ public class CustomerDB {
 			Activity act = new Activity(entry.getKey(), entry.getValue());
 			activities.put(entry.getKey(), act);
 		}
+		/* Turn off highestID for the duration of the initialisation */
+		Activity.enableHighestID();
 	}
 	
 	/**
@@ -68,6 +74,8 @@ public class CustomerDB {
 	 */
 	public void initCustomers() throws FileNotFoundException, ParseException {
 		Customer.resetID();
+		/* Turn off highestID for the duration of the initialisation */
+		Customer.disableHighestID();
 		customers = new HashMap<Integer, Customer>();
 		FileReader fr = new FileReader(dirName + CONST.CUSTOMER_LIST_PATH);
 		FileReader fr_customer;
@@ -93,6 +101,8 @@ public class CustomerDB {
 			customers.put(nextId, customer);
 			
 		}
+		/* re-enable highest id */
+		Customer.enableHighestID();
 		sc.close();
 	}
 	
@@ -190,13 +200,13 @@ public class CustomerDB {
 		/* Attendees */
 		for (Entry<Integer, ArrayList<Integer>> entry : attendees.entrySet()) {
 			for (Integer customer : entry.getValue()) {
-				gymDay.addAttendee(getActivity(entry.getKey()), getCustomer(customer));
+				gymDay.addAttendee(new Attendance(getCustomer(customer), getActivity(entry.getKey())));
 			}
 		}
 		/* Reservations*/
 		for (Entry<Integer, ArrayList<Integer>> entry : reservations.entrySet()) {
 			for (Integer customer : entry.getValue()) {
-				gymDay.addReservation(getActivity(entry.getKey()), getCustomer(customer));
+				gymDay.addReservation(new Reservation(getCustomer(customer), getActivity(entry.getKey())));
 			}
 		}
 	}
