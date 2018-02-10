@@ -13,12 +13,12 @@ import java.util.HashMap;
 import java.util.Map.Entry;
 import java.util.Scanner;
 
+import data.Attendance;
+import data.Reservation;
 import data.objects.Activity;
-import data.objects.Attendance;
 import data.objects.Card;
 import data.objects.Customer;
 import data.objects.GymDay;
-import data.objects.Reservation;
 import data.objects.WeekPlan;
 
 /**
@@ -28,6 +28,7 @@ import data.objects.WeekPlan;
  *  3) Call initCustomers() to load Customers from data files
  *  4) Call initCards() to load Cards and associate them with Customers
  *  5) Call initWeekPlan() to load WeekPlan's data and instantiate the object
+ *  6) Call loadMonth(Date) to load a particular month when needed 
  * @author Kamil
  *
  */
@@ -163,21 +164,7 @@ public class CustomerDB {
 		FileReader fr;
 		for (int day = 0; day <= 31; day++) {
 			try {
-				String monthStr;
-				String dayStr;
-				LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-				
-//				if (localDate.getMonthValue() < 10) {
-//					monthStr = '0' + String.valueOf(localDate.getMonthValue());
-//				} else {
-					monthStr = String.valueOf(localDate.getMonthValue());
-//				}
-//				if (day < 10) {
-//					dayStr = '0' + String.valueOf(day);
-//				} else {
-					dayStr = String.valueOf(day);
-//				}
-				String fileName = localDate.getYear() + "-" + monthStr + "-" + dayStr;
+				String fileName = dateFormat.format(date);
 				fr = new FileReader(dirName + CONST.CALENDAR_DIR + fileName);
 				fr.load();
 				Date gymDayDate = dateFormat.parse(fileName);
@@ -194,20 +181,40 @@ public class CustomerDB {
 	}
 	
 	
-	private void fillGymDay(HashMap<Integer, HashMap<Integer, ArrayList<Integer>>> data, GymDay gymDay) {
+	private void fillGymDay(HashMap<Integer, HashMap<Integer, ArrayList<Integer>>> data, GymDay gymDay) throws FileNotFoundException {
 		HashMap<Integer, ArrayList<Integer>> attendees = data.get(CONST.INDEX_ATTENDANTS);
 		HashMap<Integer, ArrayList<Integer>> reservations = data.get(CONST.INDEX_RESERVATIONS);
+		boolean overwriteDay = false;
 		/* Attendees */
 		for (Entry<Integer, ArrayList<Integer>> entry : attendees.entrySet()) {
-			for (Integer customer : entry.getValue()) {
-				gymDay.addAttendee(new Attendance(getCustomer(customer), getActivity(entry.getKey())));
+			if (getActivity(entry.getKey()) != null) { //make sure to check activity still exists (gymday file can be outdated)
+				for (Integer customer : entry.getValue()) {
+					if (getCustomer(customer) != null) { //make sure customer exists too
+						gymDay.addAttendee(new Attendance(getCustomer(customer), getActivity(entry.getKey())));
+					} else {
+						overwriteDay = true;
+					}
+				}
+			} else {
+				overwriteDay = true;
 			}
 		}
 		/* Reservations*/
 		for (Entry<Integer, ArrayList<Integer>> entry : reservations.entrySet()) {
-			for (Integer customer : entry.getValue()) {
-				gymDay.addReservation(new Reservation(getCustomer(customer), getActivity(entry.getKey())));
+			if (getActivity(entry.getKey()) != null) { //as above - make sure there's an activity related
+				for (Integer customer : entry.getValue()) {
+					if (getCustomer(customer) != null) { //as above - make sure customer exists
+						gymDay.addReservation(new Reservation(getCustomer(customer), getActivity(entry.getKey())));
+					} else {
+						overwriteDay = true;
+					}
+				}
+			} else {
+				overwriteDay = true;
 			}
+		}
+		if (overwriteDay) { //if any customer/activity listed in the file doesn't exist, make sure to update the file
+			updateGymDayFile(gymDay);
 		}
 	}
 	
@@ -276,6 +283,14 @@ public class CustomerDB {
 	    /* ACTIVITY */
 	    } else if (obj instanceof Activity) {
 	    	addActivity((Activity) obj);
+	    /* WEEKPLAN */
+	    } else if (obj instanceof WeekPlan) {
+	    	/* WeekPlan cannot be added - it's always there, do nothing */
+	    /* GYMDAY */
+	    } else if (obj instanceof GymDay) {
+	    	GymDay newDay = (GymDay) obj;
+	    	currentMonth.put(dateFormat.format(newDay.getDate()), newDay);
+	    	updateGymDayFile(newDay);
 	    }
    }
    
@@ -295,6 +310,12 @@ public class CustomerDB {
 	    /* ACTIVITY */
 	    } else if (obj instanceof Activity) {
 	    	removeActivity((Activity) obj);
+	    /* WEEKPLAN */
+	    } else if (obj instanceof WeekPlan) {
+	    	/* WeekPlan cannot be removed - do nothing */
+	    /* GYMDAY */
+	    } else if (obj instanceof GymDay) {
+	    	removeGymDay((GymDay) obj);
 	    }
    }
 	
@@ -306,6 +327,7 @@ public class CustomerDB {
 		updateActivitiesFile();
 		updateCustomerFiles();
 		updateCardFiles();
+		updateWeekPlanFile();
 	}
 	
 	
@@ -336,6 +358,12 @@ public class CustomerDB {
 	    /* ACTIVITY */
 	    } else if (updatedObj instanceof Activity) {
 	        updateActivitiesFile();
+	    /* WEEKPLAN */
+	    } else if (updatedObj instanceof WeekPlan) {
+	    	updateWeekPlanFile();
+	    /* GYMDAY */
+	    } else if (updatedObj instanceof GymDay) {
+	    	updateGymDayFile((GymDay)updatedObj);
 	    }
 	}
 	
@@ -394,7 +422,39 @@ public class CustomerDB {
 	 */
   	private void removeActivity(Activity activity) throws FileNotFoundException {
 	    activities.remove(activity.getId());
+	    /* Remove any Attendances/Reservations currently in memory */
+	    if (currentMonth != null) {
+	    	for (Entry<String, GymDay> entry : currentMonth.entrySet()) {
+	    		boolean wasRemoved = false;
+	    		ArrayList<Reservation> toRemove = entry.getValue().getReservations(activity);
+	    		for (Reservation r : toRemove) {
+	    			entry.getValue().removeReservation(r);
+	    			wasRemoved = true;
+	    		}
+	    		ArrayList<Attendance> toRemove2 = entry.getValue().getAttendees(activity);
+	    		for (Attendance a : toRemove2) {
+	    			entry.getValue().removeReservation(a);
+	    			wasRemoved = true;
+	    		}
+	    		if (wasRemoved) {
+	    			updateGymDayFile(entry.getValue());
+	    		}
+	    	}
+	    }
+	    /* */
+	    /* Update WeekPlan */
+	    for (int i=1; i <= 7; i++) {
+	    	weekPlan.removeActivity(i, activity);
+	    }
+	    updateWeekPlanFile();
+	    /* */
 	    updateActivitiesFile();
+	}
+  	
+  	private void removeGymDay(GymDay gymDay) throws FileNotFoundException {
+	    currentMonth.remove(dateFormat.format(gymDay.getDate()));
+	    File f = new File(dirName + CONST.CALENDAR_DIR + dateFormat.format(gymDay.getDate()));
+	    f.delete();
 	}
 	
 	/**
@@ -453,9 +513,7 @@ public class CustomerDB {
         contents.put(CONST.CUSTOMER_ENTRIES, String.valueOf(customer.getEntries()));
         
         /* open date */
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(customer.getOpenDate());
-        contents.put(CONST.CUSTOMER_OPEN, "" + calendar.get(Calendar.YEAR) + '-' + calendar.get(Calendar.MONTH) + '-' + calendar.get(Calendar.DAY_OF_MONTH));
+        contents.put(CONST.CUSTOMER_OPEN, "" + openDateFormat.format(customer.getOpenDate()));
         
         /* SAVE */
         fs = new FileSaver(dirName + CONST.CUSTOMER_DIR + customer.getId());
@@ -549,6 +607,61 @@ public class CustomerDB {
 			contents_act.put(entry.getKey(), entry.getValue().getName());
 		}
 		fs.saveAct(contents_act);
+	}
+	
+	/**
+	 * Gets a HashMap with lists of activities and creates based on it
+	 * HashMap with lists of integers (activity IDs).
+	 * Uses FileSaver to save the generated contents in a file
+	 * @throws FileNotFoundException
+	 */
+	private void updateWeekPlanFile() throws FileNotFoundException {
+		FileSaver fs = new FileSaver(dirName + CONST.WEEKPLAN_PATH);
+		HashMap<Integer, ArrayList<Activity>> activities = weekPlan.getActivities();
+		HashMap<Integer, ArrayList<Integer>> contents = new HashMap<Integer, ArrayList<Integer>>();
+		for (Entry<Integer, ArrayList<Activity>> entry : activities.entrySet()) {
+			if (contents.get(entry.getKey()) == null) {
+				contents.put(entry.getKey(), new ArrayList<Integer>());
+			}
+			for (Activity act : entry.getValue()) {
+				contents.get(entry.getKey()).add(act.getId());
+			}
+		}
+		fs.saveWeekPlan(contents);
+	}
+	
+	/**
+	 * Updates a file relevant to given GymDay's date
+	 * @param day
+	 * @throws FileNotFoundException
+	 */
+	private void updateGymDayFile(GymDay day) throws FileNotFoundException {
+		/* First translate all reservations
+		 * and attendances to FileSaver-friendly format
+		 */
+		/* Prep maps */
+		HashMap<Integer, HashMap<Integer, ArrayList<Integer>>> data = new HashMap<Integer, HashMap<Integer, ArrayList<Integer>>>();
+		data.put(CONST.INDEX_ATTENDANTS, new HashMap<Integer, ArrayList<Integer>>());
+		data.put(CONST.INDEX_RESERVATIONS, new HashMap<Integer, ArrayList<Integer>>());
+		/* Prep attendants */
+		ArrayList<Attendance> attendances = day.getAttendees();
+		for (Attendance a : attendances) { //for every attendance
+			if (data.get(CONST.INDEX_ATTENDANTS).get(a.getActivity().getId()) == null) { //check if no custID AList is present yet for this actID
+				data.get(CONST.INDEX_ATTENDANTS).put(a.getActivity().getId(), new ArrayList<Integer>()); //no AList, create one		
+			}
+			data.get(CONST.INDEX_ATTENDANTS).get(a.getActivity().getId()).add(a.getCustomer().getId()); //add a customerID to it
+		}
+		/* Prep reservations */
+		ArrayList<Reservation> reservations = day.getReservations();
+		for (Reservation r : reservations) { //for every attendance
+			if (data.get(CONST.INDEX_RESERVATIONS).get(r.getActivity().getId()) == null) { //check if no custID AList is present yet for this actID
+				data.get(CONST.INDEX_RESERVATIONS).put(r.getActivity().getId(), new ArrayList<Integer>()); //no AList, create one		
+			}
+			data.get(CONST.INDEX_RESERVATIONS).get(r.getActivity().getId()).add(r.getCustomer().getId()); //add a customerID to it
+		}
+		/* Save all the data */
+		FileSaver fs = new FileSaver(dirName + CONST.CALENDAR_DIR + dateFormat.format(day.getDate()));
+		fs.saveGymDay(data);
 	}
 	
 	public Card getCard(int cardNum) {

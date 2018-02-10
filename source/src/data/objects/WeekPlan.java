@@ -3,6 +3,11 @@ package data.objects;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * DAYS IN WEEKPLAN ARE COUNTED 1-7
+ * @author Kamil
+ *
+ */
 public class WeekPlan {
 
 	private HashMap<Integer, ArrayList<Activity>> activities;

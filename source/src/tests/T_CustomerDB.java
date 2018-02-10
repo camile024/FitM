@@ -4,6 +4,8 @@ import static org.junit.Assert.*;
 
 import java.io.FileNotFoundException;
 import java.text.ParseException;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -12,12 +14,12 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import data.Attendance;
+import data.Reservation;
 import data.objects.Activity;
-import data.objects.Attendance;
 import data.objects.Card;
 import data.objects.Customer;
 import data.objects.GymDay;
-import data.objects.Reservation;
 import data.objects.WeekPlan;
 import engine.CONST;
 import engine.CustomerDB;
@@ -39,6 +41,7 @@ public class T_CustomerDB {
     private final String pathCustom5 = CONST.TESTS_DIR + CONST.CUSTOMER_DIR + "5";
     private final String pathCard2225 = CONST.TESTS_DIR + CONST.CARD_DIR + "2225";
     private final String pathCard2228 = CONST.TESTS_DIR + CONST.CARD_DIR + "2228";
+    private final String pathDay0522 = CONST.TESTS_FILEREADER4_PATH;
     
 	private CustomerDB db;
 	
@@ -58,6 +61,7 @@ public class T_CustomerDB {
 	    FileReader defaultCustomer5 = new FileReader(pathCustom5 + CONST.DEFAULT_TEST_SUFFIX);
         FileReader defaultCard2225 = new FileReader(pathCard2225 + CONST.DEFAULT_TEST_SUFFIX);
 	    FileReader defaultCard2228 = new FileReader(pathCard2228 + CONST.DEFAULT_TEST_SUFFIX);
+	    FileReader default0522Day = new FileReader(pathDay0522 + CONST.DEFAULT_TEST_SUFFIX);
         
 	    defaultActivities.load();
 	    defaultWeekPlan.load();
@@ -67,6 +71,7 @@ public class T_CustomerDB {
 	    defaultCustomer5.load();
 	    defaultCard2225.load();
 	    defaultCard2228.load();
+	    default0522Day.load();
 	    
 	    /* Clear 'em */
         FileSaver fs = new FileSaver(pathAct);
@@ -95,6 +100,9 @@ public class T_CustomerDB {
         
         fs = new FileSaver(pathCard2228);
         fs.saveRawString(defaultCard2228.getContents());
+        
+        fs = new FileSaver(pathDay0522);
+        fs.saveRawString(default0522Day.getContents());
 	}
 
 	@Test
@@ -287,7 +295,7 @@ public class T_CustomerDB {
     	db.initCustomers();
         db.initCards();
     	db.initWeekPlan();
-    	Date gymDayDate = CustomerDB.getDateFormat().parse("2018-5-22");
+    	Date gymDayDate = CustomerDB.getDateFormat().parse("2018-05-22");
 		
     	/* data prep */
 		ArrayList<Customer> expectedRes2 = new ArrayList<Customer>();
@@ -310,7 +318,7 @@ public class T_CustomerDB {
 		expectedAtt5.add(db.getCustomer(6));
 		
     	HashMap<String, GymDay> data = db.loadMonth(gymDayDate);
-    	GymDay day22 = data.get("2018-5-22");
+    	GymDay day22 = data.get("2018-05-22");
     	ArrayList<Customer> temp = new ArrayList<Customer>();
     	
     	fillArrayList(temp, day22.getAttendees(db.getActivity(2)));
@@ -328,6 +336,64 @@ public class T_CustomerDB {
     	fillArrayList(temp, day22.getAttendees(db.getActivity(5)));
     	assertEquals("2018-5-22 | attendees | ID 5", expectedAtt5, temp);
     	
+    }
+    
+    @Test
+    public void testUpdateWeekPlan() throws FileNotFoundException {
+    	db.initActivities();
+        db.initWeekPlan();
+        WeekPlan plan = db.getWeekPlan();
+        plan.removeActivity(1, db.getActivity(2));
+        plan.addActivity(2, db.getActivity(3));
+        db.updateSingleObject(plan, true);
+        db.initActivities();
+        db.initWeekPlan();
+        plan = db.getWeekPlan();
+        HashMap<Integer, ArrayList<Activity>> activities = plan.getActivities();
+        assertFalse("day: 1 | id: 2", activities.get(1).contains(db.getActivity(2)));
+        assertTrue("day: 2 | id: 3", activities.get(2).contains(db.getActivity(3)));
+    }
+    
+    @Test
+    public void testUpdateGymDay() throws FileNotFoundException, ParseException {
+    	db.initActivities();
+    	db.initCustomers();
+        db.initCards();
+    	db.initWeekPlan();
+    	GymDay day = getTestDay(db);
+    	Reservation res = getTestReservation(db, day);
+    	assertNotEquals("Reservation should exist", null, res);
+    	day.removeReservation(res);
+    	db.updateSingleObject(day, true);
+    	
+    	db.initActivities();
+    	db.initCustomers();
+        db.initCards();
+    	db.initWeekPlan();
+    	day = getTestDay(db);
+    	res = getTestReservation(db, day);
+    	assertEquals("Reservation should not exist anymore", null, res);
+    }
+    
+    private Reservation getTestReservation(CustomerDB db, GymDay day) {
+    	ArrayList<Reservation> reservations = day.getReservations(db.getActivity(2));
+    	Reservation res = null;
+    	for (Reservation r : reservations) {
+    		if (r.getCustomer().getId() == 5) {
+    			res = r;
+    		}
+    	}
+    	return res;
+    }
+    
+    private GymDay getTestDay(CustomerDB db) throws ParseException {
+    	Date currentDate = CustomerDB.getDateFormat().parse("2018-05-22");
+    	
+    	HashMap<String, GymDay> month = db.loadMonth(currentDate);
+
+		String fileName = CustomerDB.getDateFormat().format(currentDate);
+		
+    	return month.get(fileName);
     }
     
     private <T extends Reservation> void fillArrayList(ArrayList<Customer> customers, ArrayList<T> bookings) {

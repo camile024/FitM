@@ -110,6 +110,7 @@ public class UI_CustomerView extends UI_View {
         
         FXID_COLUMN_OPTIONS.setCellValueFactory(new CustomerOptions(customerDB, parent));
         
+        
         FXID_TABLE.setItems(tableData);
         
         /* Pressing enter will filter too */

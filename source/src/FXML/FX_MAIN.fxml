@@ -9,7 +9,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane fx:id="FXID_BORDERPANE_MAIN" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="600.0" minWidth="800.0" prefHeight="800.0" prefWidth="1200.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.mains.UI_Main">
+<BorderPane fx:id="FXID_BORDERPANE_MAIN" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="600.0" minWidth="800.0" prefHeight="800.0" prefWidth="1200.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/9.0.4" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.mains.UI_Main">
    <left>
       <VBox fx:id="FXID_MENU_VBOX" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="165.0" prefWidth="200.0" BorderPane.alignment="TOP_CENTER">
          <BorderPane.margin>
@@ -24,6 +24,14 @@
                   <DropShadow blurType="ONE_PASS_BOX" height="11.0" offsetX="2.0" offsetY="2.0" radius="5.0" width="11.0" />
                </effect>
             </Text>
+            <Button fx:id="FXID_CALENDAR_BTN" mnemonicParsing="false" onAction="#btnCalendarOnClick" prefHeight="25.0" prefWidth="194.0" text="[ CALENDAR ]">
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <effect>
+                  <DropShadow blurType="ONE_PASS_BOX" offsetX="1.0" offsetY="1.0" radius="4.75" width="0.0" />
+               </effect>
+            </Button>
             <Button fx:id="FXID_CUSTOMER_LIST_BTN" mnemonicParsing="false" onAction="#btnClientListOnClick" prefHeight="25.0" prefWidth="194.0" text="[ CUSTOMER_LIST ]">
                <font>
                   <Font size="14.0" />

@@ -155,7 +155,11 @@ public class FileReader {
 		
 	}
 	
-	
+	/**
+	 * Takes a String with customer IDs listed and splits it up into an ArrayList of ints
+	 * @param value
+	 * @return
+	 */
 	private ArrayList<Integer> getCustomerList(String value) {
 		ArrayList<Integer> result = new ArrayList<Integer>();
 		Scanner sc = new Scanner(value);
@@ -165,7 +169,7 @@ public class FileReader {
 			if (!next.trim().equals(""))
 				result.add(Integer.valueOf(next));
 		}
-		
+		sc.close();
 		return result;
 		
 	}

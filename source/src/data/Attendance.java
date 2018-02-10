@@ -1,4 +1,7 @@
-package data.objects;
+package data;
+
+import data.objects.Activity;
+import data.objects.Customer;
 
 public class Attendance extends Reservation {
 

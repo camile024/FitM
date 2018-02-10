@@ -90,7 +90,7 @@ public class UI_CardView extends UI_View {
         FXID_COLUMN_NAME.setCellValueFactory(new PropertyValueFactory<Card, String>("customerName"));
         FXID_COLUMN_SURNAME.setCellValueFactory(new PropertyValueFactory<Card, String>("customerSurname"));
         FXID_COLUMN_OPTIONS.setCellValueFactory(new CardOptions(customerDB, parent));
-        
+
         FXID_TABLE.setItems(tableData);
         
         /* Pressing enter will filter too */

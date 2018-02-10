@@ -2,7 +2,9 @@ package data.objects;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
+
+import data.Attendance;
+import data.Reservation;
 
 public class GymDay {
 	Date date;

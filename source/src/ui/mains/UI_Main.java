@@ -25,6 +25,7 @@ import javafx.stage.StageStyle;
 import ui.utils.MainViewMode;
 import ui.utils.ResourceLocalizer;
 import ui.views.UI_ActivityView;
+import ui.views.UI_CalendarView;
 import ui.views.UI_CardView;
 import ui.views.UI_CustomerView;
 import ui.views.UI_View;
@@ -56,6 +57,8 @@ public class UI_Main {
     Button FXID_SETTINGS_BTN;
     @FXML
     Button FXID_CONTACT_BTN;
+    @FXML
+    Button FXID_CALENDAR_BTN;
     @FXML
     BorderPane FXID_MAIN_VIEW;
     @FXML
@@ -89,6 +92,7 @@ public class UI_Main {
         FXID_EXIT_BTN.setText(Locale.getString(CONST.TXT_EXIT));
         FXID_SETTINGS_BTN.setText(Locale.getString(CONST.TXT_SETTINGS));
         FXID_CONTACT_BTN.setText(Locale.getString(CONST.TXT_ABOUT));
+        FXID_CALENDAR_BTN.setText(Locale.getString(CONST.TXT_CALENDAR));
         FXID_SCAN_NOTE.setText(Locale.getString(CONST.TXT_SCAN_NOTE));
         FXID_PL_BTN.setText("");
         FXID_EN_BTN.setText("");
@@ -105,6 +109,11 @@ public class UI_Main {
     @FXML
     public void btnClientListOnClick() {
         switchView(MainViewMode.CUSTOMER);
+    }
+    
+    @FXML
+    public void btnCalendarOnClick() {
+    	switchView(MainViewMode.CALENDAR);
     }
     
     @FXML
@@ -171,6 +180,8 @@ public class UI_Main {
             case ACTIVITY:
             	pane = setActivityView();
                 break;
+            case CALENDAR:
+            	pane = setCalendarView();
         }
         
         FXID_MAIN_VIEW.setCenter(pane);
@@ -200,6 +211,23 @@ public class UI_Main {
             System.exit(-1);
         }
         UI_CustomerView uiView = ((UI_CustomerView)(loader.getController()));
+        uiView.init(customerDB, this);
+        currentViewController = uiView;
+        /* End of FXML part */
+        return pane;
+    }
+    
+    private BorderPane setCalendarView() {
+        /* FXML part */
+        FXMLLoader loader = FXLoader.getLoader(CONST.FXML_VIEW_CALENDAR_PATH);
+        BorderPane pane = null;
+        try {
+            pane = (BorderPane) loader.load();
+        } catch (IOException e1) {
+            e1.printStackTrace();
+            System.exit(-1);
+        }
+        UI_CalendarView uiView = ((UI_CalendarView)(loader.getController()));
         uiView.init(customerDB, this);
         currentViewController = uiView;
         /* End of FXML part */

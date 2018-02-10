@@ -4,6 +4,29 @@
 	-fx-font-weight: bold;
 }
 
+.calendarButton {
+	-fx-font-size: 18px;
+	-fx-font-weight: bold;
+	-fx-pref-width: 96;
+	-fx-pref-height: 64;
+	-fx-max-height: 300;
+	-fx-max-width: 600;
+}
+
+.calendar_dayBar {
+	-fx-background-color:
+		linear-gradient(#e1d7e8 0%, #877c8e 100%);
+	-fx-alignment: CENTER;
+	-fx-border-color: #7c41a3;
+	-fx-border-width: 1;
+}
+
+.calendarLabel {
+	-fx-font-size: 18px;
+	-fx-fill: #303030;
+	-fx-font-weight: bold;
+}
+
 .regLabel {
 	-fx-font-size: 13px;
 	-fx-fill: #303030;
@@ -115,6 +138,11 @@
 }
 
 #FXID_MAIN_VIEW {
+	-fx-background-color:
+		linear-gradient(#7f4e93 0%, #591c72 100%);
+}
+
+#FXID_CALENDAR_PANE {
 	-fx-background-color:
 		linear-gradient(#7f4e93 0%, #591c72 100%);
 }

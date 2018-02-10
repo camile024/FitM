@@ -138,7 +138,7 @@ public abstract class CONST {
 			public static final String TESTS_FILEREADER1_FILENAME = "TEST_FILE_READER_1";
 			public static final String TESTS_FILEREADER2_FILENAME = "TEST_FILE_READER_2_ACT";
 			public static final String TESTS_FILEREADER3_FILENAME = "DATA/WEEKPLAN";
-			public static final String TESTS_FILEREADER4_FILENAME = "DATA/CALENDAR/2018-5-22";
+			public static final String TESTS_FILEREADER4_FILENAME = "DATA/CALENDAR/2018-05-22";
 			public static final String TESTS_FILESAVER1_FILENAME = "TEST_FILE_SAVER_1";
 			public static final String TESTS_FILESAVER2_FILENAME = "TEST_FILE_SAVER_2_ACT";
 			
@@ -166,6 +166,7 @@ public abstract class CONST {
 		    public static final String FXML_VIEW_CUSTOMER_FILENAME = "FX_VIEW_CUSTOMER.fxml";
 		    public static final String FXML_VIEW_CARD_FILENAME = "FX_VIEW_CARD.fxml";
 		    public static final String FXML_VIEW_ACTIVITY_FILENAME = "FX_VIEW_ACTIVITY.fxml";
+		    public static final String FXML_VIEW_CALENDAR_FILENAME = "FX_VIEW_CALENDAR.fxml";
 		    /* 1.2 - Dialogs */
 		    public static final String FXML_CUSTOMER_INFO_DIALOG_FILENAME = "FX_DLG_CUSTOMER_INFO.fxml";
 		    public static final String FXML_CUSTOMER_ADD_DIALOG_FILENAME = "FX_DLG_CUSTOMER_ADD.fxml";
@@ -185,6 +186,8 @@ public abstract class CONST {
 		    public static final String FXML_VIEW_CUSTOMER_PATH = FXML_DIR + FXML_VIEW_CUSTOMER_FILENAME;
 		    public static final String FXML_VIEW_CARD_PATH = FXML_DIR + FXML_VIEW_CARD_FILENAME;
 		    public static final String FXML_VIEW_ACTIVITY_PATH = FXML_DIR + FXML_VIEW_ACTIVITY_FILENAME;
+		    public static final String FXML_VIEW_CALENDAR_PATH = FXML_DIR + FXML_VIEW_CALENDAR_FILENAME;
+		    
 		    /* 3.2 - Dialogs */
 		    public static final String FXML_CUSTOMER_INFO_DIALOG_PATH = FXML_DIR + FXML_CUSTOMER_INFO_DIALOG_FILENAME;
 		    public static final String FXML_CUSTOMER_ADD_DIALOG_PATH = FXML_DIR + FXML_CUSTOMER_ADD_DIALOG_FILENAME;
@@ -304,6 +307,7 @@ public abstract class CONST {
             	public static final String TXT_BTN_ADD_ENTRIES = "ADD_ENTRIES";
             	public static final String TXT_BTN_EXTEND = "EXTEND_OPEN";
             	public static final String TXT_BTN_GET_CARD = "ASSIGN_CARD";
+            	public static final String TXT_BTN_PLANNER = "PLANNER";
             /* 1.5 - Labels */
             	public static final String TXT_SEARCH = "SEARCH";
             	public static final String TXT_SCAN_NOTE = "SCAN_NOTE";
@@ -328,7 +332,29 @@ public abstract class CONST {
             	public static final String TXT_MSG_ADD_ACTIVITY = "ADD_ACTIVITY_MSG";
             	public static final String TXT_MSG_EDIT_ACTIVITY = "EDIT_ACTIVITY_MSG";
 		
-		/* 2 - TEST-RELATED STRING CONSTANTS */
+		/* 2 - CALENDAR STRINGS */
+            	public static final String TXT_CALENDAR = "TITLE_CALENDAR";
+            	public static final String TXT_MON = "MON";
+            	public static final String TXT_TUE = "TUE";
+            	public static final String TXT_WED = "WED";
+            	public static final String TXT_THU = "THU";
+            	public static final String TXT_FRI = "FRI";
+            	public static final String TXT_SAT = "SAT";
+            	public static final String TXT_SUN = "SUN";
+            	
+            	public static final String TXT_JANUARY = "JANUARY";
+            	public static final String TXT_FEBRUARY = "FEBRUARY";
+            	public static final String TXT_MARCH = "MARCH";
+            	public static final String TXT_APRIL = "APRIL";
+            	public static final String TXT_MAY = "MAY";
+            	public static final String TXT_JUNE = "JUNE";
+            	public static final String TXT_JULY = "JULY";
+            	public static final String TXT_AUGUST = "AUGUST";
+            	public static final String TXT_SEPTEMBER = "SEPTEMBER";
+            	public static final String TXT_OCTOBER = "OCTOBER";
+            	public static final String TXT_NOVEMBER = "NOVEMBER";
+            	public static final String TXT_DECEMBER = "DECEMBER";
+        /* 3 - TEST-RELATED STRING CONSTANTS */
 			public static final String TXT_TEST = "TEST";
 			public static final String TXT_TEST2 = "TEST2";
 	/** END OF LOCALIZATION **/
