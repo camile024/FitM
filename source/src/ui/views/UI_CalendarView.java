@@ -18,6 +18,9 @@ import data.objects.WeekPlan;
 import engine.CONST;
 import engine.CustomerDB;
 import engine.Locale;
+import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -156,8 +159,8 @@ public class UI_CalendarView extends UI_View {
     		Button btn = new Button();
     		GridPane.setVgrow(btn, Priority.ALWAYS);
     		GridPane.setHgrow(btn, Priority.ALWAYS);
+    		FXID_CALENDAR_PANE.add(btn, currentColumn, currentRow); //before prepping so height gets set
     		prepBtn(btn, day);
-    		FXID_CALENDAR_PANE.add(btn, currentColumn, currentRow);
     		currentColumn++;
     		
     	}
@@ -187,22 +190,36 @@ public class UI_CalendarView extends UI_View {
     	
     	
     	GymDay plannedDay =  currentMonth.get(fileName);
-    	if (plannedDay != null) { //if reservations/attendances make sure to show that
+    	ArrayList<Activity> plannedActivities = plan.getActivities().get(viewingDate.getDayOfWeek().getValue());
+    	/* if reservations/attendances make sure to show that */
+    	if (plannedDay != null) {
     		ArrayList<Attendance> attendances = plannedDay.getAttendees();
+    		ArrayList<Reservation> reservations = plannedDay.getReservations();
+    		
 	    	if (attendances != null && attendances.size() > 0) {
 	    		button.getStyleClass().add("calendarHappened");
-	    	} else {
-	    		ArrayList<Reservation> reservations = plannedDay.getReservations();
-	    		if (reservations != null && reservations.size() > 0) {
-	    			button.getStyleClass().add("calendarReserved");
+	    		for (Attendance att : attendances) {
+	    			button.setText(button.getText() + "\n" + att.getActivity().getName());
+	    		}
+	    	/* no attendances - there might be reservations though */
+	    	} else if (reservations != null && reservations.size() > 0) {
+    			button.getStyleClass().add("calendarReserved");
+    			for (Reservation res : reservations) {
+	    			button.setText(button.getText() + "\n" + res.getActivity().getName());
 	    		}
 	    	}
-    	} else { //if nothing to show - just show if anything's planned for that day
-	    	ArrayList<Activity> planned = plan.getActivities().get(viewingDate.getDayOfWeek().getValue());
-	    	if (planned != null && planned.size() > 0) {
+	    /* if nothing to show - just show if anything's planned for that day */
+    	} else {
+	    	if (plannedActivities != null && plannedActivities.size() > 0) {
 	    		button.getStyleClass().add("calendarRegular");
+	    		for (Activity res : plannedActivities) {
+	    			button.setText(button.getText() + "\n" + res.getName());
+	    		}
+	    		
 	    	}
+	    	
     	}
+    	
     	
     	
     }
