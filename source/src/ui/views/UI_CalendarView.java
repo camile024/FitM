@@ -1,11 +1,20 @@
 package ui.views;
 
+import java.text.ParseException;
 import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.LinkedList;
 
+import data.Attendance;
+import data.Reservation;
 import data.objects.Activity;
+import data.objects.GymDay;
+import data.objects.WeekPlan;
 import engine.CONST;
 import engine.CustomerDB;
 import engine.Locale;
@@ -53,15 +62,15 @@ public class UI_CalendarView extends UI_View {
     @FXML
     Button FXID_MONTH_BTN;
 
-    private int month;
-    private Date currentDate;
+    private LocalDate currentDate;
+    private LocalDate viewingDate;
+    private HashMap<String, GymDay> currentMonth;
     
     @Override
     public void init(CustomerDB customerDB, UI_Main parent) {
-        currentDate = new Date();
-        LocalDate localDate = LocalDate.now();
-        month = localDate.getMonthValue();
         
+        currentDate = LocalDate.now();
+        viewingDate = LocalDate.now();
         super.init(customerDB, parent);
         
     }
@@ -78,18 +87,20 @@ public class UI_CalendarView extends UI_View {
         FXID_D_FRI.setText(Locale.getString(CONST.TXT_FRI));
         FXID_D_SAT.setText(Locale.getString(CONST.TXT_SAT));
         FXID_D_SUN.setText(Locale.getString(CONST.TXT_SUN));
-        FXID_MONTH_BTN.setText(getMonthString(month) + " " + LocalDate.now().getYear());
+        FXID_MONTH_BTN.setText(getMonthString(viewingDate.getMonthValue()) + " " + viewingDate.getYear());
         fillCalendar();
     }
     
     @FXML
     public void btnPrevOnClick() {
-    	
+    	viewingDate = viewingDate.minusMonths(1);
+    	refreshView();
     }
     
     @FXML
     public void btnNextOnClick() {
-    	
+    	viewingDate = viewingDate.plusMonths(1);
+    	refreshView();
     }
     
     @FXML
@@ -102,15 +113,26 @@ public class UI_CalendarView extends UI_View {
     	
     }
     
+    @FXML
+    public void btnMonthOnClick() {
+    	viewingDate = LocalDate.now();
+    	refreshView();
+    }
+    
     private void fillCalendar() {
+    	try {
+			currentMonth = customerDB.loadMonth(Date.from(viewingDate.atStartOfDay(ZoneId.systemDefault()).toInstant()));
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
     	FXID_CALENDAR_PANE.getChildren().clear();
-    	LocalDate localDate = LocalDate.now();
     	Calendar calendar = Calendar.getInstance();
-    	calendar.set(Calendar.MONTH, month-1);
+    	calendar.set(Calendar.MONTH, viewingDate.getMonthValue()-1);
+    	calendar.set(Calendar.YEAR, viewingDate.getYear());
     	int daysInAMonth = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
     	calendar.set(Calendar.DAY_OF_MONTH, 0);
     	int firstWeekDay = calendar.get(Calendar.DAY_OF_WEEK);
-    	calendar.set(Calendar.MONTH, decMonth(month-1));
+    	calendar.set(Calendar.MONTH, decMonth(viewingDate.getMonthValue()-1));
     	int daysInPrevMonth = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
     	int startPrev = daysInPrevMonth - firstWeekDay + 2;
     	int currentColumn = 0;
@@ -126,7 +148,7 @@ public class UI_CalendarView extends UI_View {
     	}
     	/* Finish the calendar */
     	int day = 0;
-    	while (day++ <= daysInAMonth) {
+    	while (day++ < daysInAMonth) {
     		if (currentColumn > 6) {
     			currentRow++;
     			currentColumn = 0;
@@ -134,8 +156,7 @@ public class UI_CalendarView extends UI_View {
     		Button btn = new Button();
     		GridPane.setVgrow(btn, Priority.ALWAYS);
     		GridPane.setHgrow(btn, Priority.ALWAYS);
-    		btn.setText(String.valueOf(day));
-    		btn.getStyleClass().add("calendarButton");
+    		prepBtn(btn, day);
     		FXID_CALENDAR_PANE.add(btn, currentColumn, currentRow);
     		currentColumn++;
     		
@@ -152,6 +173,40 @@ public class UI_CalendarView extends UI_View {
     	}
     }
     
+    private void prepBtn(Button button, int day) {
+    	viewingDate = viewingDate.withDayOfMonth(day);
+    	String fileName = CustomerDB.getDateFormat().format(Date.from(viewingDate.atStartOfDay(ZoneId.systemDefault()).toInstant()));
+    	WeekPlan plan = customerDB.getWeekPlan();
+    	button.setText(String.valueOf(day));
+    	button.getStyleClass().add("calendarButton");
+    	if (viewingDate.getDayOfYear() == currentDate.getDayOfYear()) {
+    		button.getStyleClass().add("calendarToday");
+    	} else if (viewingDate.getDayOfWeek().getValue() == 7) {
+    		button.getStyleClass().add("calendarSunday");
+    	}
+    	
+    	
+    	GymDay plannedDay =  currentMonth.get(fileName);
+    	if (plannedDay != null) { //if reservations/attendances make sure to show that
+    		ArrayList<Attendance> attendances = plannedDay.getAttendees();
+	    	if (attendances != null && attendances.size() > 0) {
+	    		button.getStyleClass().add("calendarHappened");
+	    	} else {
+	    		ArrayList<Reservation> reservations = plannedDay.getReservations();
+	    		if (reservations != null && reservations.size() > 0) {
+	    			button.getStyleClass().add("calendarReserved");
+	    		}
+	    	}
+    	} else { //if nothing to show - just show if anything's planned for that day
+	    	ArrayList<Activity> planned = plan.getActivities().get(viewingDate.getDayOfWeek().getValue());
+	    	if (planned != null && planned.size() > 0) {
+	    		button.getStyleClass().add("calendarRegular");
+	    	}
+    	}
+    	
+    	
+    }
+    
     private int decMonth(int monthNum) {
     	if (monthNum > 1) {
     		return monthNum - 1;
@@ -160,6 +215,7 @@ public class UI_CalendarView extends UI_View {
     	}
     }
     
+
     private int incMonth(int monthNum) {
     	return (monthNum % 12) + 1;
     }

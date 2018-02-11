@@ -40,6 +40,7 @@ public class CustomerDB {
 	private WeekPlan weekPlan;
 	private String dirName;
 	private static SimpleDateFormat dateFormat = new SimpleDateFormat(CONST.DATE_FORMAT_DEFAULT);
+	private static SimpleDateFormat daylessDateFormat = new SimpleDateFormat(CONST.DATE_FORMAT_DAYLESS);
 	private static SimpleDateFormat openDateFormat = new SimpleDateFormat(CONST.DATE_FORMAT_OPEN);
 	private static SimpleDateFormat fullDateFormat = new SimpleDateFormat(CONST.DATE_FORMAT_FULL);
 	
@@ -164,7 +165,13 @@ public class CustomerDB {
 		FileReader fr;
 		for (int day = 0; day <= 31; day++) {
 			try {
-				String fileName = dateFormat.format(date);
+				String parsedDay;
+				if (day < 10) {
+					parsedDay = "0" + day;
+				} else {
+					parsedDay = "" + day;
+				}
+				String fileName = daylessDateFormat.format(date) + "-" + parsedDay;
 				fr = new FileReader(dirName + CONST.CALENDAR_DIR + fileName);
 				fr.load();
 				Date gymDayDate = dateFormat.parse(fileName);

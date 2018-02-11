@@ -41,6 +41,7 @@ public abstract class CONST {
 		public static final String DATE_FORMAT_FULL = "HH:mm:ss dd/MM";
 		public static final String DATE_FORMAT_OPEN = "dd-MM-yyyy";
 		public static final String DATE_FORMAT_DEFAULT = "yyyy-MM-dd";
+		public static final String DATE_FORMAT_DAYLESS = "yyyy-MM";
 		public static final String FIELD_ENABLED = "field_enabled";
 		public static final String FIELD_DISABLED = "field_disabled";
 		public static final int INDEX_RESERVATIONS = 0;
@@ -284,6 +285,7 @@ public abstract class CONST {
         		public static final String TXT_LOADING_DATABASE = "LOADING5";
         		public static final String TXT_LOADING_FINALIZING = "LOADING6";
         		public static final String TXT_LOADING_IMAGES = "LOADING7";
+        		public static final String TXT_LOADING_WEEKPLAN = "LOADING8";
         		public static final String TXT_PATH = "PATH";
         		public static final String TXT_SETTING = "SETTING";
         		public static final String TXT_INITIALIZING = "INITIALIZING";

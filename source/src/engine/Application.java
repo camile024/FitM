@@ -91,6 +91,9 @@ public class Application extends javafx.application.Application {
 	            /* Load Images */
 	            uiSplash.setStatus(CONST.TXT_LOADING_IMAGES);
                 ResourceLocalizer.loadImages();
+                /* Initialise WeekPlan */
+                uiSplash.setStatus(CONST.TXT_LOADING_WEEKPLAN);
+                database.initWeekPlan();
 	        } catch (FileNotFoundException e) {
 	            e.printStackTrace();
 	        } catch (ParseException e) {
