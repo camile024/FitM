@@ -32,6 +32,14 @@
                   <DropShadow blurType="ONE_PASS_BOX" offsetX="1.0" offsetY="1.0" radius="4.75" width="0.0" />
                </effect>
             </Button>
+            <Button fx:id="FXID_PLAN_BTN" mnemonicParsing="false" onAction="#btnPlanOnClick" prefHeight="25.0" prefWidth="194.0" text="[ PLAN ]">
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <effect>
+                  <DropShadow blurType="ONE_PASS_BOX" offsetX="1.0" offsetY="1.0" radius="4.75" width="0.0" />
+               </effect>
+            </Button>
             <Button fx:id="FXID_CUSTOMER_LIST_BTN" mnemonicParsing="false" onAction="#btnClientListOnClick" prefHeight="25.0" prefWidth="194.0" text="[ CUSTOMER_LIST ]">
                <font>
                   <Font size="14.0" />

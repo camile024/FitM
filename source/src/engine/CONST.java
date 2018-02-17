@@ -168,6 +168,7 @@ public abstract class CONST {
 		    public static final String FXML_VIEW_CARD_FILENAME = "FX_VIEW_CARD.fxml";
 		    public static final String FXML_VIEW_ACTIVITY_FILENAME = "FX_VIEW_ACTIVITY.fxml";
 		    public static final String FXML_VIEW_CALENDAR_FILENAME = "FX_VIEW_CALENDAR.fxml";
+		    public static final String FXML_VIEW_WEEKPLAN_FILENAME = "FX_VIEW_WEEKPLAN.fxml";
 		    /* 1.2 - Dialogs */
 		    public static final String FXML_CUSTOMER_INFO_DIALOG_FILENAME = "FX_DLG_CUSTOMER_INFO.fxml";
 		    public static final String FXML_CUSTOMER_ADD_DIALOG_FILENAME = "FX_DLG_CUSTOMER_ADD.fxml";
@@ -188,6 +189,7 @@ public abstract class CONST {
 		    public static final String FXML_VIEW_CARD_PATH = FXML_DIR + FXML_VIEW_CARD_FILENAME;
 		    public static final String FXML_VIEW_ACTIVITY_PATH = FXML_DIR + FXML_VIEW_ACTIVITY_FILENAME;
 		    public static final String FXML_VIEW_CALENDAR_PATH = FXML_DIR + FXML_VIEW_CALENDAR_FILENAME;
+		    public static final String FXML_VIEW_WEEKPLAN_PATH = FXML_DIR + FXML_VIEW_WEEKPLAN_FILENAME;
 		    
 		    /* 3.2 - Dialogs */
 		    public static final String FXML_CUSTOMER_INFO_DIALOG_PATH = FXML_DIR + FXML_CUSTOMER_INFO_DIALOG_FILENAME;
@@ -275,6 +277,7 @@ public abstract class CONST {
         		public static final String TXT_ERROR = "ERROR";
         		public static final String TXT_INFO = "INFO";
         		public static final String TXT_CARD = "CARD";
+        		public static final String TXT_ADD = "ADD";
         	/* 1.2 - Initialization */
                 public static final String TXT_VERSION = "VERSION";
         		public static final String TXT_LOADING = "LOADING";
@@ -298,6 +301,7 @@ public abstract class CONST {
             	public static final String TXT_TITLE_ADD_CUSTOMER = "TITLE_ADD_CUSTOMER";
             	public static final String TXT_TITLE_ADD_CARD = "TITLE_ADD_CARD";
             	public static final String TXT_TITLE_ADD_ACTIVITY = "TITLE_ADD_ACTIVITY";
+            	public static final String TXT_TITLE_WEEKPLAN = "TITLE_WEEKPLAN";
             /* 1.4 - Button names */
             	public static final String TXT_BTN_ACT_LIST = "ACT_LIST";
             	public static final String TXT_BTN_CUST_LIST = "CUST_LIST";
@@ -310,6 +314,7 @@ public abstract class CONST {
             	public static final String TXT_BTN_EXTEND = "EXTEND_OPEN";
             	public static final String TXT_BTN_GET_CARD = "ASSIGN_CARD";
             	public static final String TXT_BTN_PLANNER = "PLANNER";
+          
             /* 1.5 - Labels */
             	public static final String TXT_SEARCH = "SEARCH";
             	public static final String TXT_SCAN_NOTE = "SCAN_NOTE";
@@ -333,6 +338,8 @@ public abstract class CONST {
             	public static final String TXT_MSG_CARD_SCAN_REQUEST_WRITABLE = "CARD_SCAN_REQUEST_WRITABLE";
             	public static final String TXT_MSG_ADD_ACTIVITY = "ADD_ACTIVITY_MSG";
             	public static final String TXT_MSG_EDIT_ACTIVITY = "EDIT_ACTIVITY_MSG";
+            	public static final String TXT_PROMPT_WEEKDAY = "PROMPT_WEEKDAY";
+            	public static final String TXT_PROMPT_ACTIVITY = "PROMPT_ACTIVITY";
 		
 		/* 2 - CALENDAR STRINGS */
             	public static final String TXT_CALENDAR = "TITLE_CALENDAR";
@@ -343,6 +350,14 @@ public abstract class CONST {
             	public static final String TXT_FRI = "FRI";
             	public static final String TXT_SAT = "SAT";
             	public static final String TXT_SUN = "SUN";
+            	
+            	public static final String TXT_MONDAY = "MONDAY";
+            	public static final String TXT_TUESDAY = "TUESDAY";
+            	public static final String TXT_WEDNESDAY = "WEDNESDAY";
+            	public static final String TXT_THURSDAY = "THURSDAY";
+            	public static final String TXT_FRIDAY = "FRIDAY";
+            	public static final String TXT_SATURDAY = "SATURDAY";
+            	public static final String TXT_SUNDAY = "SUNDAY";   
             	
             	public static final String TXT_JANUARY = "JANUARY";
             	public static final String TXT_FEBRUARY = "FEBRUARY";

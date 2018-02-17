@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane fx:id="FXID_MAIN_VIEW" prefHeight="400.0" prefWidth="600.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/9.0.4" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.views.UI_WeekPlanView">
+   <top>
+      <HBox fx:id="FXID_VIEW_TITLE" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin>
+         <children>
+            <Text fx:id="FXID_VIEW_TITLE_TEXT" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+         </children>
+      </HBox>
+   </top>
+   <bottom>
+      <HBox alignment="CENTER" prefHeight="49.0" prefWidth="600.0" spacing="5.0" styleClass="menubar" BorderPane.alignment="CENTER">
+         <children>
+            <HBox alignment="CENTER_RIGHT" prefHeight="43.0" prefWidth="618.0" spacing="10.0" HBox.hgrow="ALWAYS">
+               <children>
+                  <ComboBox fx:id="FXID_ACTIVITY_COMBO" prefHeight="25.0" prefWidth="248.0" />
+                  <ComboBox fx:id="FXID_DAY_COMBO" prefHeight="25.0" prefWidth="216.0" />
+                  <Button fx:id="FXID_ADD_BTN" alignment="CENTER" mnemonicParsing="false" onAction="#btnAddOnClick" prefHeight="29.0" prefWidth="160.0" styleClass="regButton" text="[ ADD ]" />
+               </children>
+               <padding>
+                  <Insets left="5.0" right="5.0" />
+               </padding>
+            </HBox>
+         </children>
+      </HBox>
+   </bottom>
+   <center>
+      <ScrollPane fitToHeight="true" fitToWidth="true" focusTraversable="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" pannable="true" pickOnBounds="false" BorderPane.alignment="TOP_LEFT">
+         <content>
+            <StackPane alignment="TOP_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="327.0" prefWidth="1007.0">
+               <children>
+                  <HBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
+                     <children>
+                        <VBox HBox.hgrow="ALWAYS">
+                           <children>
+                              <StackPane maxWidth="1.7976931348623157E308" prefHeight="35.0" prefWidth="100.0" styleClass="calendar_dayBar">
+                                 <children>
+                                    <Text fx:id="FXID_D_MON" boundsType="VISUAL" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="calendarLabel" text="[ MON ]" wrappingWidth="71.5205078125" />
+                                 </children>
+                              </StackPane>
+                              <VBox fx:id="FXID_MON" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="303.0" prefWidth="85.0" styleClass="frame" VBox.vgrow="ALWAYS" />
+                           </children>
+                        </VBox>
+                        <VBox HBox.hgrow="ALWAYS">
+                           <children>
+                              <StackPane maxWidth="1.7976931348623157E308" prefHeight="35.0" prefWidth="100.0" styleClass="calendar_dayBar">
+                                 <children>
+                                    <Text fx:id="FXID_D_TUE" boundsType="VISUAL" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="calendarLabel" text="[ TUE ]" wrappingWidth="71.5205078125" />
+                                 </children>
+                              </StackPane>
+                              <VBox fx:id="FXID_TUE" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="303.0" prefWidth="100.0" styleClass="frame" VBox.vgrow="ALWAYS" />
+                           </children>
+                        </VBox>
+                        <VBox HBox.hgrow="ALWAYS">
+                           <children>
+                              <StackPane maxWidth="1.7976931348623157E308" prefHeight="35.0" prefWidth="100.0" styleClass="calendar_dayBar">
+                                 <children>
+                                    <Text fx:id="FXID_D_WED" boundsType="VISUAL" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="calendarLabel" text="[ WED ]" wrappingWidth="71.5205078125" />
+                                 </children>
+                              </StackPane>
+                              <VBox fx:id="FXID_WED" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="303.0" prefWidth="100.0" styleClass="frame" VBox.vgrow="ALWAYS" />
+                           </children>
+                        </VBox>
+                        <VBox HBox.hgrow="ALWAYS">
+                           <children>
+                              <StackPane maxWidth="1.7976931348623157E308" prefHeight="35.0" prefWidth="100.0" styleClass="calendar_dayBar">
+                                 <children>
+                                    <Text fx:id="FXID_D_THU" boundsType="VISUAL" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="calendarLabel" text="[ THU ]" wrappingWidth="71.5205078125" />
+                                 </children>
+                              </StackPane>
+                              <VBox fx:id="FXID_THU" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="303.0" prefWidth="100.0" styleClass="frame" VBox.vgrow="ALWAYS" />
+                           </children>
+                        </VBox>
+                        <VBox maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS">
+                           <children>
+                              <StackPane maxWidth="1.7976931348623157E308" prefHeight="35.0" prefWidth="100.0" styleClass="calendar_dayBar">
+                                 <children>
+                                    <Text fx:id="FXID_D_FRI" boundsType="VISUAL" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="calendarLabel" text="[ FRI ]" wrappingWidth="71.5205078125" />
+                                 </children>
+                              </StackPane>
+                              <VBox fx:id="FXID_FRI" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="303.0" prefWidth="100.0" styleClass="frame" VBox.vgrow="ALWAYS" />
+                           </children>
+                        </VBox>
+                        <VBox maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS">
+                           <children>
+                              <StackPane maxWidth="1.7976931348623157E308" prefHeight="35.0" prefWidth="100.0" styleClass="calendar_dayBar">
+                                 <children>
+                                    <Text fx:id="FXID_D_SAT" boundsType="VISUAL" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="calendarLabel" text="[ SAT ]" wrappingWidth="71.5205078125" />
+                                 </children>
+                              </StackPane>
+                              <VBox fx:id="FXID_SAT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefHeight="303.0" styleClass="frame" VBox.vgrow="ALWAYS" />
+                           </children>
+                        </VBox>
+                        <VBox maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS">
+                           <children>
+                              <StackPane maxWidth="1.7976931348623157E308" prefHeight="35.0" prefWidth="100.0" styleClass="calendar_dayBar">
+                                 <children>
+                                    <Text fx:id="FXID_D_SUN" boundsType="VISUAL" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="calendarLabel" text="[ SUN ]" wrappingWidth="71.5205078125" />
+                                 </children>
+                              </StackPane>
+                              <VBox fx:id="FXID_SUN" fillWidth="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="303.0" prefWidth="100.0" styleClass="frame" VBox.vgrow="ALWAYS" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+               </children>
+            </StackPane>
+         </content>
+      </ScrollPane>
+   </center>
+</BorderPane>

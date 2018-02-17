@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
@@ -79,7 +80,10 @@ public abstract class Locale {
 	
 	private static void updateDate() {
 	    currentDate = new Date();
-	    dateProperty.set(CustomerDB.getFullDateFormat().format(getCurrentDate()));
+	    Platform.runLater(()-> {
+	    	dateProperty.set(CustomerDB.getFullDateFormat().format(getCurrentDate()));
+	    });
+	    
 	}
 	
 }

@@ -21,6 +21,20 @@
 	-fx-padding: 0 0 0 0;
 }
 
+.frame {
+	-fx-background-color:
+		linear-gradient(#95a5bf 0%, #dbecff 100%);
+	-fx-border-color: black;
+	-fx-border-width: 1;
+}
+
+.frame2 {
+	-fx-background-color:
+		linear-gradient(#eaf4ff 0%, #affff5 100%);
+	-fx-border-color: black;
+	-fx-border-width: 1;
+}
+
 /* ************* */
 /* Calendar-only */
 /* ************* */

@@ -33,7 +33,7 @@
                         <HBox alignment="CENTER" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefHeight="40.0" prefWidth="598.0" HBox.hgrow="ALWAYS">
                            <children>
                               <Button fx:id="FXID_PREV_BTN" mnemonicParsing="false" onAction="#btnPrevOnClick" prefHeight="18.0" prefWidth="123.0" styleClass="regButton" text="&lt;&lt;&lt;" />
-                              <Button fx:id="FXID_MONTH_BTN" focusTraversable="false" mnemonicParsing="false" mouseTransparent="true" prefHeight="29.0" prefWidth="194.0" styleClass="regButton" text="[ MONTH ]">
+                              <Button fx:id="FXID_MONTH_BTN" mnemonicParsing="false" mouseTransparent="true" prefHeight="29.0" prefWidth="194.0" styleClass="regButton" text="[ MONTH ]">
                                  <HBox.margin>
                                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                  </HBox.margin>

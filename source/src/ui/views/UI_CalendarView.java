@@ -108,7 +108,7 @@ public class UI_CalendarView extends UI_View {
     
     @FXML
     public void btnPlannerOnClick() {
-    	
+    	parent.btnPlanOnClick();
     }
     
     @FXML

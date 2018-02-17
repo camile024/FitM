@@ -56,6 +56,10 @@ public class Activity {
 		highestID = CONST.DEFAULT_HIGHEST_ID;
 	}
 	
+	public String toString() {
+		return name;
+	}
+	
 	/* **************************** */
 	/*								*/
 	/* 		GETTERS/SETTERS 		*/
