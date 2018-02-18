@@ -1,0 +1,10 @@
+activity=2
+cs_res=2,5,;
+activity=3
+cs_res=2,1,;
+activity=2
+cs_att=3,5,;
+activity=3
+cs_att=2,;
+activity=5
+cs_att=3,6,;

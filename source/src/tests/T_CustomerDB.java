@@ -14,7 +14,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import data.Attendance;
 import data.Reservation;
 import data.objects.Activity;
 import data.objects.Card;

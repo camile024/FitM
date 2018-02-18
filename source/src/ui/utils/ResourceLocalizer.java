@@ -32,7 +32,7 @@ public abstract class ResourceLocalizer {
     }
     
     private static Image initImage(String path) {
-        return new Image("file:" + path);
+        return new Image(path);
     }
     
 }

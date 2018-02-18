@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="lib" path="libs/appframework-1.0.3.jar"/>
+	<classpathentry kind="lib" path="libs/beansbinding-1.2.1.jar"/>
+	<classpathentry kind="lib" path="libs/CMDFW.jar"/>
+	<classpathentry kind="lib" path="libs/comm.jar"/>
+	<classpathentry kind="lib" path="libs/commons-lang-2.6.jar"/>
+	<classpathentry kind="lib" path="libs/jargs.jar"/>
+	<classpathentry kind="lib" path="libs/JavaPOS.jar"/>
+	<classpathentry kind="lib" path="libs/jcl_editor.jar"/>
+	<classpathentry kind="lib" path="libs/jcl.jar"/>
+	<classpathentry kind="lib" path="libs/jna-4.0.0.jar"/>
+	<classpathentry kind="lib" path="libs/jna-min-4.0.0.jar"/>
+	<classpathentry kind="lib" path="libs/jna-platform-4.0.0.jar"/>
+	<classpathentry kind="lib" path="libs/jpos114-controls.jar"/>
+	<classpathentry kind="lib" path="libs/jpos114.jar"/>
+	<classpathentry kind="lib" path="libs/jsr80_ri.jar"/>
+	<classpathentry kind="lib" path="libs/jsr80.jar"/>
+	<classpathentry kind="lib" path="libs/log4j-api-2.3.jar"/>
+	<classpathentry kind="lib" path="libs/log4j-core-2.3.jar"/>
+	<classpathentry kind="lib" path="libs/nrjavaserial-3.9.3.jar"/>
+	<classpathentry kind="lib" path="libs/POSTest.jar"/>
+	<classpathentry kind="lib" path="libs/swing-layout-1.0.3.jar"/>
+	<classpathentry kind="lib" path="libs/swing-layout-1.0.4.jar"/>
+	<classpathentry kind="lib" path="libs/swing-worker-1.1.jar"/>
+	<classpathentry kind="lib" path="libs/xercesImpl.jar"/>
+	<classpathentry kind="lib" path="libs/xml-apis.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/Java/jdk-9.0.4/lib/ant-javafx.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/Java/jdk-9.0.4/lib/deploy.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/Java/jdk-9.0.4/lib/java.jnlp.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/Java/jdk-9.0.4/lib/javafx-swt.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/Java/jdk-9.0.4/lib/javaws.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/Java/jdk-9.0.4/lib/jdk.deploy.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/Java/jdk-9.0.4/lib/jdk.javaws.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/Java/jdk-9.0.4/lib/jdk.plugin.dom.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/Java/jdk-9.0.4/lib/jdk.plugin.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/Java/jdk-9.0.4/lib/jrt-fs.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/Java/jdk-9.0.4/lib/plugin.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/Java/jdk-9.0.4/lib/plugin-legacy.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jre1.8.0_161"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

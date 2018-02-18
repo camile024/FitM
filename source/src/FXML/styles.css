@@ -100,7 +100,7 @@
 }
 
 .dialogMain {
-	-fx-background-image: url("../../img/background_gradient.png");
+	-fx-background-image: url("../img/background_gradient.png");
 	-fx-background-repeat: stretch;
 	-fx-background-position: center center;
 	-fx-background-size: stretch;
@@ -160,14 +160,14 @@
 /* ************ */
 
 #FXID_GRIDPANE_SPLASH {
-	-fx-background-image: url("../../img/background_gradient.png");
+	-fx-background-image: url("../img/background_gradient.png");
 	-fx-background-repeat: stretch;
 	-fx-background-position: center center;
 	-fx-background-size: 600 300;
 }
 
 #FXID_BORDERPANE_MAIN {
-	-fx-background-image: url("../../img/background_gradient.png");
+	-fx-background-image: url("../img/background_gradient.png");
 	-fx-background-repeat: stretch;
 	-fx-background-position: center center;
 	-fx-background-size: stretch;

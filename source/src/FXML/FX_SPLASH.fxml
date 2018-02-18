@@ -99,7 +99,7 @@
                <children>
                   <ImageView fx:id="FXID_LOGO" fitHeight="223.0" fitWidth="346.0" pickOnBounds="true" VBox.vgrow="ALWAYS">
                      <image>
-                        <Image url="@../../img/logo.png" />
+                        <Image url="@../img/logo.png" />
                      </image>
                      <VBox.margin>
                         <Insets top="2.0" />
