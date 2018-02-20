@@ -36,11 +36,37 @@ public class UI_Controller implements DataListener{
 	        	scanner.setDeviceEnabled(true);
 	        	updateBox(textbox, "Setting 'DataEventEnabled' property...\n");
 	        	scanner.setDataEventEnabled(true);
-	        	updateBox(textbox, "Success!\n");
+	        	updateBox(textbox, "---SUCCESS!---\n");
 	        	updateBox(textbox, "[ LISTENING MODE ]");
 	        } catch (JposException ex) {
 	        	updateBox(textbox, "=== JPOS EXCEPTION TRACE[1] ===: \n" + ex.toString());
 	        	updateBox(textbox, "\n=== END OF EXCEPTION ===\n");
+	        	updateBox(textbox, "\nClosing DLS-QW2120-USB-OEM\n");
+	        	try {
+					scanner.close();
+				} catch (JposException e) {
+					updateBox(textbox, "=== JPOS EXCEPTION TRACE[1] ===: \n" + e.toString());
+					updateBox(textbox, "\n=== END OF EXCEPTION ===\n");
+				}
+	        	updateBox(textbox, "\nTrying DLS-QW2100-USB-OEM\n");
+	        	 try {
+	 	        	updateBox(textbox, "Opening the device...\n");
+	 	        	scanner.open("DLS-QW2100-USB-OEM");
+	 	        	updateBox(textbox, "Claiming the device...\n");
+	 	        	scanner.claim(1000);
+	 	        	updateBox(textbox, "Adding DataListener...\n");
+	 	        	scanner.addDataListener(this);
+	 	        	updateBox(textbox, "Enabling the device...\n");
+	 	        	scanner.setDeviceEnabled(true);
+	 	        	updateBox(textbox, "Setting 'DataEventEnabled' property...\n");
+	 	        	scanner.setDataEventEnabled(true);
+	 	        	updateBox(textbox, "---SUCCESS!---\n");
+	 	        	updateBox(textbox, "[ LISTENING MODE ]");
+	 	        } catch (JposException ex2) {
+	 	        	updateBox(textbox, "=== JPOS EXCEPTION TRACE[1] ===: \n" + ex2.toString());
+		        	updateBox(textbox, "\n=== END OF EXCEPTION ===\n");
+	 	        	
+	 	        }
 	        }
 	        //...Success! Continue doing work...
 	}

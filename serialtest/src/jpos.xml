@@ -1475,6 +1475,65 @@
         <prop name="vendorId" type="String" value="05f9"/>
         <prop name="WMIEnabled" type="String" value="False"/>
     </JposEntry>
+    <JposEntry logicalName="DLS-QW2100-USB-OEM">
+        <creation factoryClass="com.dls.jpos.service.DLSScannerInstanceFactory" serviceClass="com.dls.jpos.service.DLSScannerService"/>
+        <vendor name="DLA" url="http://www.adc.datalogic.com"/>
+        <jpos category="Scanner" version="1.13"/>
+        <product description="ScannerService" name="ScannerService" url="http://www.adc.datalogic.com"/>
+        <!--Other non JavaPOS required property (mostly vendor properties and bus specific properties i.e. RS232 )-->
+        <prop name="beepDuration" type="String" value="1"/>
+        <prop name="beepFrequency" type="String" value="2"/>
+        <prop name="beepVolume" type="String" value="2"/>
+        <prop name="canAcceptStatisticsCmd" type="String" value="True"/>
+        <prop name="canCompareFirmwareVersion" type="String" value="True"/>
+        <prop name="canNotifyPowerChange" type="String" value="True"/>
+        <prop name="canUpdateFirmware" type="String" value="True"/>
+        <prop name="deviceBus" type="String" value="USB"/>
+        <prop name="deviceClass" type="String" value="USBHHScanner"/>
+        <prop name="deviceDescription" type="String" value="DLS QW2130 USB OEM Scanner"/>
+        <prop name="deviceName" type="String" value="DLS QW2130 USB OEM Scanner"/>
+        <prop name="doubleReadTimeout" type="String" value="2"/>
+        <prop name="enable2DigitSups" type="String" value="False"/>
+        <prop name="enable4DigitPriceCheckDigit" type="String" value="False"/>
+        <prop name="enable5DigitPriceCheckDigit" type="String" value="False"/>
+        <prop name="enable5DigitSups" type="String" value="False"/>
+        <prop name="enableBarCodeProgramming" type="String" value="True"/>
+        <prop name="enableCodabar" type="String" value="True"/>
+        <prop name="enableCode128" type="String" value="True"/>
+        <prop name="enableCode128Sups" type="String" value="False"/>
+        <prop name="enableCode39" type="String" value="True"/>
+        <prop name="enableCode39CheckDigit" type="String" value="False"/>
+        <prop name="enableCode93" type="String" value="True"/>
+        <prop name="enableEANJAN2LabelDecode" type="String" value="False"/>
+        <prop name="enableGoodReadBeep" type="String" value="True"/>
+        <prop name="enableInterleaved" type="String" value="True"/>
+        <prop name="enableITFCheckDigit" type="String" value="False"/>
+        <prop name="enableLaserOnOffSwitch" type="String" value="True"/>
+        <prop name="enableUCCEAN128" type="String" value="True"/>
+        <prop name="enableUPCACheckDigit" type="String" value="False"/>
+        <prop name="enableUPCAtoEAN13Expansion" type="String" value="False"/>
+        <prop name="enableUPCD1D5" type="String" value="True"/>
+        <prop name="enableUPCEAN" type="String" value="True"/>
+        <prop name="enableUPCECheckDigit" type="String" value="False"/>
+        <prop name="enableUPCEtoEAN13Expansion" type="String" value="False"/>
+        <prop name="enableUPCEtoUPCAExpansion" type="String" value="False"/>
+        <prop name="enableVolumeSwitch" type="String" value="True"/>
+        <prop name="fullDisable" type="String" value="False"/>
+        <prop name="itfLength1" type="String" value="0"/>
+        <prop name="itfLength2" type="String" value="0"/>
+        <prop name="itfRange" type="String" value="0"/>
+        <prop name="laserTimeout" type="String" value="1"/>
+        <prop name="ledGoodReadDuration" type="String" value="1"/>
+        <prop name="MBeansEnabled" type="String" value="False"/>
+        <prop name="motorTimeout" type="String" value="1"/>
+        <prop name="productId" type="String" value="1213"/>
+        <prop name="scanControl" type="String" value="False"/>
+        <prop name="storeLabelSecurityLevel" type="String" value="0"/>
+        <prop name="twoItfs" type="String" value="0"/>
+        <prop name="usage" type="String" value="4B00"/>
+        <prop name="vendorId" type="String" value="05F9"/>
+        <prop name="WMIEnabled" type="String" value="False"/>
+    </JposEntry>
     <JposEntry logicalName="DLS-QW2120-USB-OEM">
         <creation factoryClass="com.dls.jpos.service.DLSScannerInstanceFactory" serviceClass="com.dls.jpos.service.DLSScannerService"/>
         <vendor name="DLA" url="http://www.adc.datalogic.com"/>
