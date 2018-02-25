@@ -1,8 +1,9 @@
 package ui.dialogs;
 
 import java.io.FileNotFoundException;
-import java.sql.Date;
+import java.util.Date;
 import java.text.ParseException;
+import java.time.LocalDate;
 import java.util.concurrent.TimeUnit;
 
 import data.objects.Activity;
@@ -28,6 +29,7 @@ public class UI_CustomerInfoDialog extends UI_Dialog {
 	private Customer customer;
 	private int openAdded = 0;
 	private UI_Main parent;
+	private Date initOpenDate;
 	
 	@FXML
 	Button FXID_ACCEPT_BTN;
@@ -118,6 +120,8 @@ public class UI_CustomerInfoDialog extends UI_Dialog {
 	
 	@FXML
 	public void btnCancelOnClick() {
+		customer.setOpenDate(initOpenDate);
+		parent.refreshView();
 		self.close();
 	}
 	
@@ -133,12 +137,82 @@ public class UI_CustomerInfoDialog extends UI_Dialog {
 	
 	@FXML
 	public void btnEntriesOnClick() {
+		String result = null; 
+		int parsedResult = 0;
+		int parsedBase = 0;
+		UI_InputDialog dialog = UI_InputDialog.getInstance();
+		dialog.init(Locale.getString(CONST.TXT_TITLE_MODIFY_ENTRIES), Locale.getString(CONST.TXT_PROMPT_ENTRIES), parent.getStage(), 
+				Locale.getString(CONST.TXT_BTN_ADD_ENTRIES), DialogType.CONFIRM);
+		
+		do {
+			result = dialog.call();
+		} while (!validateIntegerNum(result));
+		if (result.trim().equals("") || result.trim().equals("0")) {
+			result = "0";
+		} else {
+			wasEdited = true;
+		}
+		parsedResult = Integer.parseInt(result);
+		parsedBase = Integer.parseInt(FXID_ENTRIES_FIELD.getText());
+		FXID_ENTRIES_FIELD.setText(String.valueOf(parsedResult + parsedBase));
+		
+		
 		
 	}
 	
 	@FXML
 	public void btnExtendOnClick() {
+		/* Prepare dialog, get valid output */
+		String result = null; 
+		int parsedResult = 0;
+		UI_InputDialog dialog = UI_InputDialog.getInstance();
+		dialog.init(Locale.getString(CONST.TXT_TITLE_MODIFY_OPEN), Locale.getString(CONST.TXT_PROMPT_OPEN), parent.getStage(), 
+				Locale.getString(CONST.TXT_BTN_EXTEND), DialogType.CONFIRM);
 		
+		do {
+			result = dialog.call();
+		} while (!validateIntegerNum(result));
+		if (result.trim().equals("")) {
+			result = "0";
+		}
+		parsedResult = Integer.parseInt(result);
+		
+		/* Get current date */
+		Date currentDate = Locale.getCurrentDate();
+		long millisPerDay = TimeUnit.DAYS.toMillis(1);
+		long currentMillis = (currentDate.getTime() / millisPerDay) * millisPerDay;
+		currentDate = new Date(currentMillis);
+		boolean reset = false;
+		/* Date currently in the box is earlier - we're re-setting it 
+		 * (sets to '0 day (yesterday)' */
+		if (customer.getOpenDate().compareTo(currentDate) < 0) {
+			customer.setOpenDate(new Date(currentDate.getTime() - millisPerDay));
+			reset = true;
+		} 
+		
+		/* Negative number - subtract from current open date */
+		if (customer.getOpenDate().compareTo(currentDate) >= 0 && parsedResult < 0) {
+			if (!reset) {
+				customer.setOpenDate(new Date(TimeUnit.DAYS.toMillis(parsedResult) + customer.getOpenDate().getTime()));
+				/* Make sure not to go out of lower bounds 
+				 * (if triggered - sets to '0 days (yesterday)' */
+				if (customer.getOpenDate().compareTo(currentDate) < 0) {
+					customer.setOpenDate(new Date(currentDate.getTime() - millisPerDay));
+				}
+			}
+			
+		}
+		
+		/* Check if we're actually adding */
+		if (parsedResult > 0) {
+			customer.setOpenDate(new Date(TimeUnit.DAYS.toMillis(parsedResult) + customer.getOpenDate().getTime()));
+		}
+		
+		
+		
+		
+		FXID_OPEN_FIELD.setText(customer.openDateProperty().get());	
+		wasEdited = true;
 	}
 	
 	@FXML
@@ -204,6 +278,7 @@ public class UI_CustomerInfoDialog extends UI_Dialog {
 		FXID_OPEN_FIELD.setText(customer.openDateProperty().get());
 		FXID_CARD_FIELD.setText(customer.cardProperty().get());
 		FXID_CUSTOMER_NAME.setText(customer.getName() + " " + customer.getSurname());
+		initOpenDate = customer.getOpenDate();
 		
 	}
 	
@@ -268,7 +343,7 @@ public class UI_CustomerInfoDialog extends UI_Dialog {
 			
 			/* Check if the card is already assigned to a customer - ask user whether to overwrite */
 			Card card = customerDB.getCard(Integer.parseInt(cardText));
-			if (card != null && card.getCustomer() != null) {
+			if (card != null && card.getCustomer() != null && card.getCustomer() != customer) {
 				UI_YesNoDialog ynDialog = UI_YesNoDialog.getInstance();
 				ynDialog.init(Locale.getString(CONST.TXT_ERR_CARD_ASSIGNED), parent.getStage(),
 						Locale.getString(CONST.TXT_YES), Locale.getString(CONST.TXT_NO), DialogType.CONFIRM);
@@ -280,4 +355,35 @@ public class UI_CustomerInfoDialog extends UI_Dialog {
 		return true;
 	}
 	
+	/**
+	 * Validates a String. Returns true when:
+	 * a) String is empty ("")
+	 * b) String is a valid positive/negative number (incl. 0)
+	 * When false is returned, an error message is displayed too.
+	 * @param string
+	 * @return
+	 */
+	private boolean validateIntegerNum(String string) {
+		boolean result = false;
+		UI_ConfirmDialog dialog = UI_ConfirmDialog.getInstance();
+		if (string == null) {
+			result = false;
+		} else if (string.trim().equals("")) {
+			result = true;
+		} else {
+			try {
+				Integer.parseInt(string);
+				result = true;
+			} catch (Exception ex) {
+				result = false;
+			}
+		}
+		
+		if (result == false) {
+			dialog.init(Locale.getString(CONST.TXT_ERR_INVALID_NUMBER), parent.getStage(), Locale.getString(CONST.TXT_OK), DialogType.ERROR);
+			dialog.call();
+		}
+		
+		return result;
+	}
 }

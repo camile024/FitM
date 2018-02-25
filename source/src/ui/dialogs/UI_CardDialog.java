@@ -85,7 +85,7 @@ public class UI_CardDialog extends UI_Dialog {
 			self.close();
 		} catch (Exception ex) {
 			UI_ConfirmDialog errDialog = UI_ConfirmDialog.getInstance();
-			errDialog.init(Locale.getString(CONST.TXT_ERR_CARD_FIELD_INVALID2), self, CONST.TXT_ACCEPT, DialogType.ERROR);
+			errDialog.init(Locale.getString(CONST.TXT_ERR_CARD_FIELD_INVALID2), self, Locale.getString(CONST.TXT_ACCEPT), DialogType.ERROR);
 			errDialog.call();
 		}
 	}

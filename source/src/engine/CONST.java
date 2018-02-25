@@ -176,6 +176,7 @@ public abstract class CONST {
 		    public static final String FXML_ACTIVITY_DIALOG_FILENAME = "FX_DLG_ACTIVITY.fxml";
 		    public static final String FXML_YES_NO_DIALOG_FILENAME = "FX_DLG_YES_NO.fxml";
 		    public static final String FXML_CONFIRM_DIALOG_FILENAME = "FX_DLG_CONFIRM.fxml";
+		    public static final String FXML_INPUT_DIALOG_FILENAME = "FX_DLG_INPUT.fxml";
 		    
 		
 		/* 2 - DIRECTORIES */
@@ -196,6 +197,7 @@ public abstract class CONST {
 		    public static final String FXML_CUSTOMER_ADD_DIALOG_PATH = FXML_DIR + FXML_CUSTOMER_ADD_DIALOG_FILENAME;
 		    public static final String FXML_YES_NO_DIALOG_PATH = FXML_DIR + FXML_YES_NO_DIALOG_FILENAME;
 		    public static final String FXML_CONFIRM_DIALOG_PATH = FXML_DIR + FXML_CONFIRM_DIALOG_FILENAME;
+		    public static final String FXML_INPUT_DIALOG_PATH = FXML_DIR + FXML_INPUT_DIALOG_FILENAME;
 		    public static final String FXML_CARD_DIALOG_PATH = FXML_DIR + FXML_CARD_DIALOG_FILENAME;
 		    public static final String FXML_ACTIVITY_DIALOG_PATH = FXML_DIR + FXML_ACTIVITY_DIALOG_FILENAME;
     /** END OF UI FILES **/
@@ -302,6 +304,8 @@ public abstract class CONST {
             	public static final String TXT_TITLE_ADD_CARD = "TITLE_ADD_CARD";
             	public static final String TXT_TITLE_ADD_ACTIVITY = "TITLE_ADD_ACTIVITY";
             	public static final String TXT_TITLE_WEEKPLAN = "TITLE_WEEKPLAN";
+            	public static final String TXT_TITLE_MODIFY_ENTRIES = "TITLE_MODIFY_ENTRIES";
+            	public static final String TXT_TITLE_MODIFY_OPEN = "TITLE_MODIFY_OPEN";
             /* 1.4 - Button names */
             	public static final String TXT_BTN_ACT_LIST = "ACT_LIST";
             	public static final String TXT_BTN_CUST_LIST = "CUST_LIST";
@@ -328,6 +332,7 @@ public abstract class CONST {
             	public static final String TXT_ERR_CARD_EXISTS = "ERR_CARD_EXISTS";
             	public static final String TXT_ERR_CARD_NOT_FOUND = "ERR_CARD_NOT_FOUND";
             	public static final String TXT_ERR_CARD_ASSIGNED = "ERR_CARD_ASSIGNED";
+            	public static final String TXT_ERR_INVALID_NUMBER = "ERR_INVALID_NUMBER";
             /* 1.7 Confirm messages */
             	public static final String TXT_CONFIRM_SAVE_CHANGES = "CONFIRM_SAVE_CHANGES";
             	public static final String TXT_CONFIRM_DELETE = "CONFIRM_DELETE";
@@ -340,7 +345,8 @@ public abstract class CONST {
             	public static final String TXT_MSG_EDIT_ACTIVITY = "EDIT_ACTIVITY_MSG";
             	public static final String TXT_PROMPT_WEEKDAY = "PROMPT_WEEKDAY";
             	public static final String TXT_PROMPT_ACTIVITY = "PROMPT_ACTIVITY";
-		
+            	public static final String TXT_PROMPT_ENTRIES = "PROMPT_ENTRIES";
+            	public static final String TXT_PROMPT_OPEN = "PROMPT_OPEN";
 		/* 2 - CALENDAR STRINGS */
             	public static final String TXT_CALENDAR = "TITLE_CALENDAR";
             	public static final String TXT_MON = "MON";

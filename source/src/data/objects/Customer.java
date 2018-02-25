@@ -176,13 +176,14 @@ public class Customer {
     }
 	
 	public SimpleStringProperty openDateProperty() {
-	    long difference = openDate.getTime() - Locale.getCurrentDate().getTime();
+		long millisPerDay = TimeUnit.DAYS.toMillis(1);
+	    long difference = (openDate.getTime() / millisPerDay) - (Locale.getCurrentDate().getTime() / millisPerDay);
 	    if (difference < 0) {
-	        difference = 0;
+	        difference = -1;
 	    }
 	    
-	    /* The string proprty is: X Days (DATE) */
-	    openDateProperty.set(TimeUnit.MILLISECONDS.toDays(difference) + " "
+	    /* The string property is: X Days (DATE) */
+	    openDateProperty.set((difference + 1) + " "
 	            + Locale.getString(CONST.TXT_DAYS) + " (" + CustomerDB.getOpenDateFormat().format(openDate)
 	            + ")");
 	    

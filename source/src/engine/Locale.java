@@ -80,9 +80,17 @@ public abstract class Locale {
 	
 	private static void updateDate() {
 	    currentDate = new Date();
-	    Platform.runLater(()-> {
+	    /* Running javafx thread - regular behaviour */
+	    try {
+		    Platform.runLater(()-> {
+		    	dateProperty.set(CustomerDB.getFullDateFormat().format(getCurrentDate()));
+		    });
+		/* Toolkit not initialised - behaviour expected only during test, update date in a
+		 * regular way
+		 */
+	    } catch (IllegalStateException ex) {
 	    	dateProperty.set(CustomerDB.getFullDateFormat().format(getCurrentDate()));
-	    });
+	    }
 	    
 	}
 	

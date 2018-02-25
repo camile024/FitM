@@ -98,7 +98,7 @@ public class CustomerDB {
 			customer.setEntries(Integer.parseInt(fr_customer.getField(CONST.CUSTOMER_ENTRIES)));
 			customer.setName(fr_customer.getField(CONST.CUSTOMER_NAME));
 			customer.setSurname(fr_customer.getField(CONST.CUSTOMER_SURNAME));
-			customer.setOpenDate(dateFormat.parse(fr_customer.getField(CONST.CUSTOMER_OPEN)));
+			customer.setOpenDate(openDateFormat.parse(fr_customer.getField(CONST.CUSTOMER_OPEN)));
 			customer.setPhone(fr_customer.getField(CONST.CUSTOMER_PHONE));
 			customers.put(nextId, customer);
 			

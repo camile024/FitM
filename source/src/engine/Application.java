@@ -28,12 +28,11 @@ public class Application extends javafx.application.Application {
 	}
 	
 	public void run() {
-	    /* Initialize language (in case settings fail later) */
-	    try {
-            Locale.load(Language.EN);
-        } catch (FileNotFoundException e1) {
-            // TODO Auto-generated catch block
-            e1.printStackTrace();
+		/* Load settings, initialize language */
+        try {
+            Settings.loadSettings();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
         }
 	    
 	    /* Initialize Date */
@@ -66,13 +65,7 @@ public class Application extends javafx.application.Application {
 	        mainStage.centerOnScreen();
 	        mainStage.show();
 	        /* End of FXML part */
-	        
-	        /* Load settings, initialize language */
-	        try {
-	            Settings.loadSettings();
-	        } catch (FileNotFoundException e) {
-	            e.printStackTrace();
-	        }
+
 	        
 	        /* Initialize the database */
 	        database = new CustomerDB(CONST.APP_DIR);
